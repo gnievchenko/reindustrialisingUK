@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paying for power — why UK industry pays what it does</title>
+<style>
+  :root{
+    color-scheme: light;
+    --page:#f9f9f7; --surface:#fcfcfb;
+    --ink:#0b0b0b; --ink2:#52514e; --muted:#898781;
+    --grid:#e1e0d9; --axis:#c3c2b7; --hair:rgba(11,11,11,.10);
+    --uk:#2a78d6; --de:#eda100; --cn:#e34948;
+    --bw:#eb6834; --bn:#4a3aa7; --bl:#e87ba4; --bm:#008300; --bx:#c9c7bd;
+    --obs:#0b0b0b;
+    --accentwash:rgba(42,120,214,.08);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:where(:not([data-theme="light"])){
+      color-scheme: dark;
+      --page:#0d0d0d; --surface:#1a1a19;
+      --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+      --grid:#2c2c2a; --axis:#383835; --hair:rgba(255,255,255,.10);
+      --uk:#3987e5; --de:#c98500; --cn:#e34948;
+      --bw:#d95926; --bn:#9085e9; --bl:#d55181; --bm:#008300; --bx:#4a4a46;
+      --obs:#ffffff;
+      --accentwash:rgba(57,135,229,.12);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --page:#0d0d0d; --surface:#1a1a19;
+    --ink:#ffffff; --ink2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --axis:#383835; --hair:rgba(255,255,255,.10);
+    --uk:#3987e5; --de:#c98500; --cn:#e34948;
+    --bw:#d95926; --bn:#9085e9; --bl:#d55181; --bm:#008300; --bx:#4a4a46;
+    --obs:#ffffff;
+    --accentwash:rgba(57,135,229,.12);
+  }
+  button.themetoggle{
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif; font-size:12px; letter-spacing:.04em;
+    background:var(--surface); color:var(--ink2); border:1px solid var(--hair);
+    border-radius:999px; padding:5px 12px; cursor:pointer; line-height:1.4;
+    margin-left:auto;
+  }
+  button.themetoggle:hover{color:var(--ink); border-color:var(--axis);}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--page); color:var(--ink);
+    font-family: Charter, "Bitstream Charter", Cambria, Georgia, "Times New Roman", serif;
+    font-size:19px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sans{font-family: system-ui, -apple-system, "Segoe UI", sans-serif;}
+  header.hero{max-width:720px; margin:0 auto; padding:72px 20px 8px;}
+  .kicker{font-family:system-ui,-apple-system,"Segoe UI",sans-serif; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink2); display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+  .draftpill{border:1px solid var(--hair); border-radius:999px; padding:1px 10px; font-size:11px; letter-spacing:.1em; color:var(--muted);}
+  h1{font-size:clamp(34px, 5.4vw, 52px); line-height:1.1; margin:.45em 0 .3em; letter-spacing:-.015em; font-weight:700;}
+  .standfirst{font-size:22px; line-height:1.5; color:var(--ink2); margin:0 0 18px;}
+  .meta{font-family:system-ui,-apple-system,"Segoe UI",sans-serif; font-size:13.5px; color:var(--muted); border-top:1px solid var(--hair); border-bottom:1px solid var(--hair); padding:10px 0; display:flex; gap:18px; flex-wrap:wrap;}
+  main{max-width:720px; margin:0 auto; padding:8px 20px 40px;}
+  h2{font-size:27px; line-height:1.25; margin:2.2em 0 .55em; letter-spacing:-.01em;}
+  h2 .secno{color:var(--muted); font-weight:400; margin-right:.45em; font-variant-numeric:tabular-nums;}
+  p{margin:0 0 1.1em;}
+  em{font-style:italic}
+  a{color:inherit}
+  main a, figcaption a, footer a{
+    text-decoration:underline; text-decoration-color:var(--muted);
+    text-decoration-thickness:1px; text-underline-offset:2.5px;
+  }
+  main a:hover, figcaption a:hover, footer a:hover{text-decoration-color:var(--ink);}
+  .defs{background:var(--accentwash); border-radius:10px; padding:14px 18px; font-size:17px; margin:0 0 1.2em;}
+  .defs b{font-family:system-ui,-apple-system,"Segoe UI",sans-serif; font-size:15.5px;}
+  table.headline{width:auto; max-width:100%; border-collapse:collapse; margin:26px 0 8px; font-size:14px;}
+  table.headline caption{caption-side:top; text-align:left; font-size:12.5px; color:var(--muted); padding-bottom:8px;}
+  table.headline th, table.headline td{border-bottom:1px solid var(--hair); padding:9px 0 9px 40px; text-align:right; vertical-align:baseline; white-space:nowrap;}
+  table.headline thead th{font-size:12.5px; font-weight:600; color:var(--muted); border-bottom:1px solid var(--grid);}
+  table.headline th:first-child, table.headline thead th:first-child{text-align:left; font-weight:600; color:var(--ink); padding-left:0;}
+  table.headline tbody th i{width:10px; height:10px; border-radius:3px; display:inline-block; margin-right:7px;}
+  table.headline td{font-variant-numeric:tabular-nums; font-size:19px; font-weight:600;}
+  table.headline tbody tr:last-child th, table.headline tbody tr:last-child td{border-bottom:none;}
+  p.tsrc{font-size:12.5px; line-height:1.55; color:var(--muted); margin:0 0 1.3em; max-width:60em;}
+  .archrow{display:flex; gap:14px; margin:20px 0 6px; flex-wrap:wrap;}
+  .arch{flex:1 1 280px; background:var(--surface); border:1px solid var(--hair); border-radius:12px; padding:16px 18px;}
+  .arch .ah{font-size:14px; font-weight:700; letter-spacing:.02em; margin-bottom:10px;}
+  .arch dl{margin:0;}
+  .arch dl div{display:flex; gap:10px; padding:5px 0; border-top:1px solid var(--hair); font-size:13.5px;}
+  .arch dt{flex:0 0 118px; color:var(--muted);}
+  .arch dd{margin:0; color:var(--ink); flex:1;}
+  table.cmp{width:100%; border-collapse:collapse; font-size:13.5px; margin:0;}
+  table.cmp th, table.cmp td{border-top:1px solid var(--hair); padding:9px 0; text-align:left; vertical-align:top; line-height:1.45;}
+  table.cmp thead th{border-top:none; font-size:12.5px; color:var(--muted); font-weight:600; padding:0 0 7px;}
+  table.cmp tbody th{color:var(--muted); font-weight:400; width:112px; padding-right:16px;}
+  table.cmp td{color:var(--ink); padding-left:16px; width:41%;}
+  table.cmp thead th i{width:10px; height:10px; border-radius:3px; display:inline-block; margin-right:7px;}
+  .reality{display:flex; gap:26px; align-items:flex-start; flex-wrap:wrap;}
+  .reality .big{flex:0 0 180px;}
+  .reality .big .v{font-size:46px; line-height:1; font-weight:700; letter-spacing:-.02em; color:var(--uk);}
+  .reality .big .l{font-size:12.5px; color:var(--muted); line-height:1.4; margin-top:8px;}
+  .reality .ladderbox{flex:1 1 470px; min-width:0;}
+  .reality .ladderbox .legend{margin-top:2px;}
+  .arch p.src{font-family:system-ui,-apple-system,"Segoe UI",sans-serif; font-size:12px; line-height:1.45;
+    color:var(--muted); margin:14px 0 0; max-width:none;}
+  table.cmp tr.grp th{font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink);
+    font-weight:700; width:auto; padding:17px 0 5px; border-top:2px solid var(--axis);}
+  table.cmp tr.grp + tr th, table.cmp tr.grp + tr td{border-top:none;}
+  @media (max-width:640px){ table.cmp, table.cmp tbody, table.cmp tr, table.cmp th, table.cmp td{display:block; width:auto;}
+    table.cmp thead{display:none;} table.cmp td{padding-left:0;} table.cmp td::before{color:var(--muted); content:attr(data-c) " \2014 ";} }
+
+  /* figures break out of the text column */
+  figure.viz{
+    width:min(1020px, calc(100vw - 24px));
+    margin:34px 0 40px calc((min(1020px, 100vw - 24px) - 100%) / -2);
+    background:var(--surface); border:1px solid var(--hair); border-radius:14px;
+    padding:18px 20px 12px; position:relative;
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  }
+  .fighead{display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap; margin-bottom:4px;}
+  .figtitle{font-size:16.5px; font-weight:650; line-height:1.3;}
+  .figsub{font-size:13px; color:var(--ink2); margin-top:2px; max-width:640px;}
+  .seg{display:inline-flex; border:1px solid var(--hair); border-radius:9px; overflow:hidden; flex:none;}
+  .seg button{
+    appearance:none; border:0; background:transparent; color:var(--ink2);
+    font:600 13px system-ui,-apple-system,"Segoe UI",sans-serif; padding:7px 13px; cursor:pointer;
+  }
+  .seg button[aria-pressed="true"]{background:var(--ink); color:var(--page);}
+  .legend{display:flex; gap:16px; flex-wrap:wrap; font-size:13px; color:var(--ink2); margin:8px 2px 2px;}
+  .legend .it{display:inline-flex; align-items:center; gap:7px;}
+  .legend .sw{width:14px;height:14px;border-radius:4px;display:inline-block}
+  .legend .ln{width:20px;height:0;border-top:2.5px solid;display:inline-block}
+  .legend .ln.dash{border-top-style:dashed}
+  .panels{display:flex; gap:14px; flex-wrap:wrap; margin-top:8px;}
+  .panel{flex:1 1 280px; min-width:260px;}
+  .ptitle{font-size:13.5px; font-weight:650; color:var(--ink); margin:2px 0 2px 4px;}
+  /* Two-panel figures: reserve two lines for the panel heading, so a title that
+     wraps in one panel cannot push its plot area out of line with the other. */
+  .panels.eqhead .ptitle{line-height:1.3; min-height:2.6em;}
+  .chartbox{position:relative;}
+  svg{display:block; width:100%; height:auto;}
+  .tip{
+    position:absolute; pointer-events:none; z-index:5; display:none;
+    background:var(--surface); border:1px solid var(--hair); border-radius:9px;
+    box-shadow:0 4px 14px rgba(0,0,0,.13); padding:8px 11px; font-size:12.5px; min-width:150px;
+  }
+  .tip .ty{font-weight:700; margin-bottom:4px;}
+  .tip .tr{display:flex; align-items:center; gap:7px; margin:2px 0; white-space:nowrap;}
+  .tip .tk{width:14px; height:0; border-top:3px solid; flex:none;}
+  .tip .tv{font-weight:700; font-variant-numeric:tabular-nums;}
+  .tip .tl{color:var(--ink2);}
+  figcaption{font-size:12.5px; color:var(--muted); line-height:1.45; margin:10px 2px 4px; max-width:900px;}
+  details.tbl{margin:6px 2px 4px; font-size:12.5px; color:var(--ink2);}
+  details.tbl summary{cursor:pointer; color:var(--muted); font-weight:600;}
+  details.tbl table{border-collapse:collapse; margin-top:8px; font-variant-numeric:tabular-nums;}
+  details.tbl th, details.tbl td{border:1px solid var(--grid); padding:3px 8px; text-align:right;}
+  details.tbl th:first-child, details.tbl td:first-child{text-align:left;}
+  footer{max-width:720px; margin:20px auto 0; padding:22px 20px 70px; font-family:system-ui,-apple-system,"Segoe UI",sans-serif; font-size:13px; color:var(--muted); border-top:1px solid var(--hair); line-height:1.6;}
+  .figrow{
+    display:flex; gap:16px; align-items:stretch; flex-wrap:wrap;
+    width:min(1020px, calc(100vw - 24px));
+    margin:34px 0 40px calc((min(1020px, 100vw - 24px) - 100%) / -2);
+  }
+  .figrow figure.viz{flex:1 1 380px; min-width:320px; width:auto; margin:0;}
+  @media (max-width:1080px){ figure.viz, .figrow{margin-left:calc((min(1020px, 100vw - 24px) - 100%) / -2);} .figrow figure.viz{margin-left:0;} }
+  @media (max-width:760px){ figure.viz, .figrow{width:100%; margin-left:0;} .figrow figure.viz{margin-left:0;} body{font-size:17.5px} .standfirst{font-size:19px} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="kicker">Paying for power · Interactive essay <span class="draftpill">DRAFT — internal review</span><button class="themetoggle" id="themebtn" type="button" aria-pressed="false">Dark</button></div>
+  <h1>Why does industrial electricity cost so much in Britain?</h1>
+  <p class="standfirst">On the survey averages of the largest consumption bands, industrial electricity in Britain costs roughly three times what it does in China. But there is no single British price — the number changes with firm size, relief eligibility and how power was bought. This essay takes the bill apart — wholesale power, networks, levies, margins — to find which parts are actually responsible, and tests the popular explanations against the evidence.</p>
+  <div class="meta"><span>UK · Germany · China, 2010–2025</span><span>All prices: real 2025 USD/MWh, excl. VAT, unless marked</span><span>26 July 2026</span></div>
+</header>
+
+<main>
+  <h2><span class="secno">1</span>The argument we are testing</h2>
+  <p>A large online debate holds that high energy prices in Europe — Britain and Germany especially — are making manufacturing uncompetitive against China and driving deindustrialisation. The most common diagnosis blames net-zero policy: levies added to bills to fund the renewables rollout, plus rising network costs as grids are rebuilt around intermittent generation and utilisation falls. The most common prescriptions follow directly — restart domestic oil and gas production, or build nuclear, to bring prices down.</p>
+  <p>This essay tests those claims. Rather than relying on survey averages, we rebuilt the industrial electricity bill bottom-up for the UK, Germany and China from published tariff schedules, levy rates and market prices, for two model factories, mirrored across all three countries at equivalent connection levels:</p>
+
+  <div class="archrow sans">
+    <div class="arch">
+      <div class="ah">Large archetype</div>
+      <dl>
+        <div><dt>Annual energy draw</dt><dd>500 GWh</dd></div>
+        <div><dt>Uptime</dt><dd>8,000 h/yr (~91% load factor, baseload)</dd></div>
+        <div><dt>Connection</dt><dd>Transmission grid (UK: Humber, zone 5)</dd></div>
+        <div><dt>Think of</dt><dd>An electric-arc steelworks, chlor-alkali or industrial-gases plant</dd></div>
+      </dl>
+    </div>
+    <div class="arch">
+      <div class="ah">Medium archetype</div>
+      <dl>
+        <div><dt>Annual energy draw</dt><dd>20 GWh</dd></div>
+        <div><dt>Uptime</dt><dd>5,000 h/yr (two-shift operation)</dd></div>
+        <div><dt>Connection</dt><dd>High-voltage distribution (UK: Yorkshire DNO)</dd></div>
+        <div><dt>Think of</dt><dd>A glassworks, metal foundry or paper mill</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <p>Both are deliberately best-practice sites — flat load, optimal connection — so modelled prices are a frontier, not an average. The survey lines drawn over them are the opposite: an average of what every firm in a consumption band actually paid, relieved and unrelieved, well-hedged and badly hedged alike. In the medium view our 20 GWh site is set against DESNZ's <a href="https://www.gov.uk/government/statistical-data-sets/gas-and-electricity-prices-in-the-non-domestic-sector" target="_blank" rel="noopener">Large</a> band (20–70 GWh/yr) and <a href="https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_205/default/table" target="_blank" rel="noopener">Eurostat</a> band ID (2–20 GWh/yr) — it sits at the bottom edge of one and the top edge of the other. In the large view the 500 GWh site is set against the Extra Large band (over 150 GWh/yr) and Eurostat band IF (70–150 GWh/yr). So a good part of any gap between model and survey is who is in the band, not error in the model. Every figure is in real 2025 US dollars per MWh, converted at annual-average market exchange rates (<a href="https://www.federalreserve.gov/releases/h10/" target="_blank" rel="noopener">Federal Reserve H.10/G.5A</a>).</p>
+
+  <h2><span class="secno">2</span>What industry actually pays — and what it makes</h2>
+  <p>Start with observed prices: what statistical offices record industry as paying. For the UK that is DESNZ's <a href="https://www.gov.uk/government/statistical-data-sets/gas-and-electricity-prices-in-the-non-domestic-sector" target="_blank" rel="noopener">Quarterly Energy Prices survey</a> (largest consumption bands, including the Climate Change Levy at the rate firms actually bore it); for Germany, <a href="https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_205/default/table" target="_blank" rel="noopener">Eurostat's industrial bands</a> (nrg_pc_205); for China — which runs no equivalent survey — the documented tariffs themselves: provincial catalogue price schedules until October 2021, and thereafter the grid companies' monthly agency-purchase price notices and <a href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202305/t20230515_1355747.html" target="_blank" rel="noopener">NDRC's provincial transmission &amp; distribution price schedules</a>, weighted by provincial consumption — with one provenance warning: the Chinese line is a documented-tariff construct, not a survey, and from 2022 its medium-band series rests on Jiangsu alone (the large series keeps a three-province basket). Chinese prices have fallen steadily — and kept falling after the <a href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202110/t20211012_1299461.html" target="_blank" rel="noopener">October 2021 market reform</a> (NDRC 1439号) — while UK prices climbed through the 2010s and then jumped in the gas crisis. By 2025 a very large UK consumer paid about <b>$282/MWh</b> against <b>$163</b> in Germany and <b>$87</b> in China; the ranking is identical for mid-sized sites, at higher levels throughout.</p>
+
+  <table class="headline sans">
+    <caption>Observed industrial electricity prices, 2025 — real 2025 USD/MWh, excl. VAT, energy taxes included</caption>
+    <thead>
+      <tr><th scope="col">Country</th><th scope="col">Medium industry</th><th scope="col">Large industry</th></tr>
+    </thead>
+    <tbody>
+      <tr><th scope="row"><i style="background:var(--uk)"></i>United Kingdom</th><td>$322</td><td>$282</td></tr>
+      <tr><th scope="row"><i style="background:var(--de)"></i>Germany</th><td>$218</td><td>$163</td></tr>
+      <tr><th scope="row"><i style="background:var(--cn)"></i>China</th><td>$109</td><td>$87</td></tr>
+    </tbody>
+  </table>
+  <p class="tsrc">Each column is the survey band matching the archetype — UK: DESNZ QEP <i>Large</i> (20–70 GWh/yr) for medium industry, <i>Extra Large</i> (&gt;150 GWh/yr) for large; Germany: Eurostat nrg_pc_205 bands ID and IF; China: the documented 大工业 (large-industry) tariff at 1–10 kV and 220 kV.</p>
+  <p>Below sits the output of the energy-intensive industries themselves — a value-weighted composite of steel, aluminium, cement and paper tonnage. UK output has roughly halved since 2010; Germany has lost about a fifth; China's has grown by about two-thirds. The correlation is stark, but it is not yet a diagnosis: electricity is one candidate among several — demand, trade exposure, carbon policy, exchange rates, Chinese overcapacity — and this essay attributes bills, not closures. To know what the bill itself can explain, we must open it.</p>
+
+
+  <figure class="viz" id="fig1"></figure>
+
+  <p><b>The pairing is the argument.</b> British manufacturing as a whole grew by roughly a quarter over these fifteen years. The four commodities halved. Whatever went wrong was not general industrial decline — it was specific to the electricity-intensive, internationally traded end of production. Germany shows a different shape again: manufacturing flat and commodities down a fifth, a broader and shallower problem. China rose on both.</p>
+
+  <p><b>One qualification.</b> On a wider definition of energy-intensive industry — the five divisions that include chemicals and refining, the aggregate Destatis publishes and the one an economist would reach for first — UK output is not down at all. It is up about 20% since 2010, and Germany's is down 17% (both read at 2024, the last year the narrow composite also reports). Both readings are true of Britain, because the divisions bundle the electricity-intensive primary stages that left with the downstream fabrication that stayed: the published index for &ldquo;basic iron and steel&rdquo; also contains tube-making, cold rolling and wire drawing. The claim this piece defends is therefore the narrow one. Not that energy-intensive industry has halved, but that the most electricity-intensive, most traded part of it has, while the rest held.</p>
+
+  <figure class="viz" id="fig2"></figure>
+
+  <h2><span class="secno">3</span>Anatomy of a bill</h2>
+  <p>To explain the divergence we decompose each bill into three modelled components, on identical definitions across countries:</p>
+  <div class="defs">
+    <p><b>Wholesale.</b> The energy itself, bought at market prices. In Britain and Germany the marginal price is usually set by gas plant; in China largely by coal contracts.</p>
+    <p><b>Network, system &amp; balancing.</b> Transmission and distribution charges (TNUoS/DUoS; Netzentgelte; 输配电价) plus system operation and balancing costs.</p>
+    <p><b>Levies &amp; taxes, incl. generation-capital recovery.</b> Policy costs recovered through bills: the schemes that pay for the renewables rollout (RO, CfD, FiT; EEG, KWKG, offshore levy; China's government funds and surcharges) plus electricity taxes.</p>
+    <p style="margin-bottom:0"><b>Supplier retail costs &amp; margin.</b> Not part of any published tariff schedule. For the UK we measure them directly from <a href="https://www.ofgem.gov.uk/transparency-document/energy-companies-consolidated-segmental-statements-css" target="_blank" rel="noopener">Ofgem's Consolidated Segmental Statements</a> and show them as a fourth segment (2012–24). For Germany we show the same segment on the same definition from BNetzA&rsquo;s &ldquo;Vertrieb und Marge&rdquo; &mdash; <b>$20.0/MWh</b> for a site taking 24 GWh a year, against the UK&rsquo;s <b>$17.5/MWh</b> in 2024; 2025 is its first published year, so it is held constant across the chart. China publishes nothing equivalent, so there the whole block stays inside the gap to the observed line &mdash; section 6 analyses that gap.</p>
+  </div>
+  <p>The chart below shows the stack <em>before</em> any exemption, with the observed price drawn over it. Two things stand out. First, the UK levy wedge: policy costs grew from about $20/MWh in 2010 to a peak near $77 in 2020 — within it, generation-capital recovery alone rose from $9 to $64 — so that by 2025 an unexempted UK site faced $71/MWh of levies against $36 in Germany and $11 in China. Second, wholesale: crisis years aside, UK and German wholesale costs are similar (~$100–106 in 2025), while China's sits near $60. On pre-exemption terms, the UK was actually cheaper than Germany for most of the 2010s; the ranking flipped around 2021.</p>
+
+  <p>One boundary holds throughout: this is an accounting of what appears on the bill, not of the full economic cost of each country&rsquo;s electricity policy. When Germany moved the EEG levy to the federal budget in mid-2022, the cost moved to taxpayers rather than out of existence; when Britain exempts its energy-intensive industries, the exempted revenue is recovered from every other consumer; and China&rsquo;s regulated tariffs embed policy choices &mdash; coal price bands, cross-subsidy between user classes &mdash; that never appear as line items. A cheaper bill is not always cheaper policy.</p>
+
+  <figure class="viz" id="fig3"></figure>
+
+  
+
+  <h2><span class="secno">4</span>The relief layer: what heavy industry is excused from</h2>
+  <p>Neither Britain nor Germany actually charges its heaviest industry the full stack. The UK exempts eligible energy-intensive industries (EIIs) from the renewables levies — 85% from 2018, <a href="https://www.legislation.gov.uk/uksi/2024/409" target="_blank" rel="noopener">100% since April 2024</a> — excludes them from the Capacity Market charge, and under the British Industry Supercharger compensates network charges: 60% from 2025, rising to <a href="https://www.legislation.gov.uk/uksi/2026/243" target="_blank" rel="noopener">90% from April 2026</a>. Separately &mdash; the piece most commentary misses &mdash; energy used in <a href="https://www.gov.uk/government/publications/excise-notice-ccl13-climate-change-levy-reliefs-and-special-treatments-for-taxable-commodities/excise-notice-ccl13-climate-change-levy-reliefs-and-special-treatments-for-taxable-commodities" target="_blank" rel="noopener">mineralogical and metallurgical processes</a> has been exempt from the Climate Change Levy since April 2014: cement, lime, glass and ceramics on one side, steel, aluminium and metal processing on the other. A firm outside those processes can hold a Climate Change Agreement instead, which discounts the levy by 92% on electricity rather than removing it — a paper mill, unlike the glassworks or foundry beside it in the medium archetype, takes that route, so the zero-levy exempt stacks below are a floor for it, understating its bill by under a dollar per megawatt-hour. Germany ran the EEG-Umlage cap (BesAR) until the levy moved to the federal budget in 2022, and still grants baseload users the §19 StromNEV network-charge rebate, floored at 10% of the published tariff, alongside electricity-tax reductions. China has no comparable relief layer: the documented tariff is what large users pay.</p>
+  <p>And British relief, generous on paper, is held by few: suppliers’ <a href="https://www.ofgem.gov.uk/sites/default/files/2026-03/RO_24-25_SY23_Annual_Report-20260327121336.pdf" target="_blank" rel="noopener">Renewables Obligation returns</a> put supply to EII certificate holders at 12.3 TWh in 2024–25 — 15% of the country’s industrial electricity consumption, spread across some <a href="https://hansard.parliament.uk/commons/2026-02-04/debates/cd4fcb2b-982e-4a88-a906-e77cd6bd1716/DraftEnergy-IntensiveIndustryElectricitySupportPaymentsAndLevy(Amendment)Regulations2026" target="_blank" rel="noopener">550 firms</a> — of which 12.0 TWh was actually exempted. The other 85% of industrial volume pays the unrelieved levies, which matters whenever this piece reads a survey average against a modelled stack.</p>
+  <p>The chart repeats the decomposition for a fully exempt site. The transformation is dramatic: UK levies collapse from $71/MWh to nothing at all &mdash; the residual used to be the Climate Change Levy, and the heaviest processes are exempt from that too &mdash; and relieved network charges converge — by 2025 a large UK EII paid about $5.5/MWh in pure network charges against $7.9 in Germany. For exempt industry, the "levies and grid costs" story has largely been legislated away.</p>
+
+  <figure class="viz" id="fig4"></figure>
+
+  <h2><span class="secno">5</span>All-in: what relieved industry actually pays</h2>
+  <p>Strip out everything relief removes and the league table changes. The chart shows the all-in modelled price for a fully exempt site — the card below sets out what “fully exempt” requires in each country: Britain tests how much electricity <em>hurts</em> a firm, Germany tests what the firm <em>is</em> and how it runs, which is exactly why the ranking inverts at medium size. And all-in now means what it says: each national line includes the measured supplier retail costs and margin of sections 3 and 4, the segment China’s regulated tariff already embeds. Through the mid-2010s relieved German industry paid $33–51/MWh less than its British counterpart — the BesAR-era advantage — but for the largest sites that gap closed steadily and has now crossed over: by 2025 a fully relieved British site pays <b>$133/MWh against $141 in Germany</b> ($118 against $121 on the statutory stack alone). For its most favoured firms Britain is no longer merely level with Germany; it is modestly cheaper, and the crossing owes as much to Britain’s own exemptions (section 4) as to anything that changed in Germany. The medium archetype ranks the same way but far more widely ($138 against $187), because a two-shift 20 GWh site fails Germany's §19 StromNEV baseload test and so keeps almost all of its network charges — German relief is generous but narrowly targeted.</p>
+  <p>China needs more care, because the modelled and the observed pictures appear to contradict each other. On the survey averages of section 2, British industry pays <b>$195/MWh</b> more than the Chinese tariff at large size and <b>$213</b> more at medium; measured against our unrelieved stack, supplier block included, those gaps fall to $135 and $122; for a fully relieved EII they fall again, to <b>$46</b> and <b>$29</b> — mostly the difference between gas-set and coal-set wholesale (about $47 at large size) plus the British supplier block, less network and levy components that relief has actually pushed below China’s. All three are true, of different firms. The narrowest sets a British best case — fully exempt, transmission-connected, flat load — against what any Chinese 大工业 user actually pays, because China has neither a relief tier nor a survey wedge to strip out. So the convergence is real but conditional: it is available only to firms that clear the eligibility tests, and relief moves costs rather than removing them — every exempted dollar is recovered from consumers who do not qualify. Neither caveat changes the finding: for qualifying heavy industry, the UK's remaining price problem is not levies.</p>
+
+  <div class="archrow sans">
+    <div class="arch">
+      <div class="ah">Two relief regimes, two different questions</div>
+      <table class="cmp">
+        <thead><tr><th scope="col"></th><th scope="col"><i style="background:var(--uk)"></i>United Kingdom</th><th scope="col"><i style="background:var(--de)"></i>Germany</th></tr></thead>
+        <tbody>
+          <tr class="grp"><th scope="colgroup" colspan="3">Eligibility</th></tr>
+          <tr><th scope="row">Conditions for exemption</th><td data-c="UK">Make a product in one of <b>71 eligible manufacturing classes</b> (steel, aluminium, cement, glass, paper, many chemicals — <a href="https://www.legislation.gov.uk/uksi/2015/721/schedule" target="_blank" rel="noopener">SI 2015/721 Schedule</a>) <b>and</b> pass a firm-level intensity test: electricity costs of at least <b>20% of gross value added</b>.</td><td data-c="Germany">Be in a sector on a <b>116-class list</b> (<a href="https://www.gesetze-im-internet.de/enfg/anlage_2.html" target="_blank" rel="noopener">EnFG Anlage 2</a>, the EU CEEAG list) and use ≥1 GWh a year — <b>no firm-level intensity test</b> on the list route. The network relief is gated separately, on operation alone.</td></tr>
+          <tr><th scope="row">Does load shape matter?</th><td data-c="UK">No. A two-shift site qualifies as easily as a baseload one.</td><td data-c="Germany"><b>Decisively.</b> The network floor needs more than 10 GWh a year <b>and</b> ≥7,000 full-load hours; a two-shift 20 GWh site at 5,000 hours qualifies for none of it.</td></tr>
+          <tr class="grp"><th scope="colgroup" colspan="3">Relief granted</th></tr>
+          <tr><th scope="row">Renewables levies</th><td data-c="UK">100% exemption from RO, CfD and FiT — 85% from 2018, <b>100% from April 2024</b>.</td><td data-c="Germany">The EEG-Umlage cap (BesAR) until mid-2022, when the levy moved to the federal budget for everyone.</td></tr>
+          <tr><th scope="row">Network charges</th><td data-c="UK">Network Charging Compensation on 60% of them, <b>rising to 90% from April 2026</b> (from 2025, backdated to April 2024).</td><td data-c="Germany">§19(2) StromNEV cuts the charge to at most 20% of the published tariff — 15% at 7,500 h, 10% at 8,000 h.</td></tr>
+          <tr><th scope="row">Capacity charge</th><td data-c="UK">Excluded from Capacity Market charges since October 2024.</td><td data-c="Germany">No equivalent charge to be excused from.</td></tr>
+          <tr><th scope="row">Electricity tax</th><td data-c="UK">The certificate does not touch the Climate Change Levy — but the <b>mineralogical and metallurgical exemption</b> of section 4 removes it separately and automatically for the heaviest processes.</td><td data-c="Germany">Producing industry pays a reduced Stromsteuer (§9b), cut to near-zero from 2024.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <figure class="viz" id="fig5"></figure>
+
+  <h2><span class="secno">6</span>Why bills lag the market: the hedging effect</h2>
+  <p>If the stack is right, why do observed bills diverge from it so violently in crisis years? Most of the answer is procurement timing. The panels below take the fully-exempt stack in both countries and price its wholesale component two ways: at the delivery year's <em>day-ahead spot</em> price, and at the <em>year-ahead forward</em> price at which industrial demand is actually bought. In both countries the spot-priced stack peaks in 2022, when day-ahead prices exploded; but observed bills — and the as-procured stack — peak in <b>2023</b>, a full year later. The observed line hugs neither vintage exactly, because real portfolios blend one-, two- and three-year-ahead purchases; but its timing follows the forward-priced stack, and it sits between the two in both crisis years. That one-year phase shift is the hedging effect: firms were partly shielded on the way up in 2021–22, and paid above spot on the way down in 2023. Any model priced at a single wholesale vintage will show large, sign-flipping errors in exactly those years — which is what our wedge does.</p>
+  <p>Did the two countries hedge equally? Not quite. In 2022 — netting off each observed series' normal calm-year distance from its stack — UK prices absorbed roughly <b>23%</b> of the gap between the as-procured and spot-priced stacks; German ones about <b>15%</b>. Treat the pair as direction, not measurement — it rests on one crisis year, on that calm-year netting, and on best-case sites read against heterogeneous band averages — and the German figure, its supplier block pinned at 2025, would if anything show less passthrough still. Faster British passthrough is consistent with the shorter hedge horizons of its non-domestic market. But both populations were clearly hedged in both directions — in 2023 the UK still sat $83 above even a spot-priced, margin-inclusive stack, Germany $33 above its spot stack — and the post-2023 divergence in observed levels owes more to policy than procurement: Germany moved the EEG levy to the federal budget in mid-2022 and capped 2023 bills with the <em>Strompreisbremse</em>, both of which sit inside its observed line, while the UK's non-wholesale stack kept growing.</p>
+  <p>One more feature needs squaring: the German observed line floats a roughly constant $15–65/MWh above the exempt one (supplier block drawn inside, as in these charts; $35–85 against the statutory stack). That is not a model error — it is the relief spectrum. Our solid line is a floor; Eurostat’s band averages firms spread between that floor and no relief at all; the shaded corridor, a partially-relieved firm, runs at or just below the observed line in most calm years. The drivers are structural — which is why the premium is constant: it peaked with the EEG-Umlage in 2014 and compressed once the levy moved to the federal budget.</p>
+  <p>Timing explains the swings; it does not explain why UK observed prices sit <em>above</em> the modelled line in calm years. Part of that level gap is the suppliers’ own selling costs and margin — but the stacks already draw that block inside the line (sections 3–5), so it cancels between observed and modelled, leaving a premium of roughly $0–40/MWh through the 2010s rather than the $10–50 measured against the statutory stack alone (2018 is the exception either way, dipping just below the line). And what the supplier block is <em>not</em>, mostly, is profiteering: <a href="https://www.ofgem.gov.uk/transparency-document/energy-companies-consolidated-segmental-statements-css" target="_blank" rel="noopener">Ofgem's Consolidated Segmental Statements</a> put measured retail costs plus EBIT margin at only £13–19/MWh — in 2024, of a $24 gap to the statutory stack, roughly $8 was operating cost, $9 margin and $6 residual — and margin itself went negative in 2020–21. What is left above the supplier-inclusive line is band composition: the QEP average includes many firms less exempt, and buying less well, than our archetype.</p>
+  <p>The 2024–25 gap is different in kind: strip the non-wholesale components and the supply block out of the observed bill and the electricity price British industry implicitly paid has sat at roughly £130/MWh for four years straight — through a market that fell 60% — while Germany’s equivalent unwound. That is the signature of contracts struck near the 2022 peak still working through laddered books: procurement vintage, worth very roughly £30/MWh (large) and £60/MWh (medium) of the 2025 gap — brackets, not points: the figure moves a few pounds with how the unmeasured 2025 supply block is imputed. It is a labelled residual rather than a measurement, and it carries a testable prediction — the 2026–27 QEP prints must fall toward the ~£81 front-year price struck in 2025, or the label is wrong. The first print arrived with the June 2026 release, and it moved the right way: first quarter against first quarter, the implied price fell for the first time since the plateau began — £143 to £122 for a large site, £168 to £139 for a mid-sized one — closing roughly a third of its excess over the £81 front-year price in a single year. One provisional quarter is not confirmation; but the survey’s <a href="https://assets.publishing.service.gov.uk/media/5a81e2f9ed915d74e3400967/Industrial_price_methodology_-_updated_Sept_2017.pdf" target="_blank" rel="noopener">own method</a> says this is where an unwind must show up, because each band’s price is total value over total volume across every contract in force — an average of the whole book, not of new deals.</p>
+
+  <figure class="viz" id="fig6"></figure>
+
+  <h2><span class="secno">7</span>Where the wholesale price comes from: gas at the margin</h2>
+
+  <p>Wholesale electricity is priced hour by hour at the running cost of the last plant needed to meet demand — for a gas plant, fuel at the hub price plus carbon, nothing else, because the plant already exists. That makes the claim “the power price is the gas price” directly testable: reconstruct a gas plant’s marginal cost from published gas and carbon prices and lay it under the day-ahead power price. For Britain the two series are the same line. Excluding the two crisis years, day-ahead power runs a mean of £3.7/MWh above gas marginal cost at 50% efficiency; in 2023–25 the gaps are +£2.4, −£1.8 and −£0.8. At annual resolution there is essentially nothing in the British wholesale price except gas and carbon. The visible excursions are 2016 (French nuclear outages) and 2021–22, when scarcity pricing and within-year shape pushed the market above any annual-average cost line.</p>
+
+  <figure class="viz" id="fig7"></figure>
+
+  <p>Germany runs the same test to a different verdict: gas marginal cost is the <em>ceiling</em> there, not the price. German day-ahead sat €8–18 <em>below</em> gas SRMC through 2012–18 — hard coal and lignite were the marginal units — converged during the 2019–21 fuel-switch era, and has fallen below again since 2023 as renewables claim more of the price-setting hours. Since the two countries buy gas at hub prices that track each other, the UK–German wholesale difference is a merit-order difference, not a fuel-price one. And the carbon term is not a footnote: it is about a quarter of British gas-SRMC in 2023–25 (£24 of £85 in 2025), and the £18 Carbon Price Support on top of the EU price is why coal left the British merit order early — handing gas the price-setting role in virtually every hour, years before Germany’s coal fleet lost it.</p>
+
+  <p>Where does levelized cost belong in this story? As the anchor economics, not the price mechanism. China does not run this auction at all: its tariff is anchored on coal that generates at roughly $67/MWh, inside a regulated band, with no carbon cost — against an all-in cost of British gas-fired generation near $186. That anchor difference, not market design detail, is the China gap in section 3. Equally, the cheap renewables in the chart below do <em>not</em> pull the hourly price down while gas remains the marginal unit: their low LCOE governs what gets built and what CfDs cost — a saving that arrives on the levy side of the bill — while marginal cost governs what you pay per hour.</p>
+
+  <figure class="viz" id="fig8"></figure>
+
+  <h2><span class="secno">8</span>So which component is to blame?</h2>
+  <p>The answer depends on which comparison you care about. Against <b>China</b>, the gap is mostly the price of energy itself: gas-set wholesale of $100–106/MWh against coal-anchored $59, plus a levy stack China simply does not carry. No relief scheme touches that. Against <b>Germany</b>, for firms outside the relief schemes, the culprit is the levy stack — above all generation-capital recovery, the cost of paying for the renewables buildout, at $71 versus $36/MWh in 2025. For <b>fully exempt heavy industry</b>, however, the popular story is out of date: levies are down to nothing — the exemptions of section 4 in combination — pure network charges have converged with Germany's ($5.5 vs $7.9, with system and balancing costs on top in both countries), and for the large baseload archetype Britain has crossed over: all-in, supplier blocks included, it is about $8/MWh <em>cheaper</em> than Germany. At medium size the ranking inverts far more widely — Britain is nearly $50 cheaper, because German relief largely passes two-shift sites by. The observed premium UK firms pay over the modelled line is not a policy charge at all: it is procurement timing — the hedging legacy of section 6 — and the composition of the survey itself, which averages firms that mostly hold no exemption and buy less well than our archetype. Suppliers’ measured costs and margin are already drawn inside the modelled line, not part of that premium.</p>
+  <p>But the exempt case is also a minority experience. The certificate covers 15% of Britain’s industrial electricity (section 4), and the British eligibility test is the harder of the two (section 5’s card). Published data cannot separate how much of the remaining 85% is ineligibility from how much is eligible firms never applying — no register of certificate holders exists — but either way, most British industrial electricity is bought at unrelieved rates, which is why the survey averages sit where they do.</p>
+
+  <p>So the claims we set out to test come back mixed: renewables levies did drive the pre-relief UK price up, but for the EIIs at the centre of the deindustrialisation debate the binding constraint today is the wholesale price — which section 7 showed is, almost to the pound, the price of gas plus carbon. That reframes the remedy debate. Two proposals dominate it — build nuclear, and drill the North Sea again — and the next two sections test each against the mechanism rather than the slogan.</p>
+
+  <h2><span class="secno">9</span>What nuclear actually costs — and where</h2>
+
+  <p>If the long-run answer to a gas-set power price is something cheaper at the margin, nuclear is the only firm low-carbon candidate — so its cost is worth a section of its own. The comparison below puts three kinds of number on one axis. The cheapest tier is not building anything: extending the life of an existing reactor costs $29–41/MWh on the OECD/NEA benchmark, and restarting Germany’s closed fleet is estimated at $42–80 — options Britain does not have, since its retired stations closed at the end of their lives. The middle tier is what new construction costs <em>where building is routine</em>: on the OECD/NEA’s harmonised benchmark — same 7% cost of capital, each country’s own build costs — new nuclear runs from $54 in Russia and $68 in South Korea to $85 in China and India and $91 in France and the United States (the IEA’s newer estimate for China, in section 7’s chart, is $72 — see the note below the figure). The top tier is what the West has actually delivered: Hinkley Point C’s contracted £129/MWh ($170), Vogtle’s ~$176 out-turn, Flamanville’s ~$201 cost requirement, and the British government’s own 2016 first-of-a-kind estimate, $213 in today’s money.</p>
+
+  <figure class="viz" id="fig9"></figure>
+
+  <p>The spread is not technology. France’s EPR models at $91 at benchmark costs, and China built two EPRs at Taishan in nine years; the same design took 17.7 years at Olkiluoto and slipped twelve at Flamanville. The spread is delivery — serial construction by an experienced supply chain against first-of-a-kind projects a generation after the last one — compounded by financing, since at Britain’s ~9% hurdle rates every year of delay capitalises into the strike price. That is why the chart’s top tier sits $80–150 above its middle tier for the same machines. The schedule record below makes the same point in construction time: what each builder promised at first concrete, and what happened.</p>
+
+  <figure class="viz" id="fig14"></figure>
+
+  <p>The chart also corrects a tempting shortcut — that China simply knows how to build and the West simply does not. China’s own 2009-vintage units sit in the slow half of the chart: Taishan and Sanmen were the first EPRs and AP1000s finished <em>anywhere</em>, imported first-of-a-kind designs, and they slipped four to five years — spending nearly as long in construction as Vogtle. What changed by the 2015–2020 starts was not the nationality of the builders but the maturity of the product: the Hualong One is a domestic design built in series, and its newest units — San’ao 1 the latest, this April — deliver in five to six and a half years, the best of them on the schedule stated at first concrete. Even the engineering state did not one-shot nuclear; it bought its learning curve with a decade of late first-of-a-kinds and kept building until the design settled. The experience is partly transferable — the Emirates hired Korea’s production line mid-run and got Barakah built in under nine years with no nuclear history of its own, though Korea’s own Shin Hanul 1 slipped nearly six years in the same period — but there is currently no Western vendor with a warm production line to hire. For Britain the implication is precise: Hinkley is a first-of-a-kind after a generation-long gap, already four to five years behind its own schedule, and what matters most about Sizewell C is whether it becomes the second unit of a series or another first one.</p>
+
+  <p><b>And how would a buildout actually cut the wholesale price?</b> Only by one route: taking hours away from gas. The wholesale price is set by the marginal plant, so new reactors lower it not when they generate but when there are enough of them that gas stops setting the price — the role Germany’s coal fleet played in the 2010s (section 7’s German panel) and France’s reactors played for decades. The cost discipline is unforgiving, because new nuclear is bought on contracts for difference: whenever the market price sits below the strike price, consumers pay the difference as a CfD top-up, so a buildout at too high a strike simply moves money from the wholesale line to the levy line.</p>
+
+  <p>For the argument of this essay, the placement against the two reference lines is what matters. At the costs Britain has revealed, nuclear power costs about what British gas-fired power costs — it insures against gas, but cannot undercut it. At the costs the benchmark tier achieves, nuclear sits at or below the <em>Chinese coal anchor</em> — the line the whole China gap of this study hangs from. The difference between those two worlds is not physics; it is a construction industry. Financing is the one lever policy holds directly, and Sizewell C’s regulated-asset-base model — consumers pay during construction in exchange for a lower cost of capital — is the current attempt to pull it.</p>
+
+  <h2><span class="secno">10</span>What’s left under the North Sea</h2>
+
+  <p>The other proposed remedy reaches for the gas itself. The data gives it less room than the rhetoric suggests. The UK Continental Shelf still matters to Britain: it supplied 344 TWh of gas in 2024, half of national consumption (50.3%). But both lines slope the same way — production has halved since 2010, consumption is down a third — and the inventory behind them is thinning faster: proven (1P) reserves fell from 3.9 to 1.9 billion barrels of oil equivalent between 2015 and 2024 — from roughly 6,600 to 3,200 TWh of energy content — and the gas share is down to about 1,000 TWh: three years of current production, eighteen months of consumption. At 2024’s production rate of 401 million boe a year, the proven inventory covers under five years — a rolling stock that sanctioning continuously tops up, but the chart below sets the effort against the inventory it is meant to sustain: capital spending has fallen by nearly two-thirds across the decade the reserves series covers, £17 billion in 2015 to £6 billion now in real terms — and by more than that from the £22 billion peak of 2013–14, just before that window opens — with the proven stock following it down.</p>
+
+  <p>The often-quoted doubling of unit operating cost — £11 per barrel in 2020 to £19.5 in 2024 (<a href="https://www.nstauthority.co.uk/news-publications/2024-benchmarking-dashboards-production-efficiency-and-unit-operating-cost/" target="_blank" rel="noopener">NSTA benchmarking</a>, mixed oil-and-gas basis) — is mostly the same decline seen from the other side: the industry’s total operating spend has been roughly flat in cash terms, £7.2 billion in 2010 and £7.8 billion in 2024, a quarter lower in real terms — so the rise is the denominator shrinking, not the platforms getting dearer to run. Investment could pull the unit number back down mechanically — the 2015–19 ramp of the last big sanctioned fields produced the £11–12 floor that way — but because the therm sells at the market price regardless, a lower unit cost widens the rent, not the bill.</p>
+
+  <figure class="viz" id="fig10"></figure>
+
+  <p>Set against the market that prices Britain’s gas, though, the shelf is small — and that, not the size of the inventory, is what settles the electricity question. Because gas flows to the best price through interconnectors and LNG terminals, an extra British therm displaces an imported one without discounting the marginal therm — so the drilling debate is really about tax receipts, the current account and security of supply, all real, none of them the power price. Even an implausible doubling of UKCS output would move the traded market by low single digits, and the one modern case of a country drilling its way to cheap gas — America’s shale decade — required both production at world scale and export bottlenecks that trapped the gas at home; Britain has neither. The exception that maps the limit: in 2022 Britain’s hub briefly traded below the continent’s — not because of drilling, but because LNG cargoes kept landing while the export pipes to Europe ran full; by 2023 the two hubs were back within a dollar.</p>
+
+  <div class="archrow sans">
+    <div class="arch">
+      <div class="ah">The reality check: too small to price, larger than the proven stock suggests</div>
+      <p class="src" style="margin:0 0 14px">Bars are <b>energy content, TWh</b>. Gas is the solid blue; the oil and liquids that come up in the same volumes are the pale extension. The NSTA reports the ladder in barrels of oil equivalent, oil and gas combined — converted here at 1 boe = 1.70 MWh. Dashed rules mark one and five years of UK gas demand (684 TWh in 2024).</p>
+      <div class="reality">
+        <div class="big">
+          <div class="v">3.5%</div>
+          <div class="l">UKCS output as a share of globally traded gas, 2024 — down from over 5% a decade ago, and never large enough to set a price.</div>
+        </div>
+        <div class="ladderbox" id="ladderbars"></div>
+      </div>
+      <p class="src">Resource ladder at end-2024, <a href="https://www.nstauthority.co.uk/media/hgnp1k2x/reserves-and-resources-report-2024.pdf" target="_blank" rel="noopener">NSTA Reserves and Resources</a> (Tables 2–4, 7–9), converted at 1 boe = 1.70 MWh. The 2P gas split applies the report’s ~30% share and is an estimate; about a third of the contingent resource sits on acreage nobody currently licenses; of the prospective mean only 0.3 bn boe is drill-ready, and no gas split is published at that stage. Demand denominator: 2024 UK gas consumption, <a href="https://www.gov.uk/government/statistics/gas-chapter-4-digest-of-united-kingdom-energy-statistics-dukes" target="_blank" rel="noopener">DUKES chapter 4</a>. Traded-gas share: UKCS output over world inter-regional gas trade, <a href="https://www.energyinst.org/statistical-review" target="_blank" rel="noopener">EI Statistical Review</a> basis.</p>
+    </div>
+  </div>
+
+  <p>The proven inventory is not the whole story — what could more spending unlock? Rather a lot, on paper: the discovered-but-unsanctioned stock is more than three times the proven one. What has stalled is not the geology but the drilling. Exploration’s yield is documented and stable — a ~50% success rate for two decades, historic finding costs of £2–4 per barrel — so the collapse in discoveries (239 mmboe found in 2018, at most 100 a year since 2021, against 401 produced in 2024) is an input story: exploration and appraisal wells fell from 49 in 2010 to 7 in 2024, three of them exploration, a ten-year low. In 2024 exactly two development consents moved fewer than 50 mmboe from contingent to proven; the reserves-replacement ratio was minus 14%.</p>
+
+  <p>So yes — more E&amp;P spending would find and sanction more gas; the scenario fans put the range at 2.6 billion boe produced to 2050 with no further sanctioning against 4.3 billion on an accelerated-but-achievable path, with first production typically five years behind a discovery. But every barrel of that range changes the import share, the current account and the duration of the rent arithmetic above — sanctioning the contingent gas would stretch the sell-at-cost runway from eighteen months toward five-plus years — and none of it changes the price of the marginal therm, which the traded market sets regardless of whose gas it is.</p>
+
+  <p>What about the cost of extraction itself? A common intuition holds that the British side of the North Sea is expensive to work, and that this is part of the bill problem. Like-for-like unit costs by country are not constructable — the NSTA figure mixes oil and gas, and other jurisdictions publish on different bases — but the comparison that can be made honestly is the <em>delivered cost of a therm to Britain by route</em>, and it points the other way: on the Oxford Institute’s cost stacks, UK domestic gas is among the <em>cheapest</em> routes at under $5/MMBtu, alongside Qatari LNG and Norwegian pipe, while US LNG — the cargo that actually balances Europe’s market — carries a full-cycle cost near $9, of which some $4–5 is liquefaction, shipping and regasification that a domestic therm never incurs. The <a href="https://iea.blob.core.windows.net/assets/f746c0aa-03f3-47ba-a0d9-b45c3c758150/GasMarketReport,Q1-2026.pdf" target="_blank" rel="noopener">market price in 2025</a> was around $12. Every route’s cost sits far below it: the price is set by the dearest supply plus scarcity, and every cheaper route — domestic gas most of all — pockets the difference as rent. Extraction cost is not Britain’s gas problem; who collects the rent is the only live question.</p>
+
+  <figure class="viz" id="fig12"></figure>
+
+  <p>That reframes the most radical proposal — nationalise production and sell domestic gas at cost — as a <em>rent transfer</em>, not a cost reduction, and its ceiling is computable. A therm of UKCS gas sold at 2025’s market price of £30/MWh cost roughly £20 to find, develop and produce (on the mixed oil-and-gas basis that is all the data allows); of the £10 wedge, the 78% marginal tax regime assigns about £8 to the Exchequer and £2 to the producer. The wedge is a 2025 snapshot, not a constant — with the market it has swung the Exchequer’s UKCS take between a £0.4 billion refund and £9 billion a year within the past decade — so the ceiling moves with the price that sets it. Selling the entire 344 TWh of domestic output at cost would therefore transfer at most ~£3.5 billion a year to consumers — about £5/MWh across everything Britain burns — and since the state already collects most of the wedge (£4.5 billion in 2024–25 across all UKCS production, £2.7 billion forecast for 2025–26), the scheme is largely a transfer from taxpayers to gas users, not new value. A state owner would also inherit the basin’s decommissioning liability — a multi-decade obligation the Exchequer already part-funds through tax relief — which the rent ledger above does not count. Norway is the control case: the cheapest producer in Europe sells at market and banks the rent in a sovereign fund rather than discounting the therm. And the duration is capped by the inventory arithmetic above — eighteen months of consumption in proven gas reserves, sustained only by the E&amp;P investment whose returns the scheme would confiscate.</p>
+
+  <h2><span class="secno">11</span>The levers that remain</h2>
+  <p>Which leaves the levers this study’s own findings point to. In the short run the biggest movable piece is not policy at all but time: the 2022-vintage contracts behind the £130 plateau of section 6 roll off — the first 2026 survey already shows the implied price falling 15–17% year on year — and the 2026–27 full-year prints will show whether bills follow the market down as fast as they failed to follow it up. In the medium term, carbon-price design is a quarter of the marginal cost equation, and relief coverage decides which firms actually receive the convergence documented in section 5. And in the long run the wholesale price stays the gas price until something cheaper sets the margin — which is a construction-cost problem, not a market-design one.</p>
+
+  </main>
+
+<footer>
+  <b>Sources &amp; method.</b> Bottom-up bill model from published tariff schedules, levy rates and market prices. Observed prices: <a href="https://www.gov.uk/government/statistical-data-sets/gas-and-electricity-prices-in-the-non-domestic-sector" target="_blank" rel="noopener">DESNZ Quarterly Energy Prices, table 3.4.2</a> (consumption bands, incl. CCL — the basis that matches Eurostat’s treatment of the German electricity tax); <a href="https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_205/default/table" target="_blank" rel="noopener">Eurostat nrg_pc_205</a> (bands ID/IF, excl. VAT); Chinese provincial catalogue schedules, grid agency-purchase notices and <a href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202305/t20230515_1355747.html" target="_blank" rel="noopener">NDRC provincial T&amp;D price schedules</a> (2024 consumption weights; market reform per <a href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202110/t20211012_1299461.html" target="_blank" rel="noopener">NDRC 1439号, Oct 2021</a>). Networks &amp; levies: <a href="https://www.neso.energy/industry-information/charging/tnuos-charges" target="_blank" rel="noopener">NESO</a>/Ofgem charging schedules; <a href="https://www.netztransparenz.de/" target="_blank" rel="noopener">netztransparenz.de</a>/BNetzA. Supplier margin: <a href="https://www.ofgem.gov.uk/transparency-document/energy-companies-consolidated-segmental-statements-css" target="_blank" rel="noopener">Ofgem Consolidated Segmental Statements</a>. Output: <a href="https://worldsteel.org/data/" target="_blank" rel="noopener">worldsteel</a>, <a href="https://international-aluminium.org/statistics/primary-aluminium-production/" target="_blank" rel="noopener">IAI</a>, <a href="https://www.ons.gov.uk/economy/economicoutputandproductivity/output/datasets/indexofproduction" target="_blank" rel="noopener">ONS</a>, <a href="https://www-genesis.destatis.de/" target="_blank" rel="noopener">Destatis</a>, <a href="https://ec.europa.eu/eurostat/databrowser/view/sts_inpr_a/default/table" target="_blank" rel="noopener">Eurostat sts_inpr_a</a>, <a href="https://www.stats.gov.cn/sj/" target="_blank" rel="noopener">NBS</a>. FX: <a href="https://www.federalreserve.gov/releases/h10/" target="_blank" rel="noopener">Fed H.10/G.5A</a> annual averages; national deflators to real 2025 USD. Model archetypes: large = 500 GWh/yr, 8,000 h, transmission-connected; medium = 20 GWh/yr, 5,000 h, HV distribution. Exempt-case assumptions require full EII/BesAR eligibility. The British stacks gross the energy purchase up for line losses &mdash; a transmission loss multiplier of 1.008 on every archetype, times a distribution loss factor of 1.024 for the HV-connected medium site and 1.000 for the transmission-connected large one &mdash; on the components settled on delivered energy (wholesale, balancing, CfD and Capacity Market) but not on those levied on metered volume. The German stacks carry no equivalent term, and should not: under <a href="https://www.gesetze-im-internet.de/enwg_2005/__22.html" target="_blank" rel="noopener">EnWG &sect;22</a> and <a href="https://www.gesetze-im-internet.de/stromnev/__10.html" target="_blank" rel="noopener">StromNEV &sect;10</a> the network operator buys the loss energy and recovers it inside the published network charge. Master workbook: <span class="sans">industrial_electricity_master.xlsx</span> @ D71/Q99/S209. Draft for review — figures may change.
+</footer>
+
+<script>
+const DATA = {"delays": {"rows": [["San'ao 1", "CN", "Hualong One", 2020, 5.4, 5.33, "on plan", ""], ["Fuqing 5", "CN", "Hualong One", 2015, 4.6, 5.7, "+1.1", ""], ["Karachi K-2", "PK", "Hualong One", 2015, 6.0, 5.75, "on plan", ""], ["Taipingling 1", "CN", "Hualong One", 2019, 5.5, 6.31, "+0.8", ""], ["Fangchenggang 3", "CN", "Hualong One", 2015, 4.0, 7.25, "+3.3", ""], ["Belarusian 1", "BY", "VVER-1200", 2013, 5.0, 7.6, "+2.6", ""], ["Barakah 1", "AE", "APR1400", 2012, 5.0, 8.7, "+3.7", "lic"], ["Taishan 1", "CN", "EPR", 2009, 4.0, 9.1, "+5.1", ""], ["Taishan 2", "CN", "EPR", 2010, 5.2, 9.4, "+4.2", ""], ["Sanmen 1", "CN", "AP1000", 2009, 4.3, 9.4, "+5.1", ""], ["Leningrad II-1", "RU", "VVER-1200", 2008, 5.0, 10.0, "+5.0", ""], ["Shin Hanul 1", "KR", "APR1400", 2012, 4.7, 10.4, "+5.7", ""], ["Vogtle 3", "US", "AP1000", 2013, 3.1, 10.4, "+7.3", ""], ["Vogtle 4", "US", "AP1000", 2013, 3.4, 10.4, "+7.0", ""], ["Hinkley Point C 1", "UK", "EPR", 2018, 7.0, 11.0, "+4, building", "bld"], ["Kakrapar 3", "IN", "PHWR-700", 2010, 5.0, 12.6, "+7.6", ""], ["Flamanville 3", "FR", "EPR", 2007, 4.5, 17.0, "+12.5", "grid"], ["Olkiluoto 3", "FI", "EPR", 2005, 3.9, 17.7, "+13.8", ""]], "note": "S206/S207. planned = duration implied by the schedule stated at/nearest construction start (Vogtle: GA PSC certified CODs; OL3: 2003 TVO turnkey contract; HPC: end-2025 U1 objective at 2016 FID; Taishan 2: WNN 16.04.2010 start-up 2015; San'ao 1: WNN 04.01.2022 'begin supplying electricity in 2026' - delivered COD 29.04.2026, on plan). actual = IAEA PRIS first concrete -> commercial operation. FLA3 to grid (12/2024; comm op 2026). Barakah delay = operator licensing. HPC actual = projected to EDF Feb-2026 guidance (U1 start-up 2030, GBP35bn 2015 prices). Row index 3 = construction start year (IAEA PRIS). Taipingling 1 (S208): FCD 26.12.2019, grid 13.02.2026, COD 19.04.2026 = 6.31 yr; baseline 'operation in 2025' is a mid-project restatement (WNN 03.06.2024) - no construction-start-era schedule recoverable, WEAK baseline; planned 5.5 = FCD->mid-2025. Taipingling 2 grid 04.07.2026, COD expected H2-2026 - joins the chart at COD."}, "years": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025], "unit": "Real 2025 USD/MWh (Fed H.10 annual-avg FX; excl VAT)", "buckets": {"UK.large.E1": {"wholesale": [103.411, 111.5874, 101.3305, 110.725, 95.9125, 85.3117, 78.1738, 79.0863, 100.6649, 71.0317, 59.6132, 210.3316, 122.8788, 362.8398, 168.751, 106.2505], "network": [7.9165, 9.4504, 10.1942, 11.3116, 13.4851, 14.3836, 14.7821, 14.189, 15.1614, 15.981, 17.9248, 21.9219, 22.0437, 29.8337, 24.9896, 30.2973], "levies": [20.1951, 23.2998, 29.3391, 35.0135, 42.5607, 47.1401, 47.3855, 52.4639, 64.568, 73.1379, 77.337, 77.0922, 56.3816, 63.098, 77.4559, 71.2601], "total": [131.5226, 144.3375, 140.8638, 157.0502, 151.9583, 146.8354, 140.3414, 145.7391, 180.3943, 160.1506, 154.8749, 309.3457, 201.3041, 455.7714, 271.1965, 207.8079], "wedge": [21.1326, 17.6259, 39.1206, 27.5237, 50.5816, 45.0843, 29.7088, 10.2516, -11.1512, 23.0141, 45.1938, -77.3898, 68.2368, -165.5644, 19.3043, 74.2227], "labels": ["R (i) Wholesale [= b1]", "R (ii) Network incl system services & balancing [= b3+b4]", "R (iii) Levies & taxes incl gen-capital recovery [= b2+b5]", "R TOTAL (i)+(ii)+(iii) [= engine total]", "R (iv) Wedge to observed = obs − E1 stack (D68 per-case; CCL-consistent). Population-matched headline view: ≈ retail costs + margin + band mix (CSS split, Q88)."]}, "UK.large.E2": {"wholesale": [103.3909, 111.5597, 101.3036, 110.6929, 95.8762, 85.2756, 78.1323, 79.0294, 100.5614, 70.8898, 59.4219, 210.1217, 122.7617, 362.6396, 168.5175, 105.9814], "network": [7.9165, 9.4504, 10.1942, 11.3116, 13.4851, 14.3836, 14.7821, 14.189, 15.1614, 15.981, 17.9248, 21.9219, 22.0437, 29.8337, 10.3275, 12.4433], "levies": [9.4727, 12.1635, 18.0243, 23.6862, 30.4331, 35.6388, 36.8041, 40.4952, 17.2118, 12.1224, 12.5615, 13.7993, 8.5495, 10.2019, 0, 0], "total": [120.7801, 133.1736, 129.5221, 145.6908, 139.7944, 135.298, 129.7185, 133.7136, 132.9346, 98.9932, 89.9082, 245.843, 153.3549, 402.6752, 178.845, 118.4247], "wedge": [31.8752, 28.7899, 50.4623, 38.8832, 62.7454, 56.6218, 40.3317, 22.2771, 36.3086, 84.1715, 110.1606, -13.8871, 116.186, -112.4682, 111.6558, 163.6059], "labels": ["R (i) Wholesale [= b1]", "R (ii) Network incl system services & balancing [= b3+b4]", "R (iii) Levies & taxes incl gen-capital recovery [= b2+b5]", "R TOTAL (i)+(ii)+(iii) [= engine total]", "R (iv) Wedge to observed = obs − E2 stack (plain difference; obs = QEP 3.4.2 incl CCL, stack incl CCL with E2 at zero — min/met exemption, D71). Mostly UNCLAIMED-RELIEF premium — the QEP band is unrelieved-dominated (Q97 measured exempt share: 14.5% of industrial consumption exempted, 2024-25)."]}, "UK.medium.E1": {"wholesale": [105.8723, 114.2371, 103.7349, 113.3495, 98.1772, 87.3222, 80.0233, 81.0173, 103.2206, 72.9721, 61.3636, 215.6452, 125.7714, 371.5678, 173.0836, 109.0469], "network": [28.7525, 30.751, 31.4155, 32.8322, 37.1328, 37.7141, 37.7007, 36.328, 44.2655, 46.8252, 45.9472, 52.2169, 40.0488, 37.118, 36.5903, 36.7225], "levies": [20.1951, 23.2998, 29.3391, 35.0135, 42.5607, 47.1401, 47.3855, 52.4639, 64.568, 73.1379, 77.337, 77.0922, 56.3816, 63.098, 77.4559, 71.2601], "total": [154.82, 168.2879, 164.4896, 181.1952, 177.8707, 172.1764, 165.1094, 169.8092, 212.0542, 192.9352, 184.6477, 344.9543, 222.2018, 471.7838, 287.1298, 217.0294], "wedge": [2.0698, 1.4328, 21.8947, 16.4215, 36.3877, 30.8501, 13.6042, 6.961, -26.1373, -2.1791, 24.5159, -114.6576, 40.411, -115.985, 64.0761, 104.8656], "labels": ["R (i) Wholesale [= b1]", "R (ii) Network incl system services & balancing [= b3+b4]", "R (iii) Levies & taxes incl gen-capital recovery [= b2+b5]", "R TOTAL (i)+(ii)+(iii) [= engine total]", "R (iv) Wedge to observed = obs − E1 stack (D68 per-case; CCL-consistent). Population-matched headline view: ≈ retail costs + margin + band mix (CSS split, Q88)."]}, "UK.medium.E2": {"wholesale": [105.8723, 114.2371, 103.7349, 113.3495, 98.1772, 87.3222, 80.0074, 80.9261, 102.9749, 72.5911, 60.848, 215.1646, 125.708, 371.343, 172.5619, 108.5249], "network": [28.7525, 30.751, 31.4155, 32.8322, 37.1328, 37.7141, 37.7007, 36.328, 44.2655, 46.8252, 45.9472, 52.2169, 40.0488, 37.118, 14.9678, 15.0134], "levies": [9.4727, 12.1635, 18.0243, 23.6862, 30.4331, 35.6388, 36.8041, 40.4952, 17.2118, 12.1224, 12.5615, 13.7993, 8.5495, 10.2019, 0, 0], "total": [144.0975, 157.1516, 153.1747, 169.8679, 165.7432, 160.6751, 154.5123, 157.7493, 164.4522, 131.5387, 119.3567, 281.1809, 174.3063, 418.6629, 187.5297, 123.5383], "wedge": [12.7922, 12.5691, 33.2095, 27.7488, 48.5153, 42.3513, 24.2013, 19.0208, 21.4647, 59.2174, 89.807, -50.8842, 88.3065, -62.864, 163.6761, 198.3567], "labels": ["R (i) Wholesale [= b1]", "R (ii) Network incl system services & balancing [= b3+b4]", "R (iii) Levies & taxes incl gen-capital recovery [= b2+b5]", "R TOTAL (i)+(ii)+(iii) [= engine total]", "R (iv) Wedge to observed = obs − E2 stack (plain difference; obs = QEP 3.4.2 incl CCL, stack incl CCL with E2 at zero — min/met exemption, D71). Mostly UNCLAIMED-RELIEF premium — the QEP band is unrelieved-dominated (Q97 measured exempt share: 14.5% of industrial consumption exempted, 2024-25)."]}, "DE.large.E1": {"wholesale": [null, 99.494, 101.1192, 90.4859, 70.668, 52.887, 46.0408, 39.482, 49.0877, 61.7984, 67.8721, 56.5026, 102.4398, 341.6146, 152.6897, 100.2842], "network": [null, 8.1275, 9.3303, 9.8182, 9.5053, 9.3916, 10.1888, 12.1051, 17.929, 14.426, 16.5971, 16.6699, 16.202, 16.9934, 16.5883, 33.6892], "levies": [null, 111.856, 102.6337, 136.5073, 151.8137, 125.4103, 125.8226, 139.6098, 139.9298, 128.9957, 134.0978, 129.2954, 54.5631, 34.2643, 33.1031, 35.5348], "total": [null, 219.4776, 213.0832, 236.8114, 231.987, 187.6889, 182.0523, 191.1969, 206.9464, 205.2201, 218.5671, 202.4679, 173.2049, 392.8723, 202.3811, 169.5082], "wedge": [null, -18.7947, -46.1139, -50.0581, -42.4781, -40.6632, -57.8164, -43.3622, -71.1978, -74.4059, -67.4799, -27.0568, 30.7476, -198.2354, -45.5827, -6.3061], "labels": ["R (i) Wholesale [= b1]", "R (ii) Network incl system services & balancing [= b3+b4]", "R (iii) Levies & taxes incl gen-capital recovery [= b2+b5]", "R TOTAL (i)+(ii)+(iii) [= engine total]", "R (iv) Wedge to observed = obs − E1 stack (D68 per-case; raw Eurostat X_VAT basis). NEGATIVE ≈ supply costs − relief embedded in the band average (relieved-dominated)."]}, "DE.large.E2": {"wholesale": [null, 99.494, 101.1192, 90.4859, 70.668, 52.887, 46.0408, 39.482, 49.0877, 61.7984, 67.8721, 56.5026, 102.4398, 341.6146, 152.6897, 100.2842], "network": [null, 0.0, 1.2978, 1.359, 2.6447, 2.5237, 2.6465, 3.1742, 4.6347, 3.7052, 4.2507, 4.2885, 4.073, 4.2339, 4.1361, 8.2589], "levies": [null, 32.2409, 29.517, 30.6966, 30.1528, 25.0628, 24.3995, 30.4263, 29.6348, 32.182, 31.6368, 31.4278, 27.3366, 28.4012, 10.8937, 12.9228], "total": [null, 131.7349, 131.934, 122.5416, 103.4655, 80.4735, 73.0869, 73.0825, 83.3572, 97.6856, 103.7596, 92.2189, 133.8493, 374.2498, 167.7195, 121.4659], "wedge": [null, 68.948, 35.0353, 64.2118, 86.0434, 66.5522, 51.149, 74.7523, 52.3915, 33.1285, 47.3276, 83.1922, 70.1032, -179.6129, -10.9211, 41.7363], "labels": ["R (i) Wholesale [= b1]", "R (ii) Network incl system services & balancing [= b3+b4]", "R (iii) Levies & taxes incl gen-capital recovery [= b2+b5]", "R TOTAL (i)+(ii)+(iii) [= engine total]", "R (iv) Wedge to observed = obs IF − E2 stack (D68 per-case; raw basis). Population-matched headline view: ≈ supply costs + relief-spectrum premium of the unrelieved minority (D67 rationale)."]}, "DE.medium.E1": {"wholesale": [null, 99.494, 101.1192, 90.4859, 70.668, 52.887, 46.0408, 39.482, 49.0877, 61.7984, 67.8721, 56.5026, 102.4398, 341.6146, 152.6897, 100.2842], "network": [null, 29.1105, 31.1048, 34.6003, 36.6477, 32.271, 34.7474, 35.5976, 38.5126, 33.6783, 36.7321, 40.6214, 36.4814, 39.8251, 53.8895, 53.6583], "levies": [null, 111.856, 102.6295, 136.6893, 151.998, 125.3519, 126.1206, 139.5628, 139.9211, 128.9957, 134.0978, 129.2954, 54.5631, 34.2643, 33.1031, 35.5348], "total": [null, 240.4605, 234.8535, 261.7755, 259.3137, 210.51, 206.9088, 214.6424, 227.5213, 224.4724, 238.7021, 226.4195, 193.4843, 415.7041, 239.6822, 189.4773], "wedge": [null, -15.1534, -26.232, -27.6685, -15.0136, -13.3704, -17.7703, -26.2867, -40.867, -36.2156, -22.7518, -5.5392, 31.1532, -183.0084, -12.4245, 28.3894], "labels": ["R (i) Wholesale [= b1]", "R (ii) Network incl system services & balancing [= b3+b4]", "R (iii) Levies & taxes incl gen-capital recovery [= b2+b5]", "R TOTAL (i)+(ii)+(iii) [= engine total]", "R (iv) Wedge to observed = obs − E1 stack (D68 per-case; raw Eurostat X_VAT basis). NEGATIVE ≈ supply costs − relief embedded in the band average (relieved-dominated)."]}, "DE.medium.E2": {"wholesale": [null, 99.494, 101.1192, 90.4859, 70.668, 52.887, 46.0408, 39.482, 49.0877, 61.7984, 67.8721, 56.5026, 102.4398, 341.6146, 152.6897, 100.2842], "network": [null, 29.1105, 30.6766, 34.1644, 36.2183, 31.9131, 34.3947, 35.2451, 38.1528, 33.3435, 36.395, 40.2876, 36.2062, 39.5537, 53.6257, 53.3898], "levies": [null, 39.1795, 35.8995, 39.6684, 51.1758, 42.1701, 42.1295, 49.3042, 48.6954, 48.8574, 49.3858, 48.3118, 31.1994, 28.4012, 10.8937, 12.9228], "total": [null, 167.784, 167.6952, 164.3187, 158.0621, 126.9702, 122.565, 124.0313, 135.9359, 143.9993, 153.653, 145.1021, 169.8454, 409.5695, 217.2091, 166.5967], "wedge": [null, 57.5231, 40.9262, 69.7883, 86.238, 70.1693, 66.5736, 64.3244, 50.7185, 44.2574, 62.2973, 75.7782, 54.7921, -176.8738, 10.0486, 51.2699], "labels": ["R (i) Wholesale [= b1]", "R (ii) Network incl system services & balancing [= b3+b4]", "R (iii) Levies & taxes incl gen-capital recovery [= b2+b5]", "R TOTAL (i)+(ii)+(iii) [= engine total]", "R (iv) Wedge to observed = obs ID − E2 stack (D68 per-case; raw basis). Population-matched headline view: ≈ supply costs + relief-spectrum premium of the unrelieved minority (D67 rationale)."]}, "CN.large": {"bundled": [null, null, 144.8662, 146.5256, 143.8543, 139.0259, 128.8506, 120.806, 118.7436, 111.1898, 104.8311, 105.613, 0, 0, 0, 0], "wholesale": [null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 78.7221, 71.8444, 66.6573, 59.2092], "network": [null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 26.3862, 22.4819, 15.5465, 16.458], "levies": [null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.8064, 4.3869, 11.0395, 11.2035], "total": [null, null, 144.8662, 146.5256, 143.8543, 139.0259, 128.8506, 120.806, 118.7436, 111.1898, 104.8311, 105.613, 109.9146, 98.7132, 93.2433, 86.8707], "labels": ["R 1-4 bundled (CN catalogue, pre-2022; spans W+N+L&T, non-splittable)", "R (i) Wholesale [= b1]", "R (ii) Network incl system services & balancing [= b3+b4]", "R (iii) Levies & taxes incl gen-capital recovery [= b2+b5]", "R TOTAL bundled+(i)+(ii)+(iii) [= engine total]"]}, "CN.medium": {"bundled": [null, null, 163.2327, 165.1024, 162.0925, 156.8924, 145.4083, 136.738, 134.6437, 126.1307, 118.9214, 122.693, 0, 0, 0, 0], "wholesale": [null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 73.8126, 70.0038, 65.9443, 62.633], "network": [null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 44.5328, 41.2627, 35.0125, 35.4465], "levies": [null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.8064, 4.3869, 11.0395, 11.2035], "total": [null, null, 163.2327, 165.1024, 162.0925, 156.8924, 145.4083, 136.738, 134.6437, 126.1307, 118.9214, 122.693, 123.1517, 115.6534, 111.9962, 109.283], "labels": ["R 1-4 bundled (CN catalogue, pre-2022; spans W+N+L&T, non-splittable)", "R (i) Wholesale [= b1]", "R (ii) Network incl system services & balancing [= b3+b4]", "R (iii) Levies & taxes incl gen-capital recovery [= b2+b5]", "R TOTAL bundled+(i)+(ii)+(iii) [= engine total]"]}}, "prices": {"large": {"UK": {"E1": [131.5226, 144.3375, 140.8638, 157.0502, 151.9583, 146.8354, 140.3414, 145.7391, 180.3943, 160.1506, 154.8749, 309.3457, 201.3041, 455.7714, 271.1965, 207.8079], "E2": [120.7801, 133.1736, 129.5221, 145.6908, 139.7944, 135.298, 129.7185, 133.7136, 132.9346, 98.9932, 89.9082, 245.843, 153.3549, 402.6752, 178.845, 118.4247], "obs": [152.6552, 161.9635, 179.9844, 184.5739, 202.5398, 191.9197, 170.0501, 155.9907, 169.2432, 183.1647, 200.0688, 231.9559, 269.5409, 290.207, 290.5008, 282.0306]}, "DE": {"E1": [null, 219.4776, 213.0832, 236.8114, 231.987, 187.6889, 182.0523, 191.1969, 206.9464, 205.2201, 218.5671, 202.4679, 173.2049, 392.8723, 202.3811, 169.5082], "E2": [null, 131.7349, 131.934, 122.5416, 103.4655, 80.4735, 73.0869, 73.0825, 83.3572, 97.6856, 103.7596, 92.2189, 133.8493, 374.2498, 167.7195, 121.4659], "E2lo": [null, 131.7349, 131.0915, 121.6525, 102.2848, 79.2776, 71.7658, 71.5055, 80.9779, 95.7755, 101.5505, 90.0028, 131.6683, 371.9519, 165.4767, 116.8333], "E2hi": [null, 138.6736, 140.0153, 135.4277, 126.0882, 100.3189, 93.8318, 96.3923, 111.1262, 121.0464, 129.5887, 117.4062, 148.672, 386.7241, 179.8946, 146.6141], "obs": [168.9655, 200.6829, 166.9693, 186.7534, 189.5089, 147.0257, 124.2359, 147.8347, 135.7486, 130.8141, 151.0872, 175.4111, 203.9525, 194.6369, 156.7984, 163.2021], "obsIG": [null, null, null, null, null, null, null, null, null, null, 97.6496, 154.1172, 220.4078, 178.0648, 144.4722, 149.5219]}, "CN": {"E": [null, null, 144.8662, 146.5256, 143.8543, 139.0259, 128.8506, 120.806, 118.7436, 111.1898, 104.8311, 105.613, 109.9146, 103.4517, 95.3654, 86.8523]}}, "medium": {"UK": {"E1": [154.82, 168.2879, 164.4896, 181.1952, 177.8707, 172.1764, 165.1094, 169.8092, 212.0542, 192.9352, 184.6477, 344.9543, 222.2018, 471.7838, 287.1298, 217.0294], "E2": [144.0975, 157.1516, 153.1747, 169.8679, 165.7432, 160.6751, 154.5123, 157.7493, 164.4522, 131.5387, 119.3567, 281.1809, 174.3063, 418.6629, 187.5297, 123.5383], "obs": [156.8898, 169.7207, 186.3843, 197.6168, 214.2585, 203.0265, 178.7136, 176.7701, 185.9169, 190.7561, 209.1637, 230.2967, 262.6128, 355.7989, 351.2058, 321.895]}, "DE": {"E1": [null, 240.4605, 234.8535, 261.7755, 259.3137, 210.51, 206.9088, 214.6424, 227.5213, 224.4724, 238.7021, 226.4195, 193.4843, 415.7041, 239.6822, 189.4773], "E2": [null, 167.784, 167.6952, 164.3187, 158.0621, 126.9702, 122.565, 124.0313, 135.9359, 143.9993, 153.653, 145.1021, 169.8454, 409.5695, 217.2091, 166.5967], "obs": [200.7811, 225.3071, 208.6215, 234.107, 244.3001, 197.1395, 189.1386, 188.3557, 186.6543, 188.2567, 215.9503, 220.8803, 224.6374, 232.6957, 227.2578, 217.8666]}, "CN": {"E": [null, null, 163.2327, 165.1024, 162.0925, 156.8924, 145.4083, 136.738, 134.6437, 126.1307, 118.9214, 122.693, 123.1517, 115.6534, 111.9962, 109.283]}}, "obs_labels": {"large": {"UK": "UK OBSERVED QEP Extra Large (excl CCL) — real 2025 USD/MWh", "DE": "DE OBSERVED Eurostat IF — real 2025 USD/MWh", "DE_IG": "DE OBSERVED Eurostat IG — real 2025 USD/MWh"}, "medium": {"UK": "UK OBSERVED QEP Large (excl CCL) — real 2025 USD/MWh", "DE": "DE OBSERVED Eurostat ID — real 2025 USD/MWh"}}, "events": [{"year": 2016, "ctry": "UK", "label": "CfD ILR begins"}, {"year": 2018, "ctry": "UK", "label": "EII exemptions 85%"}, {"year": 2023, "ctry": "UK", "label": "TCR residual charging"}, {"year": 2024, "ctry": "UK", "label": "Exemptions 100% + NCC"}, {"year": 2022, "ctry": "DE", "label": "EEG moved to federal budget"}, {"year": 2021, "ctry": "CN", "label": "Market reform (Oct 2021)"}], "validation": {"years": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026], "e1_ya_exCCL": [52.9507, 58.0107, 58.2779, 67.4112, 62.3771, 65.1885, 71.5947, 80.4041, 99.4628, 91.1358, 88.9392, 181.4154, 140.1693, 339.0052, 198.9971, 149.7757, 160.0632], "e1_da_exCCL": [52.9507, 58.0107, 58.2779, 67.4112, 62.3771, 65.1885, 71.5947, 80.4041, 99.4628, 91.1358, 88.9392, 181.4154, 263.5082, 161.184, 146.8231, 154.0396, 169.3368], "obs": [66.003, 69.439, 79.558, 84.181, 89.002, 90.571, 90.665, 89.594, 95.768, 107.672, 118.835, 134.792, 191.282, 216.796, 216.979, 209.266, null], "gate_note": "GATE UK large: QEP XL ∈ [E2−CCL, E1−CCL] (provisional pre-2024: E1 understated by FiT/CM/BSUoS gaps)"}}, "output": {"manufacturing": {"UK": [100.0, 98.0392, 100.8578, 105.1471, 108.3333, 110.6618, 109.5588, 111.3971, 116.7892, 118.2598, 117.2794, 123.5294, 120.3431, 122.549, 122.9167, 121.8137], "DE": [100.0, 108.4764, 107.2961, 107.1888, 109.3348, 110.515, 111.6953, 114.6996, 115.9871, 112.3391, 102.3605, 107.2961, 107.0815, 105.794, 100.6438, 99.5708], "CN": [100.0, 113.9, 125.29, 137.4431, 148.8509, 157.9308, 167.4067, 178.4555, 189.5197, 200.3224, 205.9314, 225.7008, 233.826, 244.582, 258.7678, 274.0351]}, "mfg_labels": {"UK": "UK — manufacturing, NACE section C (context)", "DE": "Germany — manufacturing, NACE section C (context)", "CN": "China — all industry above designated size (context)"}, "compositeVW": {"UK": {"c": [100.0, 102.4084, 89.654, 101.0421, 101.7843, 94.7075, 78.0351, 78.6976, 77.6603, 76.2795, 72.3125, 74.5686, 66.3719, 61.689, 54.1414, null], "lo": [100.0, 101.1435, 84.4228, 90.8921, 90.6814, 86.092, 71.8754, 72.6761, 71.7445, 69.1694, 65.5477, 67.4853, 59.1861, 55.0896, 47.3791, null], "hi": [100.0, 102.4084, 95.6278, 109.0426, 110.0214, 101.9196, 83.5626, 84.1849, 83.0415, 81.9985, 77.8308, 80.2077, 71.5127, 66.462, 58.1388, null], "adj": [100.0, 101.1435, 95.6278, 109.0426, 110.0214, 101.9196, 83.5626, 84.1849, 83.0415, 81.9985, 77.8308, 80.2077, 71.5127, 66.462, 58.1388, null], "eq": [100.0, 105.3331, 82.9078, 89.1206, 90.6093, 86.7777, 76.9419, 77.8515, 76.9826, 75.0696, 69.7292, 73.341, 66.372, 61.472, 56.4226, null]}, "DE": {"c": [100.0, 103.0367, 99.981, 102.1678, 104.3728, 104.1423, 104.4492, 106.7443, 104.6666, 100.5809, 97.0704, 102.7349, 90.6769, 77.9474, 80.9222, null], "lo": [100.0, 102.5665, 99.7664, 100.062, 101.5047, 100.9757, 101.1717, 103.6209, 101.8726, 97.902, 93.473, 100.2478, 90.2261, 76.4526, 79.9937, null], "hi": [100.0, 103.0367, 99.981, 102.1678, 104.3728, 104.1423, 104.4492, 106.7443, 104.6666, 100.5809, 97.0704, 102.7349, 91.2798, 81.1504, 83.6506, null], "adj": [100.0, 102.5665, 99.7664, 100.062, 101.5047, 100.9757, 101.1717, 103.6209, 101.8726, 97.902, 93.473, 100.2478, 91.2798, 81.1504, 83.6506, null], "eq": [100.0, 105.4385, 102.08, 105.9829, 109.3595, 109.1341, 110.456, 112.7971, 110.4434, 107.3393, 106.7305, 109.4931, 93.823, 76.2841, 78.6284, null]}, "CN": {"c": [100.0, 109.9796, 115.5959, 129.1046, 134.7188, 134.7349, 138.1418, 143.1997, 148.4169, 153.5565, 161.0418, 162.7141, 161.6061, 167.4097, 168.329, 166.8695], "lo": [100.0, 109.7594, 114.2869, 125.745, 129.6869, 128.0245, 130.973, 136.1357, 139.5586, 146.3553, 153.3322, 154.2456, 151.9484, 157.1574, 156.8471, 154.5766], "hi": [100.0, 109.9796, 115.5959, 129.1046, 134.7188, 134.7349, 138.1418, 143.1997, 148.4169, 153.5565, 161.0418, 162.7141, 161.6061, 167.4097, 168.329, 166.8695], "adj": [100.0, 109.7594, 114.2869, 125.745, 129.6869, 128.0245, 130.973, 136.1357, 139.5586, 146.3553, 153.3322, 154.2456, 151.9484, 157.1574, 156.8471, 154.5766], "eq": [100.0, 110.793, 117.647, 133.1531, 141.078, 142.5238, 146.7746, 149.7846, 155.1652, 157.7038, 164.6563, 167.7676, 166.6699, 172.2047, 173.7271, 173.2577]}}, "weights": {"basis": "Eurostat SBS EU27 value added, NACE 24.10/24.42/23.51/17.12, base 2010", "steel": 0.442, "aluminium": 0.145, "cement": 0.131, "paper": 0.282, "adjusted": {"steel": 0.488, "aluminium": 0.056, "cement": 0.144, "paper": 0.312, "note": "scope-adjusted variant: NACE 24.42 spans secondary metal, alloys, semis and foil, while the tonnage series is primary aluminium only; f=0.35 of 24.42 value added attributed to primary (an inference, hence a variant)"}}, "eiAgg": {"UK": {"c": [100.0, 82.755, 97.7815, 101.5217, 115.8709, 140.31, 133.2346, 130.2407, 135.169, 142.1346, 146.6313, 143.9061, 130.2226, 125.0977, 122.0957, 114.5706], "lo": [100.0, 82.755, 97.7815, 100.8121, 113.3062, 135.1728, 127.937, 124.036, 128.4972, 133.4828, 139.1855, 134.4673, 119.1816, 113.0219, 110.3098, 103.6134], "hi": [100.0, 85.3982, 100.7328, 101.5217, 115.8709, 140.31, 133.2346, 130.2407, 135.169, 142.1346, 146.6313, 143.9061, 130.2226, 125.0977, 122.0957, 114.5706]}, "DE": {"c": [100.0, 102.8034, 99.8316, 99.475, 99.7325, 99.8613, 100.0792, 101.6147, 100.5547, 97.1867, 93.3234, 99.049, 93.3135, 82.6251, 83.1105, 80.8717]}, "CN": {"c": [100.0, 113.4529, 126.0656, 140.8039, 153.6703, 165.8632, 172.892, 176.8586, 186.7754, 201.645, 209.8736, 220.4014, 227.1835, 242.5008, 256.4838, 269.8705], "lo": [100.0, 113.4529, 126.0656, 140.8039, 153.6703, 165.8632, 172.892, 176.8586, 186.7754, 201.645, 209.8736, 220.4014, 227.1835, 242.5008, 256.4838, 269.8705], "hi": [100.0, 113.537, 126.2031, 141.0124, 153.9938, 166.3031, 173.5557, 177.6007, 187.5195, 202.3816, 210.5332, 221.2475, 228.1485, 243.5314, 257.6795, 271.1768]}}, "eiAggNote": "Divisions 17, 19, 20, 23, 24. DE = Destatis \"Energieintensive Industriezweige\" (official, monthly since 2022, back-cast to 2005). UK = constructed to the same definition, chained Laspeyres on ONS prior-year IoP weights over CVM volume indices (no official UK aggregate exists); band = span of three weighting variants. CN = NBS chemicals + non-metallic minerals + ferrous + non-ferrous on fixed 2007 official value-added weights (the last sector VA levels NBS published); band = 2007-VA vs 2010-revenue weights. Baskets are NOT identical: CN excludes paper and refining."}, "cssWedge": {"measured": [null, null, 14.96, 15.478, 16.297, 14.615, 11.855, 10.463, 11.239, 10.853, 6.415, 7.98, 20.537, 27.918, 17.485, null], "opex": [null, null, 11.692, 11.198, 11.836, 12.456, 9.619, 8.719, 9.149, 9.358, 11.522, 10.155, 14.603, 17.258, 8.093, null], "ebit": [null, null, 3.268, 4.28, 4.461, 2.159, 2.236, 1.744, 2.09, 1.495, -5.107, -2.175, 5.934, 10.66, 9.392, null], "measuredFilled": [14.315, 14.315, 14.96, 15.478, 16.297, 14.615, 11.855, 10.463, 11.239, 10.853, 6.415, 7.98, 20.537, 27.918, 17.485, 14.315], "imputedAvg": 14.315}, "meta": {"workbook": "industrial_electricity_master.xlsx @ D70 / Q92 / S197 (extracted programmatically, openpyxl)", "breaks": "Structural breaks to mark on every chart — UK: line losses in the energy purchase (TLM 1.008 all sizes; LLF 1.000 transmission-connected, 1.024 HV) &mdash; D70 · CfD-ILR 2016 · EII exemptions 2018 → 100% 04/2024 · TCR DUoS 04/2022, TNUoS bands + BSUoS reform 04/2023 · NCC 04/2025 (backdated 04/2024), 90% 04/2026 · wholesale = day-ahead PROXY pre-2022 (D22). DE: §19(2) full exemption 2011, 10% floor 2012–13 (D32), §19 floors 2014+ · BesAR on EEG 2009 rules to 2012, EEG 2012 ladder from 2013 (Q90) · Offshore/SPK 2013 · BesAR-2014 redesign · KWKG/Offshore privileged rates company-specific 2017/2019 (E2=E1, D25) · DE-AT split 10/2018 · EEG→0 07/2022, budget 2023 · ÜNB harmonisation 2023 · €6.5bn subsidy 2026 (incidence iii). CN: renormalised basket, coverage row shown (D23) · 2021-10 catalogue end (2021 = Jan–Sep basis) · 代理购电 12/2021 · 526号 06/2023 · 容量电价 2024 · 136号文 06/2025 · 1077号 08/2026 (month-weighted, D13-R). CN E1=E2 (no formal exemption regime — functional equivalents owned in text).", "archetypes": {"large": "UK — LARGE archetype (500 GWh, 8,000h, transmission-connected, Humber zone 5). Nominal £/MWh.", "medium": "UK — MEDIUM archetype (20 GWh, 5,000h, HV distribution, NPg Yorkshire). Nominal £/MWh."}, "d24": "UK/DE medium archetype E2 assumes the site holds EII/BesAR status (D24) — stated on every E2 chart."}, "daIndexed": {"UK": [131.5226, 144.3375, 140.8638, 157.0502, 151.9583, 146.8354, 140.3414, 145.7391, 180.3943, 160.1506, 154.8749, 309.3457, 369.1566, 222.0451, 202.7583, 213.4328], "DE": [null, 221.9101, 188.7771, 215.6675, 220.5586, 182.4741, 179.0522, 202.4626, 225.2331, 196.5226, 193.9418, 282.0916, 343.6095, 160.0395, 136.8745, 170.2092], "note": "E1 stack re-priced at day-ahead wholesale of the delivery year; headline E1 uses the procurement convention (UK rolling year-ahead from 2022, day-ahead proxy before per D22; DE Phelix front-year, trading year Y-1). Nominal-local sensitivity rows timeseries r101/r102, converted at the same per-year FX+deflator factors as the headline series. UK_E2 / DE_E2 are the exempt-case stacks re-priced at day-ahead: E2 + (E1_dayahead - E1). Exemptions do not touch the wholesale line, so the displacement is identical in either case and the construction is exact. Medium-archetype variants (_med) are computed separately from timeseries r111 for the UK, because the line-loss gross-up added in D70 differs by archetype (0.8% transmission-connected vs 3.2% HV), so the year-ahead/day-ahead displacement is no longer identical in absolute terms at the two sizes. The German _med variant still uses the shared displacement, correctly: German losses sit inside the Netzentgelt and take no customer-side gross-up.", "DE_E2": [null, 134.1674, 107.6279, 101.3977, 92.0371, 75.2587, 70.0868, 84.3482, 101.6439, 88.9881, 79.1343, 171.8426, 304.2539, 141.417, 102.2129, 122.1669], "UK_E2": [131.5025, 144.3099, 140.837, 157.0181, 151.922, 146.7992, 139.8825, 143.3298, 142.9229, 112.6116, 102.8504, 258.5167, 331.7544, 179.1354, 120.5727, 134.2734], "UK_E2_med": [154.82, 168.2879, 164.4896, 181.1953, 177.8708, 172.1764, 164.6764, 167.3654, 174.4405, 145.1571, 132.299, 293.8546, 356.7342, 189.5135, 127.6147, 139.522], "DE_E2_med": [null, 170.2165, 143.3891, 143.1748, 146.6337, 121.7554, 119.5649, 135.297, 154.2226, 135.3018, 129.0277, 224.7258, 340.25, 176.7367, 151.7025, 167.2977]}, "deWedge": {"measured": [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 20.0116], "measuredFilled": [20.0116, 20.0116, 20.0116, 20.0116, 20.0116, 20.0116, 20.0116, 20.0116, 20.0116, 20.0116, 20.0116, 20.0116, 20.0116, 20.0116, 20.0116, 20.0116], "heldConstant": 20.0116, "basis": "BNetzA \"Vertrieb und Marge\"", "note": "BNetzA/Bundeskartellamt Monitoringbericht 2025, Industriekunde 24 GWh/a (RLM, Mittelspannung, 6,000 h / 4 MW, ohne Verguenstigungen), price date 01.04.2025, mean of 127 reporting suppliers: 1.77 ct/kWh = EUR 17.7/MWh = $20.01/MWh at the 2025 annual-average FX (1.1306). Held CONSTANT IN REAL TERMS across the chart span - the 2025 Monitoringbericht is the first edition to split the supply block for non-household cases, so no earlier industrial observation exists. Concept-matched to the UK CSS segment (selling cost + margin together). The surveyed case sits almost exactly on the MEDIUM archetype (20 GWh/a) and is a CEILING for the LARGE one (>150 GWh/a), where the size gradient - 30.3 EUR/MWh at 50 MWh, 17.7 at 24 GWh, ~0 at 70-150 GWh (Fraunhofer ISI) - points sharply down. Q89 / S182.", "dispersionP90": 63.5, "eonMarginOnly": [null, null, null, null, null, null, null, null, null, null, null, 4.4338, 5.3054, 8.0115, 7.2456, 8.5086], "eonNote": "Cross-check, profit slice only: E.ON Energy Retail Germany column, adjusted EBITDA divided by German customer-group volume (power + gas), real 2025 USD/MWh, 2021-25. EBITDA is already net of the supplier own selling cost, so this is the margin inside the BNetzA figure, not a substitute for it. Basis break: 2021-22 Customer Solutions, 2023-25 Energy Retail. S184 / S188."}, "srmc": {"uk": {"da": [44.96, 48.2, 45.21, 50.8, 42.43, 40.75, 42.63, 46.31, 58.23, 43.74, 36.94, 127.47, 211.85, 97.3, 75.69, 83.93], "c": [null, null, null, 49.42, 39.36, 37.64, 32.04, 39.09, 52.97, 38.45, 31.72, 103.33, 176.47, 94.91, 77.52, 84.72], "lo": [null, null, null, 44.93, 35.78, 34.22, 29.13, 35.53, 48.15, 34.96, 28.83, 93.94, 160.43, 86.28, 70.47, 77.02], "hi": [null, null, null, 53.72, 42.78, 40.91, 34.83, 42.49, 57.57, 41.79, 34.48, 112.32, 191.82, 103.16, 84.26, 92.09]}, "de": {"da": [44.49, 51.12, 42.6, 37.78, 32.76, 31.63, 28.98, 34.19, 44.47, 37.67, 30.47, 96.85, 235.45, 95.18, 78.51, 89.32], "c": [null, null, 52.38, 55.58, 43.76, 42.38, 29.92, 36.52, 51.05, 36.22, 27.8, 113.6, 279.42, 112.62, 92.99, 99.08], "lo": [null, null, 47.62, 50.53, 39.78, 38.53, 27.2, 33.2, 46.41, 32.93, 25.27, 103.27, 254.02, 102.38, 84.53, 90.07], "hi": [null, null, 56.94, 60.42, 47.56, 46.07, 32.53, 39.7, 55.49, 39.37, 30.22, 123.48, 303.72, 122.41, 101.07, 107.69]}, "note": "Q94 identity test, nominal LOCAL currency (deliberate exception to the real-USD house rule: an identity between two market prices is stated in the market’s own units; converting both sides by the same factor changes nothing). SRMC = (hub gas HHV + carbon x 0.18296 tCO2/MWh_th)/efficiency; corridor 46-55%, central 50%. Sources S198/S199; workbook timeseries r119-125; staging gas_srmc_staging.md. UK gas 2010-13+2017 and TTF 2010-20 are EI-SR-derived (secondary, flagged). SRMC starts 2013 UK / 2012 DE where the workbook carbon series start."}, "lcoeAnchors": [{"c": "CN", "tech": "Coal", "lo": null, "hi": 66.7, "th": 1}, {"c": "CN", "tech": "Gas CCGT", "lo": null, "hi": 102.6, "th": 1}, {"c": "CN", "tech": "Onshore wind", "lo": null, "hi": 41.1, "th": 0}, {"c": "CN", "tech": "Solar PV", "lo": null, "hi": 46.2, "th": 0}, {"c": "UK", "tech": "Gas CCGT", "lo": null, "hi": 186.4, "th": 1}, {"c": "UK", "tech": "Onshore wind", "lo": null, "hi": 62.1, "th": 0}, {"c": "UK", "tech": "Solar PV", "lo": null, "hi": 67.0, "th": 0}, {"c": "UK", "tech": "Offshore wind", "lo": null, "hi": 72.0, "th": 0}, {"c": "DE", "tech": "Gas CCGT", "lo": 121.0, "hi": 201.0, "th": 1}, {"c": "DE", "tech": "Onshore wind", "lo": 47.8, "hi": 102.2, "th": 0}, {"c": "DE", "tech": "Solar PV", "lo": 45.5, "hi": 76.6, "th": 0}, {"c": "DE", "tech": "Offshore wind", "lo": 61.1, "hi": 114.4, "th": 0}, {"c": "CN", "tech": "Nuclear", "lo": null, "hi": 71.8, "th": 1}, {"c": "DE", "tech": "Nuclear new-build", "lo": 151.0, "hi": 544.1, "th": 1}, {"c": "UK", "tech": "Nuclear (Hinkley C)", "lo": null, "hi": 170.1, "th": 1}, {"c": "DE", "tech": "Nuclear restart", "lo": 41.8, "hi": 80.3, "th": 1}], "nuc": {"groups": [["Keeping or reviving existing reactors", [["Life extension (OECD/NEA benchmark)", "XX", 28.6, 41.1, 0], ["Germany - fleet restart", "DE", 41.8, 80.3, 0]]], ["New build - modelled at a common 7% WACC (OECD/NEA 2020)", [["Russia (VVER)", "XX", null, 53.9, 0], ["South Korea (ALWR)", "XX", null, 68.3, 0], ["China (LWR)", "CN", null, 84.6, 0], ["India (LWR)", "XX", null, 84.7, 0], ["France (EPR)", "XX", null, 91.2, 0], ["United States (LWR)", "XX", null, 91.4, 0], ["Japan (ALWR)", "XX", null, 111.1, 0], ["Slovakia", "XX", null, 130.6, 0]]], ["New build - Western out-turns and contracted prices", [["UK - Hinkley C contracted price", "UK", null, 170.1, 1], ["US - Vogtle 3&4 out-turn proxy", "XX", null, 175.9, 1], ["France - Flamanville 3 requirement", "XX", null, 201.2, 1], ["UK - official FOAK estimate (2016)", "UK", null, 213.0, 1]]]], "note": "Real 2025 USD/MWh. Rows: [label, country, lo, hi, outturn]. Sources: OECD/NEA EGC 2020 T3.13a @7% (workbook nuclear_global A, col H real-2025); LTO T8.1 (20yr 28.6 - 10yr 41.1); Radiant 2026 restart; NAO 2026 HPC; Vogtle broader in-service proxy r27; Cour des comptes 2025 Flamanville r29; BEIS 2016 FOAK GBP95(2014) -> 212.96 r41."}, "ns": {"years": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], "prod": [643.3, 512.0, 435.5, 410.9, 415.9, 451.8, 463.8, 465.4, 450.6, 436.6, 439.7, 364.3, 423.5, 383.2, 343.9], "cons": [1082.2, 900.9, 846.5, 840.6, 771.5, 792.2, 882.4, 864.2, 872.1, 861.7, 812.6, 851.2, 776.5, 700.0, 683.9], "resYears": [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], "resOil": [2.6, 2.5, 2.5, 2.7, 2.5, 2.0, 1.8, 1.5, 1.5, 1.3], "resGas": [1.3, 1.1, 1.1, 1.1, 1.1, 0.8, 0.9, 0.8, 0.7, 0.6], "share": [null, null, null, null, 5.19, 5.58, 5.38, 5.04, 4.68, 4.28, 4.52, 3.42, 4.31, 4.04, 3.47], "note": "north_sea_og tab: r24/r25 DUKES gas production/consumption GWh GCV -> TWh; r5/r6 NSTA 1P reserves bn boe; r32 UKCS gas / world inter-regional trade (EI SR basis). 2024 coverage 50.28%; capex real-2025 16.35(2015) -> 6.21(2024) GBP bn; NSTA unit opex 15 -> 19.49 GBP/boe. fig10 merged panel (rev 42; was fig11): capexReal24 = NSTA nominal capex x100/GDP-deflator(2024=100), north_sea_og r42/S201; uoc = NSTA/OGA UOC nominal GBP/boe, 2010 computed + 2011 OGUK $-derived (EST), 2012-14 OGUK secondary. Reserves TWh = bn boe x 1699.7 (1 boe = 5.8 MMBtu = 1.6997 MWh).", "resOilTWh": [4419, 4249, 4249, 4589, 4249, 3399, 3059, 2550, 2550, 2210], "resGasTWh": [2210, 1870, 1870, 1870, 1870, 1360, 1530, 1360, 1190, 1020], "capexReal24": [10.65, 15.06, 18.44, 21.72, 21.71, 16.83, 11.65, 8.0, 6.98, 7.66, 4.73, 4.41, 5.13, 5.25, 6.05], "uoc": [8.8, 10.6, 13.5, 17.0, 18.5, 15.0, 12.0, 11.6, 11.6, 11.9, 11.2, 15.24, 16.35, 18.59, 19.49]}, "rent": {"routes": [["UK domestic", [["production & delivery", 4.7]], 4.7, 1], ["Qatar LNG", [["production, liquefaction & shipping", 5.5]], 5.5, 0], ["Norway pipeline", [["production & pipeline", 5.9]], 5.9, 0], ["US LNG", [["gas at Henry Hub", 3.52], ["liquefaction, incl. the 15% fuel-gas surcharge", 3.28], ["shipping", 1.5], ["regas & entry", 0.45]], 8.75, 0]], "mkt_usd": 11.9, "ledger": {"price": 30.4, "cost": 20.29, "tax": 7.89, "profit": 2.22, "ceilingBn": 3.48, "perMWh": 5.08}, "note": "Q95 (north_sea_og r44-47, S202). Routes: OIES NG-195 2021 stack real-2022$ marginal-field basis for UK domestic (<5, drawn 4.7 illustrative), Norway (<6 -> 5.9), Qatar (5-6 -> 5.5); US LNG = OIES Jan-2025 build-up at 2025 HH 3.52. Market ref TTF 2025 ~11.9 (IEA GMR Q1-26); NBP within ~0.5. Ledger: NBP 2025 30.40 GBP/MWh; full-cycle cost proxy 20.29 (MIXED oil+gas basis); 78% marginal split of the 10.11 wedge. Heterogeneous bases; order-of-magnitude comparison, flagged in caption."}, "ladder": {"rungs": [["Proven (1P)", 1.9, 0.6, 0, 0], ["Proven + probable (2P)", 2.9, 0.87, 1, 0], ["Contingent (2C) — discovered, unsanctioned", 6.2, 2.0, 0, 0], ["Mapped prospects — risked mean, pre-drill", 4.6, null, 0, 1]], "disc": {"years": [2018, 2019, 2020, 2021, 2022, 2023, 2024], "v": [239, 240, 212, 50, 100, 100, 100], "bound": [0, 0, 0, 1, 0, 1, 1], "prod": 401, "kpi": 200}, "note": "Q96 (north_sea_og r48-51, S203). NSTA R&R end-2024: ladder bn boe with gas split (2P gas ~30% est=Y; prospective gas split not published). TWh = bn boe x 1699.7. Discoveries mmboe expected, added to 2C; 2021/23/24 are <= upper bounds; production 401 mmboe 2024; OGA KPI-era target 200/yr 5-yr avg."}};
+
+/* ---------- helpers ---------- */
+const $ = (s, r=document) => r.querySelector(s);
+const NS = "http://www.w3.org/2000/svg";
+function svgel(tag, attrs, parent){
+  const e = document.createElementNS(NS, tag);
+  for(const k in attrs) e.setAttribute(k, attrs[k]);
+  if(parent) parent.appendChild(e);
+  return e;
+}
+function div(cls, parent, html){
+  const e = document.createElement("div");
+  if(cls) e.className = cls;
+  if(parent) parent.appendChild(e);
+  if(html !== undefined) e.textContent = html;
+  return e;
+}
+function fmt(v){ return v==null ? "–" : (Math.round(v*10)/10).toLocaleString("en-US",{minimumFractionDigits:1,maximumFractionDigits:1}); }
+function fmt0(v){ return v==null ? "–" : Math.round(v).toLocaleString("en-US"); }
+function niceMax(m){
+  const p = Math.pow(10, Math.floor(Math.log10(m)));
+  for(const k of [1,1.5,2,2.5,3,4,5,6,8,10]) if(k*p >= m) return k*p;
+  return 10*p;
+}
+function ticksFor(max, min=0){
+  const span = max - min;
+  const step = span/5 <= 25 ? (span/5 <= 12 ? 10 : 25) : (span/5 <= 50 ? 50 : 100);
+  const t = [];
+  for(let v = Math.ceil(min/step)*step; v <= max + 1e-9; v += step) t.push(v);
+  if(min < 0 && !t.includes(0)) { t.push(0); t.sort((a,b)=>a-b); }
+  return t;
+}
+
+/* ---------- tooltip ---------- */
+function makeTip(fig){
+  const t = div("tip", fig);
+  return {
+    show(x, y, yearLabel, rows){
+      t.innerHTML = "";
+      const ty = div("ty", t, yearLabel);
+      rows.forEach(r=>{
+        const tr = div("tr", t);
+        const k = div("tk", tr); k.style.borderTopColor = r.color;
+        if(r.dash) k.style.borderTopStyle = "dashed";
+        div("tv", tr, r.value==null ? "–" : "$"+fmt(r.value));
+        div("tl", tr, r.label);
+      });
+      t.style.display = "block";
+      const fr = fig.getBoundingClientRect();
+      let lx = x + 16, ly = y - 10;
+      if(lx + t.offsetWidth > fr.width - 8) lx = x - t.offsetWidth - 16;
+      if(ly + t.offsetHeight > fr.height - 4) ly = fr.height - t.offsetHeight - 4;
+      if(ly < 4) ly = 4;
+      t.style.left = lx + "px"; t.style.top = ly + "px";
+    },
+    hide(){ t.style.display = "none"; }
+  };
+}
+
+/* ---------- table view ---------- */
+function tableView(parent, years, cols, title){
+  const d = document.createElement("details"); d.className = "tbl";
+  const s = document.createElement("summary"); s.textContent = title || "View data (real 2025 USD/MWh)"; d.appendChild(s);
+  const tb = document.createElement("table");
+  const hr = document.createElement("tr");
+  const th0 = document.createElement("th"); th0.textContent = "Year"; hr.appendChild(th0);
+  cols.forEach(c=>{ const th = document.createElement("th"); th.textContent = c.label; hr.appendChild(th); });
+  tb.appendChild(hr);
+  years.forEach((y,i)=>{
+    const tr = document.createElement("tr");
+    const td0 = document.createElement("td"); td0.textContent = y; tr.appendChild(td0);
+    cols.forEach(c=>{ const td = document.createElement("td"); td.textContent = fmt(c.values[i]); tr.appendChild(td); });
+    tb.appendChild(tr);
+  });
+  d.appendChild(tb); parent.appendChild(d);
+}
+
+/* ---------- line chart ---------- */
+function lineChart(mount, opts){
+  // opts: years, series[{label,color,dash,values,band:{lo,hi,color}}], h, ymaxOverride, endLabels
+  const W = opts.w || 940, H = opts.h || 380;
+  const M = {l:46, r: opts.endLabels ? 56 : 18, t:14, b:30};
+  const box = div("chartbox", mount);
+  const svg = svgel("svg", {viewBox:`0 0 ${W} ${H}`, role:"img"}, box);
+  const years = opts.years;
+  let ymax = 0, ymin = 0;
+  opts.series.forEach(s=>{
+    s.values.forEach(v=>{ if(v!=null){ ymax=Math.max(ymax,v); ymin=Math.min(ymin,v);} });
+    if(s.band){ s.band.hi.forEach(v=>{ if(v!=null) ymax=Math.max(ymax,v); }); }
+  });
+  ymax = opts.ymaxOverride || niceMax(ymax*1.04);
+  if(ymin < 0) ymin = -niceMax(-ymin*1.04);
+  const plotW = W-M.l-M.r, plotH = H-M.t-M.b;
+  const X = i => M.l + (years.length===1 ? 0 : i*plotW/(years.length-1));
+  const Y = v => M.t + plotH - (v-ymin)/(ymax-ymin)*plotH;
+  // grid + y labels
+  (opts.ticks || ticksFor(ymax, ymin)).forEach(v=>{
+    svgel("line",{x1:M.l,x2:W-M.r,y1:Y(v),y2:Y(v),stroke: v===0&&ymin<0 ? "var(--axis)":"var(--grid)","stroke-width":1},svg);
+    svgel("text",{x:M.l-8,y:Y(v)+4,"text-anchor":"end","font-size":11.5,fill:"var(--muted)","font-family":"system-ui,sans-serif"},svg).textContent = fmt0(v);
+  });
+  svgel("line",{x1:M.l,x2:W-M.r,y1:Y(ymin),y2:Y(ymin),stroke:"var(--axis)","stroke-width":1},svg);
+  // x labels
+  years.forEach((y,i)=>{
+    if(y%5===0 || i===years.length-1 && y%5!==0 && years.length>8 && false)
+      svgel("text",{x:X(i),y:H-8,"text-anchor":"middle","font-size":11.5,fill:"var(--muted)","font-family":"system-ui,sans-serif"},svg).textContent = y;
+  });
+  // bands
+  opts.series.forEach(s=>{
+    if(!s.band) return;
+    let d="", back="";
+    let started=false;
+    years.forEach((y,i)=>{
+      const lo=s.band.lo[i], hi=s.band.hi[i];
+      if(lo==null||hi==null) return;
+      d += (started?"L":"M")+X(i)+" "+Y(hi)+" ";
+      back = "L"+X(i)+" "+Y(lo)+" " + back;
+      started=true;
+    });
+    if(d) svgel("path",{d:d+back+"Z",fill:s.color,opacity:.12,stroke:"none"},svg);
+  });
+  // lines
+  opts.series.forEach(s=>{
+    let d="", started=false;
+    years.forEach((y,i)=>{
+      const v=s.values[i];
+      if(v==null){ started=false; return; }
+      d += (started?"L":"M")+X(i)+" "+Y(v)+" "; started=true;
+    });
+    const p = svgel("path",{d,fill:"none","stroke-width":2.2,"stroke-linejoin":"round","stroke-linecap":"round"},svg);
+    p.style.stroke = s.color;
+    if(s.dash) p.setAttribute("stroke-dasharray","7 5");
+  });
+  // end labels
+  if(opts.endLabels){
+    const placed=[];
+    opts.series.filter(s=>s.endLabel).forEach(s=>{
+      let li=-1; for(let i=years.length-1;i>=0;i--) if(s.values[i]!=null){ li=i; break; }
+      if(li<0) return;
+      let ly = Y(s.values[li]);
+      placed.sort((a,b)=>a-b);
+      for(const py of placed){ if(Math.abs(ly-py)<14) ly = py+14; }
+      placed.push(ly);
+      const t = svgel("text",{x:X(li)+8,y:ly+4,"font-size":12,"font-weight":650,"font-family":"system-ui,sans-serif"},svg);
+      t.textContent = s.endLabel; t.style.fill = "var(--ink2)";
+      svgel("circle",{cx:X(li),cy:Y(s.values[li]),r:4,stroke:"var(--surface)","stroke-width":2, fill:"none"},svg).style.fill = s.color;
+    });
+  }
+  // hover layer
+  const tip = opts.tip, fig = opts.fig;
+  const hair = svgel("line",{y1:M.t,y2:M.t+plotH,stroke:"var(--axis)","stroke-width":1,opacity:0},svg);
+  const dots = opts.series.map(s=>{
+    const c = svgel("circle",{r:4.5,stroke:"var(--surface)","stroke-width":2,opacity:0},svg);
+    c.style.fill = s.color; return c;
+  });
+  const hit = svgel("rect",{x:M.l,y:M.t,width:plotW,height:plotH,fill:"transparent"},svg);
+  hit.addEventListener("pointermove", ev=>{
+    const r = svg.getBoundingClientRect();
+    const px = (ev.clientX - r.left) * (W/r.width);
+    let i = Math.round((px-M.l)/(plotW/(years.length-1)));
+    i = Math.max(0, Math.min(years.length-1, i));
+    hair.setAttribute("x1",X(i)); hair.setAttribute("x2",X(i)); hair.setAttribute("opacity",1);
+    opts.series.forEach((s,k)=>{
+      const v = s.values[i];
+      if(v==null){ dots[k].setAttribute("opacity",0); return; }
+      dots[k].setAttribute("cx",X(i)); dots[k].setAttribute("cy",Y(v)); dots[k].setAttribute("opacity",1);
+    });
+    const fr = fig.getBoundingClientRect();
+    tip.show(ev.clientX - fr.left, ev.clientY - fr.top, years[i],
+      opts.series.map(s=>({label:s.label, color:getComputedStyle(document.documentElement).getPropertyValue("--x")||s.color, value:s.values[i], dash:s.dash})).map(r=>({...r,color:r.color}))
+    );
+  });
+  hit.addEventListener("pointerleave", ()=>{ hair.setAttribute("opacity",0); dots.forEach(d=>d.setAttribute("opacity",0)); tip.hide(); });
+  return svg;
+}
+
+/* ---------- stacked panels ---------- */
+function stackPanels(mount, opts){
+  // opts: years, panels[{title, segs:[{label,color,values}], obs:{label,values}}], ymax
+  const wrap = div("panels", mount);
+  let ymax = 0;
+  opts.panels.forEach(p=>{
+    opts.years.forEach((y,i)=>{
+      let t=0; p.segs.forEach(s=>{ if(s.values[i]!=null) t+=s.values[i]; });
+      ymax = Math.max(ymax, t);
+      if(p.obs && p.obs.values[i]!=null) ymax = Math.max(ymax, p.obs.values[i]);
+    });
+  });
+  ymax = opts.ymaxOverride || niceMax(ymax*1.04);
+  opts.panels.forEach(p=>{
+    const pd = div("panel", wrap);
+    div("ptitle", pd, p.title);
+    const box = div("chartbox", pd);
+    const W=320, H=300, M={l:38,r:6,t:10,b:24};
+    const svg = svgel("svg",{viewBox:`0 0 ${W} ${H}`,role:"img"},box);
+    const plotW=W-M.l-M.r, plotH=H-M.t-M.b;
+    const n = opts.years.length;
+    const slot = plotW/n;
+    const bw = Math.min(24, slot*0.72);
+    const X = i => M.l + i*slot + slot/2;
+    const Y = v => M.t + plotH - v/ymax*plotH;
+    ticksFor(ymax).forEach(v=>{
+      svgel("line",{x1:M.l,x2:W-M.r,y1:Y(v),y2:Y(v),stroke:"var(--grid)","stroke-width":1},svg);
+      svgel("text",{x:M.l-6,y:Y(v)+3.5,"text-anchor":"end","font-size":10.5,fill:"var(--muted)","font-family":"system-ui,sans-serif"},svg).textContent = fmt0(v);
+    });
+    opts.years.forEach((y,i)=>{
+      if(y%5===0) svgel("text",{x:X(i),y:H-7,"text-anchor":"middle","font-size":10.5,fill:"var(--muted)","font-family":"system-ui,sans-serif"},svg).textContent = "'"+String(y).slice(2);
+    });
+    svgel("line",{x1:M.l,x2:W-M.r,y1:Y(0),y2:Y(0),stroke:"var(--axis)","stroke-width":1},svg);
+    // bars
+    opts.years.forEach((y,i)=>{
+      let acc=0;
+      const present = p.segs.filter(s=>s.values[i]!=null && s.values[i]>0.001);
+      present.forEach((s,si)=>{
+        const v=s.values[i];
+        const y1=Y(acc+v), y0=Y(acc);
+        const top = si===present.length-1;
+        const gap = top?0:1.5;
+        const h = Math.max(0, (y0-y1)-gap);
+        const x = X(i)-bw/2, yy = y1 + (top?0:gap*0); // gap shaved from top of lower segs: shift lower seg down
+        let r;
+        if(top && h>3){
+          const rr=3;
+          r = svgel("path",{d:`M${x} ${y1+h} L${x} ${y1+rr} Q${x} ${y1} ${x+rr} ${y1} L${x+bw-rr} ${y1} Q${x+bw} ${y1} ${x+bw} ${y1+rr} L${x+bw} ${y1+h} Z`},svg);
+        } else {
+          r = svgel("rect",{x, y:y1+gap, width:bw, height:Math.max(0,h)},svg);
+        }
+        r.style.fill = s.color;
+        acc += v;
+      });
+    });
+    // obs line
+    if(p.obs){
+      let d="", started=false;
+      opts.years.forEach((y,i)=>{
+        const v=p.obs.values[i];
+        if(v==null){started=false;return;}
+        d+=(started?"L":"M")+X(i)+" "+Y(v)+" "; started=true;
+      });
+      const l = svgel("path",{d,fill:"none","stroke-width":2,"stroke-linejoin":"round"},svg);
+      l.style.stroke = "var(--obs)";
+    }
+    // hover
+    const tip = opts.tip, fig = opts.fig;
+    const hit = svgel("rect",{x:M.l,y:M.t,width:plotW,height:plotH,fill:"transparent"},svg);
+    const hl = svgel("rect",{y:M.t,height:plotH,width:slot,fill:"var(--ink)",opacity:0,"pointer-events":"none"},svg);
+    hit.addEventListener("pointermove", ev=>{
+      const r = svg.getBoundingClientRect();
+      const px = (ev.clientX-r.left)*(W/r.width);
+      let i = Math.floor((px-M.l)/slot);
+      i = Math.max(0,Math.min(n-1,i));
+      hl.setAttribute("x", M.l+i*slot); hl.setAttribute("opacity",0.05);
+      const rows = [];
+      if(p.obs && p.obs.values[i]!=null) rows.push({label:p.obs.label, color:getComputedStyle(svg).getPropertyValue("--obs")||"#000", value:p.obs.values[i]});
+      let tot=0;
+      [...p.segs].reverse().forEach(s=>{
+        if(s.values[i]==null) return;
+        tot+=s.values[i];
+        rows.push({label:s.label, color:s.colorHex||s.color, value:s.values[i]});
+      });
+      rows.push({label:"Segments total", color:"transparent", value:tot});
+      const fr = fig.getBoundingClientRect();
+      tip.show(ev.clientX-fr.left, ev.clientY-fr.top, p.title+" · "+opts.years[i], rows);
+    });
+    hit.addEventListener("pointerleave", ()=>{ hl.setAttribute("opacity",0); tip.hide(); });
+  });
+}
+
+/* ---------- figure scaffold ---------- */
+function figure(id, title, sub, toggles){
+  const fig = $("#"+id);
+  fig.innerHTML = "";
+  const head = div("fighead", fig);
+  const tl = div("", head);
+  div("figtitle", tl, title);
+  if(sub) div("figsub", tl, sub);
+  let seg = null, state = null, cb = null;
+  if(toggles){
+    seg = div("seg", head);
+    state = toggles[0].value;
+    toggles.forEach(t=>{
+      const b = document.createElement("button");
+      b.textContent = t.label; b.setAttribute("aria-pressed", t.value===state);
+      b.addEventListener("click", ()=>{
+        state = t.value;
+        seg.querySelectorAll("button").forEach(bb=>bb.setAttribute("aria-pressed", bb===b));
+        if(cb) cb(state);
+      });
+      seg.appendChild(b);
+    });
+  }
+  const body = div("", fig);
+  const tip = makeTip(fig);
+  return {
+    fig, tip, body,
+    onToggle(f){ cb = f; },
+    state: ()=>state,
+    setHead(t, s2){
+      const tt = this.fig.querySelector(".figtitle"); if(tt && t) tt.textContent = t;
+      const ss = this.fig.querySelector(".figsub");   if(ss && s2) ss.textContent = s2;
+    },
+    legend(items){
+      const lg = div("legend", fig);
+      items.forEach(it=>{
+        const s = div("it", lg);
+        const sw = document.createElement("span");
+        sw.className = it.line ? ("ln"+(it.dash?" dash":"")) : "sw";
+        if(it.line) sw.style.borderTopColor = it.color; else sw.style.background = it.color;
+        s.appendChild(sw);
+        s.appendChild(document.createTextNode(it.label));
+      });
+      return lg;
+    },
+    caption(html){ const c = document.createElement("figcaption"); c.innerHTML = html; this.fig.appendChild(c); return c; }, /* static trusted strings only — never user/tool data */
+    clearBody(){ this.body.innerHTML=""; }
+  };
+}
+
+const CV = { UK:"var(--uk)", DE:"var(--de)", CN:"var(--cn)" };
+const CH = { UK:"#2a78d6", DE:"#eda100", CN:"#e34948" }; // for tooltip keys (resolved at runtime below)
+function cvar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+
+/* ============ FIG 1 — observed prices ============ */
+function renderPrices(){
+  const F = figure("fig1","Observed industrial electricity prices, 2010\u20132025",
+    "What statistical sources record industry paying \u2014 real 2025 USD/MWh, excl. VAT, energy taxes included. Both panels share one axis.", null);
+  const wrap = div("panels eqhead", F.body);
+  const CFG = [
+    ["medium","Medium industry \u2014 20 GWh a year, 5,000 hours, HV distribution"],
+    ["large","Large industry \u2014 500 GWh a year, 8,000 hours, transmission-connected"]
+  ];
+  CFG.forEach(([arch,ptitle])=>{
+    const pd = div("panel", wrap); pd.style.flexBasis="420px";
+    div("ptitle", pd, ptitle);
+    const P = DATA.prices[arch];
+    const series = [
+      {label:"United Kingdom", color:cvar("--uk"), values:P.UK.obs, endLabel:"UK"},
+      {label:"Germany", color:cvar("--de"), values:P.DE.obs, endLabel:"DE"},
+      {label:"China", color:cvar("--cn"), values:P.CN.E, endLabel:"CN"},
+    ];
+    lineChart(pd, {years:DATA.years, series, tip:F.tip, fig:F.fig, endLabels:true, w:470, h:360, ymaxOverride:400});
+  });
+  F.legend([
+    {label:"United Kingdom", color:cvar("--uk"), line:true},
+    {label:"Germany", color:cvar("--de"), line:true},
+    {label:"China", color:cvar("--cn"), line:true},
+  ]);
+  ["medium","large"].forEach(arch=>{
+    const P = DATA.prices[arch];
+    tableView(F.fig, DATA.years, [
+      {label:"United Kingdom", values:P.UK.obs},
+      {label:"Germany", values:P.DE.obs},
+      {label:"China", values:P.CN.E},
+    ], "View data \u2014 " + (arch==="medium"?"medium":"large") + " industry (real 2025 USD/MWh)");
+  });
+  F.caption('<b>Bands.</b> Medium: UK QEP Large (20&ndash;70 GWh/yr), Germany Eurostat ID (2&ndash;20 GWh), China \u5927\u5de5\u4e1a at 1&ndash;10 kV. Large: UK QEP Extra Large (&gt;150 GWh/yr), Germany Eurostat IF (70&ndash;150 GWh), China the same class at 220 kV. The 20 GWh archetype sits at the bottom edge of the UK band and the top edge of the German one, so the UK average is drawn from firms mostly larger than it, the German mostly smaller. <b>Sources.</b> <a href="https://www.gov.uk/government/statistical-data-sets/gas-and-electricity-prices-in-the-non-domestic-sector" target="_blank" rel="noopener">DESNZ Quarterly Energy Prices</a> table 3.4.2, incl. CCL; <a href="https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_205/default/table" target="_blank" rel="noopener">Eurostat nrg_pc_205</a>, excl. VAT; Chinese provincial catalogue schedules to Oct 2021, then grid agency-purchase notices and <a href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202305/t20230515_1355747.html" target="_blank" rel="noopener">NDRC T&amp;D schedules</a>, weighted by 2024 provincial consumption. China runs no equivalent survey; from 2022 the medium line is Jiangsu only.');
+}
+
+/* ============ FIG 2 \u2014 output, two panels in one card ============ */
+function renderOutput(){
+  const F = figure("fig2","Industrial output, 2010 = 100",
+    "The energy-intensive composite beside the whole-sector benchmark it should be read against. Note the two panels use different axes.", null);
+  const wrap = div("panels eqhead", F.body);
+
+  const p1 = div("panel", wrap); p1.style.flexBasis="420px";
+  div("ptitle", p1, "Energy-intensive \u2014 steel, aluminium, cement, paper");
+  const O = DATA.output.compositeVW;
+  const s1 = ["UK","DE","CN"].map(c=>({
+    label:{UK:"United Kingdom",DE:"Germany",CN:"China"}[c], color:cvar("--"+c.toLowerCase()),
+    values:O[c].c, band:{lo:O[c].lo, hi:O[c].hi, color:cvar("--"+c.toLowerCase())}, endLabel:c
+  }));
+  lineChart(p1, {years:DATA.years, series:s1, tip:F.tip, fig:F.fig, endLabels:true, w:470, h:360});
+
+  const p2 = div("panel", wrap); p2.style.flexBasis="420px";
+  div("ptitle", p2, "Total industrial output \u2014 the benchmark");
+  const M = DATA.output.manufacturing;
+  const s2 = ["UK","DE","CN"].map(c=>({
+    label:{UK:"United Kingdom",DE:"Germany",CN:"China"}[c], color:cvar("--"+c.toLowerCase()), values:M[c], endLabel:c
+  }));
+  lineChart(p2, {years:DATA.years, series:s2, tip:F.tip, fig:F.fig, endLabels:true, w:470, h:360});
+
+  F.legend([
+    {label:"United Kingdom", color:cvar("--uk"), line:true},
+    {label:"Germany", color:cvar("--de"), line:true},
+    {label:"China", color:cvar("--cn"), line:true},
+  ]);
+  tableView(F.fig, DATA.years, s1.map(x=>({label:x.label, values:x.values})), "View data \u2014 energy-intensive composite (index, 2010 = 100)");
+  tableView(F.fig, DATA.years, ["UK","DE","CN"].map(c=>({label:DATA.output.mfg_labels[c], values:M[c]})), "View data \u2014 total industrial output (index, 2010 = 100)");
+  tableView(F.fig, DATA.years, ["UK","DE","CN"].map(c=>({label:c+" energy-intensive divisions (17, 19, 20, 23, 24)", values:DATA.output.eiAgg[c].c})), "View data \u2014 five-division energy-intensive aggregate (index, 2010 = 100)");
+  F.caption('<b>Left.</b> Weights are EU27 value added for the matching NACE classes in 2010 &mdash; steel 44%, paper 28%, aluminium 15%, cement 13% &mdash; applied identically to all three countries, so the basket is like-for-like rather than three differently-shaped ones. The band spans three weightings; the ranking and magnitudes hold under all of them. <b>Right.</b> Whole-sector output, and the definitions are not identical: the UK and German lines are manufacturing (NACE section C), while China\'s covers all industry including mining and utilities, and only firms above a revenue threshold raised in 2011. <b>Sources.</b> <a href="https://worldsteel.org/data/" target="_blank" rel="noopener">worldsteel</a>, <a href="https://international-aluminium.org/statistics/primary-aluminium-production/" target="_blank" rel="noopener">IAI</a>, <a href="https://www.ons.gov.uk/economy/economicoutputandproductivity/output/datasets/indexofproduction" target="_blank" rel="noopener">ONS</a>, <a href="https://ec.europa.eu/eurostat/databrowser/view/sts_inpr_a/default/table" target="_blank" rel="noopener">Eurostat</a>, <a href="https://www.stats.gov.cn/sj/" target="_blank" rel="noopener">NBS</a>. 2025 shown only where all four products are reported.');
+}
+
+/* ============ FIG 3 / FIG 4 — component stacks ============ */
+function bucketPanels(figId, useCase, title, sub, capNote){
+  const F = figure(figId, title, sub,
+    [{label:"Medium industry", value:"medium"},{label:"Large industry", value:"large"}]);
+  function draw(arch){
+    F.clearBody();
+    const segCols = { w:cvar("--bw"), n:cvar("--bn"), l:cvar("--bl"), m:cvar("--bm"), x:cvar("--bx") };
+    function ukde(c){
+      const B = DATA.buckets[`${c}.${arch}.${useCase}`];
+      const segs = [
+        {label:"Wholesale", color:segCols.w, values:B.wholesale},
+        {label:"Network, system & balancing", color:segCols.n, values:B.network},
+        {label:"Levies & taxes incl. gen-capital", color:segCols.l, values:B.levies},
+      ];
+      const maskToStack = a => a.map((v,i)=> B.total[i]==null ? null : v);
+      if(c==="UK")
+        segs.push({label:"Supplier retail costs + margin (CSS; 2010–11 & 2025 imputed)", color:segCols.m, values:maskToStack(DATA.cssWedge.measuredFilled)});
+      if(c==="DE")
+        segs.push({label:"Supplier retail costs + margin (BNetzA \u201cVertrieb und Marge\u201d, 2025, held constant)", color:segCols.m, values:maskToStack(DATA.deWedge.measuredFilled)});
+      return {
+        title: c==="UK" ? "United Kingdom" : "Germany",
+        segs,
+        obs: {label:"Observed price", values:DATA.prices[arch][c].obs}
+      };
+    }
+    const CB = DATA.buckets[`CN.${arch==="large"?"large":"medium"}`];
+    const cn = {
+      title:"China",
+      segs: [
+        {label:"Bundled catalogue tariff (pre-2022, non-splittable)", color:segCols.x, values:CB.bundled},
+        {label:"Wholesale", color:segCols.w, values:CB.wholesale},
+        {label:"Network, system & balancing", color:segCols.n, values:CB.network},
+        {label:"Levies & taxes incl. gen-capital", color:segCols.l, values:CB.levies},
+      ],
+      obs: {label:"Documented tariff", values:DATA.prices[arch].CN.E}
+    };
+    stackPanels(F.body, {years:DATA.years, panels:[ukde("UK"), ukde("DE"), cn], tip:F.tip, fig:F.fig, ymaxOverride:500});
+    F.fig.querySelectorAll(".legend, figcaption, details.tbl").forEach(e=>e.remove());
+    const legendItems = [
+      {label:"Wholesale", color:segCols.w},
+      {label:"Network, system & balancing", color:segCols.n},
+      {label:"Levies & taxes incl. gen-capital recovery", color:segCols.l},
+    ];
+    legendItems.push({label:"Supplier retail costs + margin", color:segCols.m});
+    legendItems.push({label:"CN bundled tariff pre-2022", color:segCols.x});
+    legendItems.push({label:"Observed price", color:cvar("--obs"), line:true});
+    F.legend(legendItems);
+    ["UK","DE"].forEach(c=>{
+      const B = DATA.buckets[`${c}.${arch}.${useCase}`];
+      const cols = [
+        {label:c+" wholesale", values:B.wholesale},
+        {label:c+" network+system", values:B.network},
+        {label:c+" levies+taxes", values:B.levies},
+      ];
+      const mask = a => a.map((v,i)=> B.total[i]==null ? null : v);
+      if(c==="UK") cols.push({label:"UK supplier costs+margin (CSS; 2010–11 & 2025 = 2012–24 avg)", values:mask(DATA.cssWedge.measuredFilled)});
+      if(c==="DE"){ cols.push({label:"DE supplier costs+margin (BNetzA 2025, held constant in real terms)", values:mask(DATA.deWedge.measuredFilled)});
+                      cols.push({label:"DE margin only, cross-check (E.ON DE retail EBITDA/MWh)", values:DATA.deWedge.eonMarginOnly}); }
+      cols.push({label:c+" total (excl. margin)", values:B.total});
+      cols.push({label:c+" observed", values:DATA.prices[arch][c].obs});
+      tableView(F.fig, DATA.years, cols, "View data — " + (c==="UK"?"United Kingdom":"Germany") + " (real 2025 USD/MWh)");
+    });
+    tableView(F.fig, DATA.years, [
+      {label:"CN bundled", values:CB.bundled},
+      {label:"CN wholesale", values:CB.wholesale},
+      {label:"CN network+system", values:CB.network},
+      {label:"CN levies+taxes", values:CB.levies},
+      {label:"CN total", values:CB.total},
+    ], "View data — China (real 2025 USD/MWh)");
+    F.caption(capNote + ' The overlaid line is the observed price; the gap to the stack is the wedge analysed in section 6.' + (arch==="medium" && useCase==="E2" ? ' <b>Medium archetype:</b> a 20 GWh site at 5,000 hours fails Germany\'s &sect;19 StromNEV baseload test, so its German network charges are barely relieved &mdash; which is why the medium German stack stays close to its unrelieved counterpart.' : '') + (arch==="large" ? ' <b>China:</b> from 2022 the line sits a few dollars above the bars (2023: $103.5 against $98.7). That is a source-vintage difference, not a wedge &mdash; the tariff line is the Jiangsu/Guangdong/Henan basket while the component split exists only for Jiangsu. The medium view has no such gap.' : '') + ' Model inputs: published market prices plus <a href="https://www.neso.energy/industry-information/charging/tnuos-charges" target="_blank" rel="noopener">NESO TNUoS</a>/DUoS/BSUoS schedules and levy rates (UK); <a href="https://www.netztransparenz.de/" target="_blank" rel="noopener">netztransparenz.de</a>/BNetzA Netzentgelte and Umlagen (DE); provincial catalogue &amp; <a href="https://www.ndrc.gov.cn/xxgk/zcfb/tz/202305/t20230515_1355747.html" target="_blank" rel="noopener">NDRC T&amp;D schedules</a> (CN).');
+  }
+  F.onToggle(v=>{ draw(v); labelCharts(); }); draw("medium");
+}
+
+/* ============ FIG 5 — all-in with relief ============ */
+function renderFig5(){
+  const F = figure("fig5","The all-in price with relief",
+    "Modelled all-in totals for a site holding full exemptions, including measured supplier retail costs and margin \u2014 real 2025 USD/MWh. China: documented tariff (no relief tier exists; the supply function sits inside the regulated price). Both panels share one axis.", null);
+  const wrap = div("panels eqhead", F.body);
+  const CFG = [
+    ["medium","Medium industry \u2014 20 GWh a year, 5,000 hours"],
+    ["large","Large industry \u2014 500 GWh a year, 8,000 hours"]
+  ];
+  CFG.forEach(([arch,ptitle])=>{
+    const pd = div("panel", wrap); pd.style.flexBasis="420px";
+    div("ptitle", pd, ptitle);
+    const P = DATA.prices[arch];
+    const aU = a=>a.map((v,i)=> v==null ? null : v + DATA.cssWedge.measuredFilled[i]);
+    const aD = a=>a.map((v,i)=> v==null ? null : v + DATA.deWedge.measuredFilled[i]);
+    const series = [
+      {label:"UK \u2014 with exemptions, incl. supplier costs", color:cvar("--uk"), values:aU(P.UK.E2), endLabel:"UK"},
+      {label:"Germany \u2014 with exemptions, incl. supplier costs", color:cvar("--de"), values:aD(P.DE.E2), endLabel:"DE",
+       band: arch==="large" ? {lo:aD(P.DE.E2lo), hi:aD(P.DE.E2hi), color:cvar("--de")} : null},
+      {label:"China \u2014 documented tariff", color:cvar("--cn"), values:P.CN.E, endLabel:"CN"},
+    ];
+    lineChart(pd, {years:DATA.years, series, tip:F.tip, fig:F.fig, endLabels:true, w:470, h:360, ymaxOverride:450});
+  });
+  F.legend([
+    {label:"UK \u2014 with exemptions, incl. supplier costs", color:cvar("--uk"), line:true},
+    {label:"Germany \u2014 with exemptions, incl. supplier costs", color:cvar("--de"), line:true},
+    {label:"China \u2014 documented tariff", color:cvar("--cn"), line:true},
+  ]);
+  ["medium","large"].forEach(arch=>{
+    const P = DATA.prices[arch];
+    const aU = a=>a.map((v,i)=> v==null ? null : v + DATA.cssWedge.measuredFilled[i]);
+    const aD = a=>a.map((v,i)=> v==null ? null : v + DATA.deWedge.measuredFilled[i]);
+    const rows = [
+      {label:"UK \u2014 with exemptions, incl. supplier costs", values:aU(P.UK.E2)},
+      {label:"Germany \u2014 with exemptions, incl. supplier costs", values:aD(P.DE.E2)},
+      {label:"China \u2014 documented tariff", values:P.CN.E},
+      {label:"UK stack only (excl. supplier)", values:P.UK.E2},
+      {label:"DE stack only (excl. supplier)", values:P.DE.E2},
+    ];
+    if(arch==="large"){ rows.push({label:"DE corridor low (incl. supplier)", values:aD(P.DE.E2lo)},{label:"DE corridor high (incl. supplier)", values:aD(P.DE.E2hi)}); }
+    tableView(F.fig, DATA.years, rows, "View data \u2014 " + arch + " industry (real 2025 USD/MWh)");
+  });
+  F.caption('Exempt case assumes full eligibility &mdash; UK: 100% renewables-levy exemption, Capacity Market exclusion and network compensation as legislated by year (<a href="https://www.legislation.gov.uk/uksi/2024/409" target="_blank" rel="noopener">SI 2024/409</a>, <a href="https://www.legislation.gov.uk/uksi/2026/243" target="_blank" rel="noopener">SI 2026/243</a>); Germany: EEG cap to 2022 and the &sect;19 StromNEV network floor. The shaded corridor on the large panel is a partially-relieved German firm: full network charges, EEG cap at its high band. No corridor on the medium panel: a 20 GWh site at 5,000 hours fails the &sect;19 baseload test, so it gets the EEG cap and almost no network relief. Both national lines include the measured supplier segment of section 3 (UK: Ofgem CSS, 2012&ndash;24 measured, end-years imputed; Germany: BNetzA 2025, held constant in real terms). China&rsquo;s regulated tariff needs no such addition &mdash; the supply function is already inside it.');
+}
+
+/* ============ FIG 6 — hedging: as-procured vs spot ============ */
+function renderFig6(){
+  const F = figure("fig6","Where hedging shows up: the same bill priced as-procured vs at spot",
+    "Exempt case in both countries; toggle between the archetypes. The same bill priced two ways: at the forward price industry actually bought at (year-ahead, solid) and at the delivery year's day-ahead spot price (dashed). The observed line is a band average, not the same firm.",
+    [{label:"Medium industry", value:"medium"},{label:"Large industry", value:"large"}]);
+  function draw(arch){
+    F.clearBody();
+    const wrap = div("panels eqhead", F.body);
+    const CELLS = [["UK","United Kingdom"],["DE","Germany"]];
+    CELLS.forEach(([c,title])=>{
+      const pd = div("panel", wrap); pd.style.flexBasis="420px";
+      div("ptitle", pd, title + " \u2014 " + (arch==="medium" ? "medium industry" : "large industry"));
+      const P = DATA.prices[arch][c];
+      const mm = c==="UK" ? DATA.cssWedge.measuredFilled : DATA.deWedge.measuredFilled;
+      const addM = (arr)=>arr.map((v,i)=> v==null ? null : v + mm[i]);
+      const key = (c==="UK" ? "UK_E2" : "DE_E2") + (arch==="medium" ? "_med" : "");
+      const series = [
+        {label:"Observed \u2014 band average", color:cvar("--obs"), values:P.obs},
+        {label:"Stack at year-ahead (as procured)", color:cvar("--"+c.toLowerCase()), values:addM(P.E2),
+         band: (c==="DE" && arch==="large") ? {lo:addM(P.E2lo), hi:addM(P.E2hi), color:cvar("--de")} : null},
+        {label:"Stack at day-ahead (spot)", color:cvar("--"+c.toLowerCase()), values:addM(DATA.daIndexed[key]), dash:true},
+      ];
+      lineChart(pd, {years:DATA.years, series, tip:F.tip, fig:F.fig, h:330, w:470, ymaxOverride:500});
+    });
+    F.fig.querySelectorAll(".legend, figcaption, details.tbl").forEach(e=>e.remove());
+    const leg = [
+      {label:"Observed", color:cvar("--obs"), line:true},
+      {label:"Stack, wholesale at year-ahead \u2014 as procured (solid)", color:cvar("--ink2"), line:true},
+      {label:"Stack, wholesale at day-ahead \u2014 spot (dashed)", color:cvar("--ink2"), line:true, dash:true},
+    ];
+    if(arch==="large") leg.push({label:"Partial-relief corridor (Germany)", color:"color-mix(in srgb, var(--de) 20%, var(--surface))"});
+    F.legend(leg);
+    CELLS.forEach(([c,title])=>{
+      const P = DATA.prices[arch][c];
+      const mm = c==="UK" ? DATA.cssWedge.measuredFilled : DATA.deWedge.measuredFilled;
+      const aM = (arr)=>arr.map((v,i)=> v==null ? null : v + mm[i]);
+      const key = (c==="UK" ? "UK_E2" : "DE_E2") + (arch==="medium" ? "_med" : "");
+      tableView(F.fig, DATA.years, [
+        {label:"observed", values:P.obs},
+        {label:"stack at year-ahead", values:aM(P.E2)},
+        {label:"stack at day-ahead", values:aM(DATA.daIndexed[key])},
+      ], "View data \u2014 " + title + ", " + arch + " industry (real 2025 USD/MWh)");
+    });
+    F.caption('Both panels are the exempt case, so within each one the two lines differ only in the wholesale vintage \u2014 exemptions do not touch the wholesale component. The British pair shifts slightly differently at the two sizes (loss gross-up: 3.2% HV against 0.8% transmission); the German pair does not \u2014 German losses sit inside the network charge. The shaded corridor (large view only) is a partially-relieved German firm; none in the medium view (the &sect;19 test again \u2014 section 5\u2019s card). <b>The observed line is a band average, not the same firm as the stack</b> \u2014 it includes firms holding none of these exemptions, which is why it runs above the stack in calm years. <b>Sources.</b> <a href="https://www.eex.com/en/market-data" target="_blank" rel="noopener">EEX Phelix</a> front-year (trading year Y&minus;1) against day-ahead annual averages (<a href="https://www.energy-charts.info/" target="_blank" rel="noopener">energy-charts</a>/SMARD); no 2010 front-year coverage. Before 2022 the UK model prices at day-ahead by construction, so its two lines coincide.');
+  }
+  F.onToggle(v=>{ draw(v); labelCharts(); }); draw("medium");
+}
+
+function labelCharts(){
+  document.querySelectorAll("figure.viz").forEach(f=>{
+    const t = f.querySelector(".figtitle"); const ft = t ? t.textContent : "Chart";
+    f.querySelectorAll("svg").forEach(s=>{
+      const p = s.closest(".panel");
+      const pt = p && p.querySelector(".ptitle") ? p.querySelector(".ptitle").textContent : "";
+      s.setAttribute("aria-label", ft + (pt ? " \u2014 " + pt : "") + ". Values are in the View data tables below the chart.");
+    });
+  });
+}
+
+/* ============ FIG 9 — nuclear costs across countries ============ */
+function renderFig9(){
+  const F = figure("fig9","Nuclear cost, three tiers: keep it, build it where it's routine, build it in the West",
+    "Real 2025 USD/MWh. Dots = point estimates or out-turns; bars = published ranges. The benchmark tier holds the cost of capital fixed at 7%, so differences are construction, not financing.", null);
+  const CVX = {UK:"--uk", DE:"--de", CN:"--cn", XX:"--bx"};
+  const W = 940, RH = 24, GH = 30, MT = 4, MB = 28, ML = 236, MR = 64;
+  let H = MT + MB;
+  DATA.nuc.groups.forEach(g=>{ H += GH + g[1].length*RH; });
+  const box = div("chartbox", F.body);
+  const svg = svgel("svg",{viewBox:`0 0 ${W} ${H}`, role:"img"}, box);
+  const xmax = 230;
+  const X = v => ML + v/xmax*(W-ML-MR);
+  [0,50,100,150,200].forEach(t=>{
+    svgel("line",{x1:X(t),x2:X(t),y1:MT,y2:H-MB,stroke:"var(--grid)","stroke-width":1},svg);
+    svgel("text",{x:X(t),y:H-10,"text-anchor":"middle","font-size":11.5,fill:"var(--muted)","font-family":"system-ui,sans-serif"},svg).textContent="$"+t;
+  });
+  const COAL = 66.7;
+  svgel("line",{x1:X(COAL),x2:X(COAL),y1:MT,y2:H-MB,stroke:"var(--ink2)","stroke-width":1.4,"stroke-dasharray":"4 4"},svg);
+  svgel("text",{x:X(COAL)+6,y:MT+12,"font-size":11,"font-weight":650,fill:"var(--ink2)","font-family":"system-ui,sans-serif"},svg).textContent="Chinese coal - $67";
+  const GAS = 186.4;
+  svgel("line",{x1:X(GAS),x2:X(GAS),y1:MT,y2:H-MB,stroke:"var(--ink2)","stroke-width":1.4,"stroke-dasharray":"2 5"},svg);
+  svgel("text",{x:X(GAS)+6,y:MT+12,"font-size":11,"font-weight":650,fill:"var(--ink2)","font-family":"system-ui,sans-serif"},svg).textContent="UK gas CCGT - $186";
+  let y = MT;
+  DATA.nuc.groups.forEach(([title,rows])=>{
+    svgel("text",{x:6,y:y+GH-9,"font-size":12.5,"font-weight":700,fill:"var(--ink)","font-family":"system-ui,sans-serif"},svg).textContent = title;
+    y += GH;
+    rows.forEach(([label,ctry,lo,hi])=>{
+      const yc = y + RH/2;
+      const col = cvar(CVX[ctry]);
+      svgel("text",{x:ML-10,y:yc+4,"text-anchor":"end","font-size":11.5,fill:"var(--ink2)","font-family":"system-ui,sans-serif"},svg).textContent = label;
+      let lx;
+      if(lo==null){
+        const dot = svgel("circle",{cx:X(hi),cy:yc,r:5.5,stroke:"var(--surface)","stroke-width":1.5},svg);
+        dot.style.fill = col;
+        lx = X(hi);
+      } else {
+        const rect = svgel("rect",{x:X(lo),y:yc-5.5,width:X(hi)-X(lo),height:11,rx:2,opacity:.9},svg);
+        rect.style.fill = col;
+        lx = X(hi);
+      }
+      svgel("text",{x:lx+8,y:yc+4,"font-size":11,"font-weight":650,fill:"var(--ink2)","font-family":"system-ui,sans-serif"},svg)
+        .textContent = lo==null ? "$"+Math.round(hi) : "$"+Math.round(lo)+"\u2013"+Math.round(hi);
+      y += RH;
+    });
+  });
+  F.caption('Benchmark tier: <a href="https://www.oecd-nea.org/upload/docs/application/pdf/2020-12/egc-2020_2020-12-09_18-26-46_781.pdf" target="_blank" rel="noopener">OECD/NEA Projected Costs of Generating Electricity 2020</a>, national build costs at a harmonised 7% real WACC (modelled, not out-turns; the same source’s life-extension band is the top row). Out-turn tier: Hinkley C contracted price (<a href="https://www.nao.org.uk/wp-content/uploads/2026/05/sizewell-c.pdf" target="_blank" rel="noopener">NAO 2026</a>); Vogtle 3&amp;4 in-service-cost proxy at 7%/60yr (own calculation from Georgia Power and MEAG disclosures); Flamanville 3 cost requirement at 7%/85% CF (<a href="https://www.ccomptes.fr" target="_blank" rel="noopener">Cour des comptes 2025</a>); UK first-of-a-kind estimate from <a href="https://www.gov.uk/government/publications/beis-electricity-generation-costs-november-2016" target="_blank" rel="noopener">BEIS 2016</a> (£95/MWh in 2014 prices — DESNZ has published no nuclear estimate since). German restart: Radiant Energy Group 2026, advocacy-adjacent, shown against the independent NEA life-extension band. Build durations in the text: <a href="https://pris.iaea.org" target="_blank" rel="noopener">IAEA PRIS</a>. China appears at $85 here and $72 in section 7’s chart; the two are consistent — the NEA benchmark is a 2018-dollar estimate ($66) restated in 2025 dollars, the IEA figure a 2024-dollar estimate ($70) at a higher assumed cost of capital; in same-year dollars they nearly coincide.');
+}
+
+
+/* ============ RESOURCE LADDER — bars inside the section-10 reality-check card ============ */
+function renderLadder(){
+  const box = document.getElementById("ladderbars");
+  if(!box) return;
+  box.innerHTML = "";
+  const L = DATA.ladder.rungs, BOE = 1699.7;
+  const yr = DATA.ns.cons[DATA.ns.cons.length-1];          // 2024 UK gas demand, TWh
+  const NAMES = [
+    ["Proven", "1P — sanctioned"],
+    ["+ probable", "2P — the planning basis"],
+    ["Contingent", "2C — discovered, unsanctioned"],
+    ["Prospective", "risked mean, undrilled"],
+  ];
+  const chart = div("chartbox", box);
+  const W=840, Hh=306, M={l:196, r:82, t:44, b:30};
+  const svg = svgel("svg",{viewBox:`0 0 ${W} ${Hh}`, role:"img"}, chart);
+  const iw = W-M.l-M.r, ih = Hh-M.t-M.b;
+  const xmax = 11000, X = v => M.l + v/xmax*iw;
+  const pitch = ih/L.length, bh = 24;
+  const SANS = "system-ui,sans-serif";
+  const GAS = cvar("--uk"), OIL = tint(cvar("--uk"), .42);
+
+  [0,2000,4000,6000,8000,10000].forEach(t=>{
+    svgel("line",{x1:X(t),x2:X(t),y1:M.t-8,y2:M.t+ih,stroke:"var(--grid)","stroke-width":1},svg);
+    svgel("text",{x:X(t),y:M.t-16,"text-anchor":"middle","font-size":11.5,fill:"var(--muted)","font-family":SANS},svg)
+      .textContent = t===0 ? "0" : fmt0(t);
+  });
+  svgel("text",{x:M.l,y:16,"text-anchor":"start","font-size":11.5,"font-weight":650,fill:"var(--muted)","font-family":SANS},svg)
+    .textContent = "TWh of energy in the ground";
+
+  [[1,"1 yr"],[5,"5 yr"]].forEach(([n,lab])=>{
+    const x = X(n*yr);
+    svgel("line",{x1:x,x2:x,y1:M.t-8,y2:M.t+ih+4,stroke:"var(--muted)","stroke-width":1.2,"stroke-dasharray":"4 4","stroke-opacity":.75},svg);
+    svgel("text",{x:x,y:Hh-10,"text-anchor":"middle","font-size":10.5,"font-weight":650,fill:"var(--ink2)","font-family":SANS},svg)
+      .textContent = lab;
+  });
+  svgel("text",{x:X(5*yr)+16,y:Hh-10,"text-anchor":"start","font-size":10.5,fill:"var(--muted)","font-family":SANS},svg)
+    .textContent = "of UK gas demand";
+
+  L.forEach((r,i)=>{
+    const totTWh = r[1]*BOE, gasTWh = r[2]==null ? null : r[2]*BOE;
+    const y = M.t + pitch*i + (pitch-bh)/2;
+    svgel("text",{x:M.l-12,y:y+10,"text-anchor":"end","font-size":13,"font-weight":650,fill:"var(--ink)","font-family":SANS},svg)
+      .textContent = NAMES[i][0];
+    svgel("text",{x:M.l-12,y:y+24,"text-anchor":"end","font-size":10.5,fill:"var(--muted)","font-family":SANS},svg)
+      .textContent = NAMES[i][1];
+
+    if(gasTWh==null){
+      const rect = svgel("rect",{x:M.l,y:y,width:X(totTWh)-M.l,height:bh,rx:2,"stroke-dasharray":"4 3",stroke:"var(--muted)","stroke-width":1},svg);
+      rect.style.fill = OIL;
+      svgel("text",{x:X(totTWh)-10,y:y+16,"text-anchor":"end","font-size":10.5,fill:"var(--ink2)","font-family":SANS},svg)
+        .textContent = "gas share not published at this stage";
+    } else {
+      const g = svgel("rect",{x:M.l,y:y,width:X(gasTWh)-M.l,height:bh,rx:2},svg); g.style.fill = GAS;
+      const o = svgel("rect",{x:X(gasTWh),y:y,width:X(totTWh)-X(gasTWh),height:bh,rx:2},svg); o.style.fill = OIL;
+    }
+  });
+
+  legendInto(box, [
+    {label:"Gas", color:GAS},
+    {label:"Oil & liquids in the same volume", color:OIL},
+  ]);
+}
+
+/* ============ FIG 12 — gas rent: delivered costs and who collects the wedge (Q95) ============ */
+function renderFig12(){
+  const F = figure("fig12","The gas rent: what a therm costs by route, and who collects the difference",
+    "Left: delivered cost of gas to Britain by supply route, USD/MMBtu, with the US LNG bar split into its chain components (cost estimates, heterogeneous vintages \u2014 see note). Right: a UKCS therm at 2025 prices, \u00a3/MWh \u2014 sold at market vs nationalised and sold at cost.", null);
+  const wrap = div("panels eqhead", F.body);
+  const R = DATA.rent;
+  const pd1 = div("panel", wrap); pd1.style.flexBasis="420px";
+  div("ptitle", pd1, "Delivered cost by route — USD/MMBtu");
+  const box1 = div("chartbox", pd1);
+  const W=470,Hh=350,M={l:44,r:14,t:16,b:46};
+  const svg1=svgel("svg",{viewBox:`0 0 ${W} ${Hh}`, role:"img"},box1);
+  const iw=W-M.l-M.r, ih=Hh-M.t-M.b;
+  const ymax=10, Yv=v=>M.t+ih-v/ymax*ih;
+  [0,2,4,6,8,10].forEach(t=>{
+    svgel("line",{x1:M.l,x2:W-M.r,y1:Yv(t),y2:Yv(t),stroke:"var(--grid)","stroke-width":1},svg1);
+    svgel("text",{x:M.l-8,y:Yv(t)+4,"text-anchor":"end","font-size":11.5,fill:"var(--muted)","font-family":"system-ui,sans-serif"},svg1).textContent="$"+t;
+  });
+  const n=R.routes.length, bw=iw/n*0.56;
+  const SEGC=["#c98500","#d9a854","#ecd0a0"];
+  R.routes.forEach((rt,idx)=>{
+    const label=rt[0], segs=rt[1], total=rt[2], isUK=rt[3];
+    const xc=M.l+iw*(idx+0.5)/n;
+    let y0=0;
+    segs.forEach((sg,si)=>{
+      const h=Yv(y0)-Yv(y0+sg[1]);
+      const rect=svgel("rect",{x:xc-bw/2,y:Yv(y0+sg[1]),width:bw,height:h,rx:1.5},svg1);
+      rect.style.fill = isUK ? cvar("--uk") : (si===0 ? cvar("--bx") : SEGC[si-1]);
+      y0+=sg[1];
+    });
+    svgel("text",{x:xc,y:Yv(total)-7,"text-anchor":"middle","font-size":12,"font-weight":700,fill:"var(--ink2)","font-family":"system-ui,sans-serif"},svg1).textContent="$"+total.toFixed(2).replace(/0$/,"").replace(/\.5$/,".5").replace(/\.7$/,".7");
+    label.split(" ").forEach((word,wi)=>{
+      svgel("text",{x:xc,y:Hh-30+wi*13,"text-anchor":"middle","font-size":11,fill:"var(--muted)","font-family":"system-ui,sans-serif"},svg1).textContent=word;
+    });
+  });
+  const pd2 = div("panel", wrap); pd2.style.flexBasis="420px";
+  div("ptitle", pd2, "A UKCS therm, 2025 — £/MWh");
+  const box2 = div("chartbox", pd2);
+  const svg2=svgel("svg",{viewBox:`0 0 ${W} ${Hh}`, role:"img"},box2);
+  const ymax2=35, Y2=v=>M.t+ih-v/ymax2*ih;
+  [0,10,20,30].forEach(t=>{
+    svgel("line",{x1:M.l,x2:W-M.r,y1:Y2(t),y2:Y2(t),stroke:"var(--grid)","stroke-width":1},svg2);
+    svgel("text",{x:M.l-8,y:Y2(t)+4,"text-anchor":"end","font-size":11.5,fill:"var(--muted)","font-family":"system-ui,sans-serif"},svg2).textContent="£"+t;
+  });
+  const L=R.ledger;
+  const bars=[
+    ["Sold|at market",[["production cost",L.cost,"--bx"],["Exchequer",L.tax,"--bn"],["producer profit",L.profit,"--bm"]]],
+    ["Nationalised,|sold at cost",[["production cost",L.cost,"--bx"]]],
+  ];
+  const bw2=iw/2*0.44;
+  bars.forEach((b,idx)=>{
+    const xc=M.l+iw*(idx+0.5)/2;
+    let y0=0;
+    b[1].forEach(sg=>{
+      const rect=svgel("rect",{x:xc-bw2/2,y:Y2(y0+sg[1]),width:bw2,height:Y2(y0)-Y2(y0+sg[1]),rx:1.5},svg2);
+      rect.style.fill=cvar(sg[2]);
+      const yMid=(Y2(y0)+Y2(y0+sg[1]))/2+4;
+      if(sg[1]>3.5){
+        const t=svgel("text",{x:xc,y:yMid,"text-anchor":"middle","font-size":10.5,"font-weight":650,"font-family":"system-ui,sans-serif"},svg2);
+        t.textContent=sg[0]+" £"+sg[1].toFixed(0);
+        t.style.fill = sg[2]==="--bn" ? "#ffffff" : "var(--ink2)";
+      } else {
+        svgel("text",{x:xc+bw2/2+6,y:yMid,"text-anchor":"start","font-size":10.5,"font-weight":650,fill:"var(--ink2)","font-family":"system-ui,sans-serif"},svg2).textContent=sg[0]+" £"+sg[1].toFixed(0);
+      }
+      y0+=sg[1];
+    });
+    if(idx===1){
+      svgel("rect",{x:xc-bw2/2,y:Y2(L.price),width:bw2,height:Y2(L.cost)-Y2(L.price),rx:1.5,fill:"none",stroke:"var(--muted)","stroke-width":1.2,"stroke-dasharray":"4 3"},svg2);
+      svgel("text",{x:xc,y:(Y2(L.cost)+Y2(L.price))/2,"text-anchor":"middle","font-size":10.5,fill:"var(--muted)","font-family":"system-ui,sans-serif"},svg2).textContent="rent forgone £10";
+      svgel("text",{x:xc,y:(Y2(L.cost)+Y2(L.price))/2+13,"text-anchor":"middle","font-size":10,fill:"var(--muted)","font-family":"system-ui,sans-serif"},svg2).textContent="(≈3.5bn/yr)";
+    }
+    b[0].split("|").forEach((word,wi)=>{
+      svgel("text",{x:xc,y:Hh-30+wi*13,"text-anchor":"middle","font-size":11,fill:"var(--muted)","font-family":"system-ui,sans-serif"},svg2).textContent=word;
+    });
+  });
+  svgel("line",{x1:M.l,x2:W-M.r,y1:Y2(L.price),y2:Y2(L.price),stroke:"var(--ink2)","stroke-width":1.4,"stroke-dasharray":"4 4"},svg2);
+  svgel("text",{x:W-M.r-4,y:Y2(L.price)-6,"text-anchor":"end","font-size":11,"font-weight":650,fill:"var(--ink2)","font-family":"system-ui,sans-serif"},svg2).textContent="market price £30.40";
+  legendInto(pd1, [
+    {label:"UK domestic route", color:cvar("--uk")},
+    {label:"Production, or gas at the hub price", color:cvar("--bx")},
+    {label:"Liquefaction", color:"#c98500"},
+    {label:"Shipping", color:"#d9a854"},
+    {label:"Regasification & entry", color:"#ecd0a0"},
+  ]);
+  F.caption('Left: cost estimates, not prices — UK domestic, Norwegian pipe and Qatari LNG from <a href="https://www.oxfordenergy.org/wpcms/wp-content/uploads/2024/10/NG-195-What-Drives-International-Gas-Prices-in-Competitive-Markets.pdf" target="_blank" rel="noopener">OIES cost stacks</a> (2021, real 2022 dollars, marginal-field basis — averages sit lower); US LNG from the <a href="https://www.oxfordenergy.org/wpcms/wp-content/uploads/2025/01/DOE-Report-on-US-LNG-Exports.pdf" target="_blank" rel="noopener">OIES build-up</a> at the 2025 Henry Hub average ($3.52, <a href="https://www.eia.gov/dnav/ng/hist/rngwhhdA.htm" target="_blank" rel="noopener">EIA</a>): the gas itself at the hub price, then — amber — the liquefaction, shipping and regasification a domestic therm avoids, worth more than the entire production-cost difference between the cheap producers. Liquefaction is drawn at $3.28: the tolling fee plus the <b>15% fuel-gas surcharge</b> an LNG buyer pays on feedgas. Bases are heterogeneous — read orders of magnitude, not decimals. Right: production cost is the mixed oil-and-gas full-cycle proxy (2024 opex plus capex over output — no gas-only figure exists); the wedge splits at the <a href="https://www.gov.uk/government/publications/energy-profits-levy-reforms-2024/energy-profits-levy-reforms-2024" target="_blank" rel="noopener">78% marginal rate</a>, illustrative — allowances put the <a href="https://www.gov.uk/government/statistics/government-revenues-from-uk-oil-and-gas-production--2/government-revenues-from-oil-and-gas-production-september-2025" target="_blank" rel="noopener">HMRC out-turn</a> below a literal 78% of accounting rent. The Qatari and Norwegian totals already fold in their own transport: their chains are cheap, not absent.');
+}
+
+/* ============ FIG 10 — North Sea ============ */
+/* a legend that lives inside one panel rather than under the whole figure */
+function tint(c, a){
+  const m = /^#?([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i.exec(String(c).trim());
+  return m ? `rgba(${parseInt(m[1],16)},${parseInt(m[2],16)},${parseInt(m[3],16)},${a})` : c;
+}
+function legendInto(parent, items){
+  const lg = div("legend", parent);
+  items.forEach(it=>{
+    const s = div("it", lg);
+    const sw = document.createElement("span");
+    sw.className = it.line ? "ln" : "sw";
+    if(it.line) sw.style.borderTopColor = it.color; else sw.style.background = it.color;
+    s.appendChild(sw);
+    s.appendChild(document.createTextNode(it.label));
+  });
+  return lg;
+}
+
+function renderFig10(){
+  const F = figure("fig10","The North Sea: production, consumption, and the inventory against the effort",
+    "Left: UK gas production and consumption, TWh (gross calorific value). Right: proven (1P) reserves as energy content, TWh (bars, left axis \u2014 1 boe = 1.70 MWh), against E&P capital spending, real 2024 \u00a3bn (line, right axis). Both run from 2015, where the published reserves series begins.", null);
+  const wrap = div("panels eqhead", F.body);
+  const pd1 = div("panel", wrap); pd1.style.flexBasis="420px";
+  div("ptitle", pd1, "UK gas production vs consumption \u2014 TWh/yr");
+  const NS = DATA.ns;
+  lineChart(pd1, {years:NS.years, series:[
+    {label:"UK consumption", color:cvar("--obs"), values:NS.cons, endLabel:String(Math.round(NS.cons[NS.cons.length-1]))},
+    {label:"UKCS production", color:cvar("--uk"), values:NS.prod, endLabel:String(Math.round(NS.prod[NS.prod.length-1]))},
+  ], tip:F.tip, fig:F.fig, endLabels:true, w:470, h:340,
+     ymaxOverride:1200, ticks:[0,200,400,600,800,1000,1200]});
+  legendInto(pd1, [
+    {label:"UK consumption", color:cvar("--obs"), line:true},
+    {label:"UKCS production", color:cvar("--uk"), line:true},
+  ]);
+  const pd2 = div("panel", wrap); pd2.style.flexBasis="420px";
+  div("ptitle", pd2, "Proven reserves (TWh) vs capital spending (\u00a3bn)");
+  const box = div("chartbox", pd2);
+  const W=470,Hh=340,M={l:52,r:42,t:12,b:30};
+  const svg=svgel("svg",{viewBox:`0 0 ${W} ${Hh}`, role:"img"},box);
+  const iw=W-M.l-M.r, ih=Hh-M.t-M.b;
+  const i0=NS.years.indexOf(NS.resYears[0]);          // reserves series starts 2015 — match the capex line to it
+  const YR=NS.years.slice(i0);
+  const slot=iw/YR.length;
+  const Xc=i=>M.l+slot*(i+0.5);
+  const bw=slot*0.7;
+  const ymax=7800, Yv=v=>M.t+ih-v/ymax*ih;
+  const ymaxR=26, Yr=v=>M.t+ih-v/ymaxR*ih;
+  [0,2000,4000,6000].forEach(t=>{
+    svgel("line",{x1:M.l,x2:W-M.r,y1:Yv(t),y2:Yv(t),stroke:"var(--grid)","stroke-width":1},svg);
+    svgel("text",{x:M.l-8,y:Yv(t)+4,"text-anchor":"end","font-size":11.5,fill:"var(--muted)","font-family":"system-ui,sans-serif"},svg).textContent=fmt0(t);
+  });
+  [0,10,20].forEach(t=>{
+    svgel("text",{x:W-M.r+8,y:Yr(t)+4,"text-anchor":"start","font-size":11.5,fill:"var(--muted)","font-family":"system-ui,sans-serif"},svg).textContent="\u00a3"+t;
+  });
+  YR.forEach((yr,idx)=>{
+    const ri=NS.resYears.indexOf(yr);
+    if(ri>=0){
+      const o=NS.resOilTWh[ri], g=NS.resGasTWh[ri];
+      const r1=svgel("rect",{x:Xc(idx)-bw/2,y:Yv(g),width:bw,height:Yv(0)-Yv(g),rx:1.5},svg);
+      r1.style.fill=cvar("--uk");
+      const r2=svgel("rect",{x:Xc(idx)-bw/2,y:Yv(g+o),width:bw,height:Yv(0)-Yv(o),rx:1.5,opacity:.42},svg);
+      r2.style.fill=cvar("--uk");
+    }
+    if(yr%5===0||yr===2024) svgel("text",{x:Xc(idx),y:Hh-10,"text-anchor":"middle","font-size":11.5,fill:"var(--muted)","font-family":"system-ui,sans-serif"},svg).textContent="'"+String(yr).slice(2);
+  });
+  let d="";
+  NS.capexReal24.slice(i0).forEach((v,i)=>{ d+=(i?"L":"M")+Xc(i).toFixed(1)+" "+Yr(v).toFixed(1)+" "; });
+  svgel("path",{d,fill:"none",stroke:"var(--ink2)","stroke-width":2.6,"stroke-linejoin":"round","stroke-linecap":"round"},svg);
+  legendInto(pd2, [
+    {label:"Gas reserves", color:cvar("--uk")},
+    {label:"Oil & liquids reserves", color:tint(cvar("--uk"), .42)},
+    {label:"E&P capex \u2014 right axis", color:cvar("--ink2"), line:true},
+  ]);
+  tableView(F.fig, NS.years, [
+    {label:"UKCS gas production (TWh)", values:NS.prod},
+    {label:"UK gas consumption (TWh)", values:NS.cons},
+    {label:"UKCS gas as % of world traded gas", values:NS.share},
+    {label:"E&P capex (real 2024 \u00a3bn)", values:NS.capexReal24},
+    {label:"Unit operating cost (nominal \u00a3/boe)", values:NS.uoc},
+  ], "View data \u2014 production, consumption, reserves and effort");
+  F.caption('Production and consumption: <a href="https://www.gov.uk/government/statistics/gas-chapter-4-digest-of-united-kingdom-energy-statistics-dukes" target="_blank" rel="noopener">DUKES chapter 4</a>, gross calorific value. Reserves: <a href="https://www.nstauthority.co.uk" target="_blank" rel="noopener">NSTA</a> proven (1P) estimates converted at 1 boe = 5.8 million Btu = 1.70 MWh — a rolling sanctioned inventory that sanctioning replenishes, so the decline reflects depletion and de-booking net of new commitments, not discoveries alone; published from 2015. Capex: <a href="https://www.nstauthority.co.uk/data-and-insights/insights-and-analysis/income-and-expenditure/" target="_blank" rel="noopener">NSTA income and expenditure series</a> (total E&amp;P including exploration and appraisal, excluding decommissioning), deflated with the workbook’s GDP deflator; the NSTA’s 2025 estimate is £5.1bn. The capex line is cut to the reserves window so the two read over the same years; before it, the £22bn peak of 2013–14 (full series, with unit operating cost, in the data table). Traded-gas share (data table): UKCS output over world inter-regional gas trade, <a href="https://www.energyinst.org/statistical-review" target="_blank" rel="noopener">EI Statistical Review</a> basis — 3.5% in 2024, from over 5% a decade earlier.');
+}
+
+/* ============ FIG 7 — gas-SRMC identity (Q94) ============ */
+function renderFig7(){
+  const F = figure("fig7","The identity test: day-ahead power vs the marginal cost of gas-fired generation",
+    "Nominal local currency per MWh \u2014 the one chart in this essay not in real USD: an identity between two market prices is stated in the market's own units. Shaded corridor = gas SRMC at 46\u201355% efficiency; line = 50%.", null);
+  const wrap = div("panels eqhead", F.body);
+  const CFG = [
+    ["uk","United Kingdom \u2014 \u00a3/MWh \u00b7 SRMC from 2013","--uk"],
+    ["de","Germany \u2014 \u20ac/MWh \u00b7 SRMC from 2012","--de"]
+  ];
+  CFG.forEach(([key,ptitle,cv])=>{
+    const pd = div("panel", wrap); pd.style.flexBasis="420px";
+    div("ptitle", pd, ptitle);
+    const R = DATA.srmc[key];
+    const series = [
+      {label:"Gas SRMC (50% eff.)", color:cvar(cv), values:R.c,
+       band:{lo:R.lo, hi:R.hi, color:cvar(cv)}},
+      {label:"Day-ahead power", color:cvar("--obs"), values:R.da, endLabel:key==="uk"?"\u00a3"+Math.round(R.da[15]):"\u20ac"+Math.round(R.da[15])},
+    ];
+    lineChart(pd, {years:DATA.years, series, tip:F.tip, fig:F.fig, endLabels:true, w:470, h:360, ymaxOverride:300});
+  });
+  F.legend([
+    {label:"Day-ahead power price", color:cvar("--obs"), line:true},
+    {label:"Gas SRMC corridor (46\u201355% efficiency; line = 50%)", color:cvar("--uk"), line:true},
+  ]);
+  [["uk","United Kingdom (\u00a3/MWh)"],["de","Germany (\u20ac/MWh)"]].forEach(([key,t])=>{
+    const R = DATA.srmc[key];
+    tableView(F.fig, DATA.years, [
+      {label:"Day-ahead power", values:R.da},
+      {label:"Gas SRMC @50%", values:R.c},
+      {label:"SRMC corridor low (55% eff.)", values:R.lo},
+      {label:"SRMC corridor high (46% eff.)", values:R.hi},
+    ], "View data \u2014 " + t);
+  });
+  F.caption('<b>Method.</b> SRMC = (hub gas price, HHV basis + carbon price \u00d7 0.18296 tCO2/MWh<sub>th</sub> \u2014 <a href="https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2025" target="_blank" rel="noopener">DESNZ conversion factors 2025</a>) \u00f7 efficiency; the corridor spans 46\u201355%, fixed a priori, not fitted. Gas: <a href="https://www.ofgem.gov.uk/sites/default/files/docs/2016/08/wholesale_energy_markets_in_2016.pdf" target="_blank" rel="noopener">Ofgem day-ahead assessments</a> (2014\u201316), <a href="https://www.ons.gov.uk/economy/economicoutputandproductivity/output/datasets/systemaveragepricesapofgas" target="_blank" rel="noopener">ONS System Average Price</a> (2018\u201325), <a href="https://data.bundesnetzagentur.de/Bundesnetzagentur/SharedDocs/Mediathek/Monitoringberichte/MonitoringberichtEnergie2023.pdf" target="_blank" rel="noopener">BNetzA Monitoringberichte</a> (THE day-ahead), <a href="https://energy.ec.europa.eu/data-and-analysis/market-analysis_en" target="_blank" rel="noopener">EC gas market reports</a> (TTF day-ahead) and <a href="https://aegis.acer.europa.eu/chest/dataitems/1068/view" target="_blank" rel="noopener">ACER</a>; UK 2010\u201313 &amp; 2017 and TTF 2010\u201320 bridged from the <a href="https://www.energyinst.org/statistical-review" target="_blank" rel="noopener">EI Statistical Review</a> (secondary, flagged). Carbon: the study\u2019s EUA/UKA auction series plus the \u00a318 <a href="https://researchbriefings.files.parliament.uk/documents/SN05927/SN05927.pdf" target="_blank" rel="noopener">Carbon Price Support</a>, cross-checked against <a href="https://icapcarbonaction.com/en/ets-prices" target="_blank" rel="noopener">ICAP</a>. This is an annual-average identity, not an hourly dispatch model \u2014 within-year shape is exactly what the 2021\u201322 residuals show.');
+}
+
+/* ============ FIG 8 — LCOE anchors (Q94) ============ */
+function renderFig8(){
+  const F = figure("fig8","What the anchors cost: levelized cost of generation",
+    "Real 2025 USD/MWh, 2023\u201324 publication vintages \u2014 grouped by country, cheapest first. Dots = published point estimates; bars = published ranges. LCOE includes fuel and carbon at each source's own assumptions.", null);
+  const NAME = {CN:"China", UK:"United Kingdom", DE:"Germany"};
+  const CVX = {CN:"--cn", UK:"--uk", DE:"--de"};
+  const mid = r => r.lo==null ? r.hi : (r.lo+r.hi)/2;
+  const GROUPS = ["CN","UK","DE"].map(c => [c,
+    DATA.lcoeAnchors.filter(r=>r.c===c).slice().sort((x,y)=>mid(x)-mid(y))]);
+  const W = 940, RH = 24, GH = 30, MT = 4, MB = 28, ML = 150, MR = 64;
+  let H = MT + MB;
+  GROUPS.forEach(([c,rows])=>{ H += GH + rows.length*RH; });
+  const box = div("chartbox", F.body);
+  const svg = svgel("svg",{viewBox:`0 0 ${W} ${H}`, role:"img"}, box);
+  const xmax = 210;
+  const X = v => ML + v/xmax*(W-ML-MR);
+  [0,50,100,150,200].forEach(t=>{
+    svgel("line",{x1:X(t),x2:X(t),y1:MT,y2:H-MB,stroke:"var(--grid)","stroke-width":1},svg);
+    svgel("text",{x:X(t),y:H-10,"text-anchor":"middle","font-size":11.5,fill:"var(--muted)","font-family":"system-ui,sans-serif"},svg).textContent="$"+t;
+  });
+  const COAL = 66.7; // Chinese coal — the anchor the tariff is priced off
+  svgel("line",{x1:X(COAL),x2:X(COAL),y1:MT,y2:H-MB,stroke:"var(--ink2)","stroke-width":1.4,"stroke-dasharray":"4 4"},svg);
+  const cl = svgel("text",{x:X(COAL)+6,y:MT+12,"font-size":11,"font-weight":650,fill:"var(--ink2)","font-family":"system-ui,sans-serif"},svg);
+  cl.textContent = "Chinese coal \u2014 $67";
+  let y = MT;
+  GROUPS.forEach(([ctry,rows])=>{
+    const col = cvar(CVX[ctry]);
+    const gt = svgel("text",{x:6,y:y+GH-9,"font-size":12.5,"font-weight":700,"font-family":"system-ui,sans-serif"},svg);
+    gt.textContent = NAME[ctry]; gt.style.fill = col;
+    y += GH;
+    rows.forEach(r=>{
+      const yc = y + RH/2;
+      svgel("text",{x:ML-10,y:yc+4,"text-anchor":"end","font-size":11.5,fill:"var(--ink2)","font-family":"system-ui,sans-serif"},svg).textContent = r.tech;
+      let lx;
+      if(r.lo==null){
+        const dot = svgel("circle",{cx:X(r.hi),cy:yc,r:5.5,stroke:"var(--surface)","stroke-width":1.5},svg);
+        dot.style.fill = col;
+        lx = X(r.hi);
+      } else if(r.hi > xmax){
+        const rect = svgel("rect",{x:X(r.lo),y:yc-5.5,width:X(xmax)-X(r.lo),height:11,rx:2,opacity:.9},svg);
+        rect.style.fill = col;
+        [3,10,17].forEach(dx=>{                       // chevron: the bar runs off the axis
+          svgel("path",{d:`M ${X(xmax)+dx} ${yc-5} l 6 5 l -6 5`,fill:"none",stroke:col,"stroke-width":2},svg);
+        });
+        svgel("text",{x:X(r.lo)-8,y:yc+4,"text-anchor":"end","font-size":11,"font-weight":650,fill:"var(--ink2)","font-family":"system-ui,sans-serif"},svg)
+          .textContent = "$"+Math.round(r.lo)+"\u2013"+Math.round(r.hi);
+        y += RH; return;
+      } else {
+        const rect = svgel("rect",{x:X(r.lo),y:yc-5.5,width:X(r.hi)-X(r.lo),height:11,rx:2,opacity:.9},svg);
+        rect.style.fill = col;
+        lx = X(r.hi);
+      }
+      svgel("text",{x:lx+8,y:yc+4,"font-size":11,"font-weight":650,fill:"var(--ink2)","font-family":"system-ui,sans-serif"},svg)
+        .textContent = r.lo==null ? "$"+Math.round(r.hi) : "$"+Math.round(r.lo)+"\u2013"+Math.round(r.hi);
+      y += RH;
+    });
+  });
+  F.caption('As published, converted at annual-average FX: <a href="https://www.gov.uk/government/publications/electricity-generation-costs-2023" target="_blank" rel="noopener">DESNZ Electricity Generation Costs 2023</a> (UK \u2014 point estimates only), <a href="https://www.ise.fraunhofer.de/en/publications/studies/cost-of-electricity.html" target="_blank" rel="noopener">Fraunhofer ISE 2024</a> (Germany \u2014 ranges), <a href="https://www.iea.org/reports/world-energy-outlook-2025" target="_blank" rel="noopener">IEA WEO 2025</a> (China \u2014 points). UK entries are dots because DESNZ publishes central estimates only; the German ranges reflect Fraunhofer\u2019s published load-factor and fuel spread, not greater uncertainty. The dotted line marks Chinese coal, the anchor the regulated tariff is priced off. Nuclear: China $72 (IEA). Germany carries two entries \u2014 $151\u2013544 for Fraunhofer\u2019s hypothetical <em>new build</em> (excl. back-end costs, running off the axis) and $42\u201380 for <em>restarting the closed fleet</em>, from <a href="https://www.radiantenergygroup.com/_files/ugd/ae75b7_bc5db590cf5a4ac6a4a0d6812a58ada6.pdf" target="_blank" rel="noopener">Radiant Energy Group (2026)</a>, spanning state-backed to private financing \u2014 a restart-advocacy source, read alongside the independent <a href="https://www.oecd-nea.org/upload/docs/application/pdf/2020-12/egc-2020_2020-12-09_18-26-46_781.pdf" target="_blank" rel="noopener">IEA/NEA</a> life-extension benchmark of $29\u201341. The UK entry is Hinkley Point C\u2019s <em>contracted price</em> \u2014 \u00a3128.94/MWh in 2025 prices (<a href="https://www.nao.org.uk/wp-content/uploads/2026/05/sizewell-c.pdf" target="_blank" rel="noopener">NAO, 2026</a>, on the \u00a389.50 basis that took effect at Sizewell C\u2019s investment decision) \u2014 a negotiated price embedding the developer\u2019s return, not an LCOE.');
+}
+
+/* ============ FIG 14 — construction schedule record (S206) ============ */
+function renderFig14(){
+  const F = figure("fig14","Promised and delivered: the schedule record of the newest builds",
+    "Years from first structural concrete to commercial operation. Solid bar = the schedule promised at construction start; pale extension = the overrun. Row labels end with the year construction began. Sorted by out-turn.", null);
+  const NAMES={PK:"Pakistan",CN:"China",BY:"Belarus",AE:"UAE",RU:"Russia",KR:"South Korea",US:"United States",UK:"United Kingdom",IN:"India",FR:"France",FI:"Finland"};
+  const rows=DATA.delays.rows;
+  const W=940, RH=26, MT=8, MB=30, ML=268, MR=150;
+  const H=MT+rows.length*RH+MB;
+  const box=div("chartbox",F.body);
+  const svg=svgel("svg",{viewBox:`0 0 ${W} ${H}`, role:"img"},box);
+  const xmax=18.5;
+  const X=v=>ML+v/xmax*(W-ML-MR);
+  [0,5,10,15].forEach(t=>{
+    svgel("line",{x1:X(t),x2:X(t),y1:MT,y2:H-MB,stroke:"var(--grid)","stroke-width":1},svg);
+    svgel("text",{x:X(t),y:H-10,"text-anchor":"middle","font-size":11.5,fill:"var(--muted)","font-family":"system-ui,sans-serif"},svg).textContent=t+(t===15?" yr":"");
+  });
+  rows.forEach((r,i)=>{
+    const name=r[0], cc=r[1], design=r[2], yr=r[3], plan=r[4], act=r[5], slip=r[6], flag=r[7];
+    const yc=MT+RH*i+RH/2;
+    const col = cc==="UK" ? cvar("--uk") : (cc==="CN" ? cvar("--cn") : cvar("--bx"));
+    svgel("text",{x:ML-10,y:yc+4,"text-anchor":"end","font-size":11.5,fill:"var(--ink2)","font-family":"system-ui,sans-serif"},svg).textContent=name+" \u00b7 "+NAMES[cc]+" \u00b7 "+yr;
+    const rp=svgel("rect",{x:X(0),y:yc-6,width:X(plan)-X(0),height:12,rx:2},svg);
+    rp.style.fill=col;
+    if(act>plan){
+      if(flag==="bld"){
+        const ro=svgel("rect",{x:X(plan),y:yc-6,width:X(act)-X(plan),height:12,rx:2,opacity:.25,stroke:col,"stroke-width":1.4,"stroke-dasharray":"5 4"},svg);
+        ro.style.fill=col;
+        [4,11].forEach(dx=>svgel("path",{d:"M "+(X(act)+dx)+" "+(yc-5)+" l 5 5 l -5 5",fill:"none",stroke:col,"stroke-width":2},svg));
+      } else {
+        const ro=svgel("rect",{x:X(plan),y:yc-6,width:X(act)-X(plan),height:12,rx:2,opacity:.38},svg);
+        ro.style.fill=col;
+      }
+    }
+    const marks = flag==="lic" ? "\u2020" : (flag==="grid" ? "\u2021" : "");
+    svgel("text",{x:X(act)+(flag==="bld"?22:8),y:yc+4,"font-size":10.5,"font-weight":650,fill:"var(--muted)","font-family":"system-ui,sans-serif"},svg).textContent=design+" \u00b7 "+slip+marks;
+  });
+  F.legend([
+    {label:"Schedule at construction start", color:"rgba(137,135,129,.95)"},
+    {label:"Overrun", color:"rgba(137,135,129,.38)"},
+    {label:"China", color:cvar("--cn")},
+    {label:"United Kingdom (building \u2014 dashed, projected)", color:cvar("--uk")},
+  ]);
+  F.caption('Actual durations: <a href="https://pris.iaea.org" target="_blank" rel="noopener">IAEA PRIS</a>, first structural concrete to commercial operation. Promised schedules as stated at or nearest construction start: TVO’s 2003 turnkey contract for <a href="https://world-nuclear.org/information-library/country-profiles/countries-a-f/finland" target="_blank" rel="noopener">Olkiluoto</a> (commercial operation mid-2009), EDF’s 2007 in-service date of 2012 for <a href="https://www.world-nuclear-news.org/Articles/Construction-of-Flamanville-EPR-begins" target="_blank" rel="noopener">Flamanville</a>, the Georgia PSC’s certified <a href="https://world-nuclear-news.org/Articles/Georgia-PSC-approves-new-Vogtle-units" target="_blank" rel="noopener">2016/2017 in-service dates</a> for Vogtle, era-dated vendor and utility statements for the Asian, Russian and Emirati units (World Nuclear Association / World Nuclear News — San’ao 1, <a href="https://www.world-nuclear-news.org/Articles/Second-San-ao-unit-under-construction" target="_blank" rel="noopener">scheduled</a> to supply power in 2026, <a href="https://www.world-nuclear-news.org/articles/first-unit-at-sanao-enters-commercial-operation" target="_blank" rel="noopener">did so in April 2026</a>; Taipingling 2 <a href="https://www.world-nuclear-news.org/articles/second-taipingling-unit-begins-supplying-power" target="_blank" rel="noopener">reached the grid on 4 July 2026</a> and joins the chart at commercial operation), and EDF’s end-2025 Unit 1 objective for Hinkley Point C at the 2016 decision — <a href="https://www.constructionenquirer.com/2026/02/22/me-delay-pushes-hinkley-c-first-reactor-start-up-back-a-year/" target="_blank" rel="noopener">February 2026 guidance</a> is start-up in 2030 at £35bn in 2015 prices (≈£48bn today). Caveats: some baselines say start-up or commissioning rather than commercial operation — months of ambiguity, not years; † Barakah’s last three years were operator licensing, not building; ‡ Flamanville is measured to grid connection (December 2024); the Fuqing, Karachi and Taipingling baselines are the weakest-dated. <b>Nobody delivers the schedule promised at first concrete</b> — serial builders miss by one to five years on six-to-ten-year builds; Western first-of-a-kinds missed by seven to fourteen.');
+}
+
+function renderAll(){
+renderPrices(); renderOutput();
+bucketPanels("fig3","E1",
+  "The bill decomposed — before any exemption",
+  "Modelled components for an industrial site paying full published rates ('without exemptions') — real 2025 USD/MWh. UK includes CSS-measured supplier retail costs + margin (2012–24 measured; 2010–11 & 2025 imputed); Germany includes the equivalent segment from BNetzA (2025 measured, held constant).",
+  'China\'s catalogue tariff cannot be split into components before the 2022 reform and is shown bundled (grey). <b>The two supplier segments are not measured the same way.</b> The UK figure is the volume-weighted non-domestic average from <a href="https://www.ofgem.gov.uk/transparency-document/energy-companies-consolidated-segmental-statements-css" target="_blank" rel="noopener">Ofgem CSS</a> filings, measured 2012&ndash;24 with 2010&ndash;11 and 2025 imputed at the period average ($14.3/MWh). The German figure is BNetzA&rsquo;s &ldquo;Vertrieb und Marge&rdquo; for a 24 GWh customer &mdash; $20.0/MWh at 1 April 2025, the mean of 127 suppliers, held flat across the span (first published year): read the level, not the shape. That case is close to a direct read on the medium archetype and a ceiling on the large one. On this like-for-like footing supplier costs and margin are <b>not</b> a UK&ndash;Germany differentiator.');bucketPanels("fig4","E2",
+  "The bill decomposed — with full exemptions",
+  "The same decomposition for a site holding full EII/BesAR-era relief status ('with exemptions'). China repeats the previous chart: no relief tier exists.",
+  'UK relief: 85% renewables-levy exemption from 2018, 100% from Apr 2024, network compensation from 2025. Germany: EEG cap to 2022, &sect;19 StromNEV network floor. Both panels keep the supplier segment of the previous chart &mdash; an exempt firm still buys through a supplier. The remaining gap to the observed line is mostly band mix &mdash; and no longer a guess: measured through suppliers&rsquo; <a href="https://www.ofgem.gov.uk/sites/default/files/2026-03/RO_24-25_SY23_Annual_Report-20260327121336.pdf" target="_blank" rel="noopener">Renewables Obligation returns</a>, exempted volume was 14.5% of industrial electricity consumption in 2024&ndash;25, so the QEP average is roughly 85% weighted to firms that do not hold the exemptions this stack assumes.');
+renderFig5(); renderFig6(); renderFig7(); renderFig8(); renderFig9(); renderFig14(); renderFig10(); renderLadder(); renderFig12();
+labelCharts();
+}
+
+/* ============ light / dark switch ============ */
+/* No browser storage: the choice lasts for the session and resets on reload. */
+(function(){
+  const root = document.documentElement, btn = document.getElementById("themebtn");
+  const systemDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  let dark = systemDark;
+  function paint(){
+    root.setAttribute("data-theme", dark ? "dark" : "light");
+    btn.textContent = dark ? "Light" : "Dark";
+    btn.setAttribute("aria-pressed", String(dark));
+    btn.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+  }
+  btn.addEventListener("click", ()=>{ dark = !dark; paint(); renderAll(); });
+  paint();
+  renderAll();
+})();
+</script>
+</body>
+</html>

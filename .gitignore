@@ -1,0 +1,40 @@
+# Working material — kept on disk, not published
+working/
+_to_delete/
+
+# Superseded outputs. Both predate decision D71, which inverted the section 5
+# headline, so publishing them alongside the article would put two
+# contradictory sets of numbers in the same repository.
+uk_energy_dashboard.html
+paying_for_power_DRAFT_v1_1.docx
+paying_for_power_DRAFT_v1_1.pdf
+report_v1_adversarial_qc_log.md
+
+# Internal project scaffolding
+project_instructions*.md
+chatgpt_dashboard_prompt.md
+v40_adversarial_review.md
+*_staging.md
+stage4_integration_notes.md
+stage5_cn_locator_annex.md
+
+# Review exhibits — built to check a finding before folding it into the
+# article, never intended as publication surfaces
+procurement_vintage.html
+wholesale_anatomy.html
+exempt_share.html
+grid_charges.html
+
+# OS and application noise
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+~$*.xlsx
+~$*.docx
+*.tmp
+
+# Local build/scratch
+out/
+*.log

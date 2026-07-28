@@ -38,3 +38,14 @@ Thumbs.db
 # Local build/scratch
 out/
 *.log
+
+# Working copy of the article. The published file is paying_for_power_article.html,
+# which is a straight copy of this at each release; committing both would put two
+# copies of the same essay in the repository.
+paying_for_power_article_v2.html
+paying_for_power_article_v1_backup.html
+
+# Superseded opener illustration (the published one is inlined in the article;
+# its sources are assets/opener.png and assets/opener_web.jpg)
+assets/opener_placeholder.png
+assets/opener_placeholder_web.jpg

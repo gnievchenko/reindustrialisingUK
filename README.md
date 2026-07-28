@@ -4,7 +4,7 @@
 
 📄 **Read the study:** *(link goes here once GitHub Pages is switched on)*
 
-> **Status: draft for review.** Figures may change. The register stamp in the article footer (`@ D71/Q99/S209`) identifies exactly which version of the underlying workbook the published numbers come from.
+> **Status: draft for review.** Figures may change. The register stamp in the article footer (`@ D72/Q103/S220`) identifies exactly which version of the underlying workbook the published numbers come from.
 
 ---
 
@@ -28,7 +28,7 @@ The study also tests, and declines to support, several popular remedies — incl
 
 | Path | What it is |
 |---|---|
-| `paying_for_power_article.html` | The study. Single file, no dependencies, ~24 charts drawn as inline SVG. Open it directly in a browser. |
+| `paying_for_power_article.html` | The study. Single file, no dependencies, 14 interactive figures drawn as inline SVG. Open it directly in a browser. |
 | `industrial_electricity_master.xlsx` | The master workbook — the single source of truth for every number in the article. |
 | `data/*.csv` | Plain-text extracts of the load-bearing sheets, so changes are visible in diffs. |
 
@@ -36,11 +36,11 @@ The study also tests, and declines to support, several popular remedies — incl
 
 Every figure in the article resolves to a cell in the workbook, and every input resolves to a registered source. Three sheets carry that trail:
 
-**`decisions`** — every methodological choice, numbered `D1`…`D71`, each with the reasoning and the date it was signed off. Where a choice could have gone another way, the alternative is recorded.
+**`decisions`** — every methodological choice, numbered `D1`…`D72`, each with the reasoning and the date it was signed off. Where a choice could have gone another way, the alternative is recorded.
 
-**`qc`** — every quality-control finding, numbered `Q1`…`Q99`, including the ones that are still open and the ones that turned out to be my own errors. Findings are not removed once resolved.
+**`qc`** — every quality-control finding, numbered `Q1`…`Q104`, including the ones that are still open and the ones that turned out to be my own errors. Findings are not removed once resolved.
 
-**`sources`** — every primary source, numbered `S1`…`S209`, with the URL and the retrieval date.
+**`sources`** — every primary source, numbered `S1`…`S220`, with the URL and the retrieval date.
 
 Charts in the article have a **"View data"** control beneath them that opens the underlying series as a table, so no figure has to be read off an axis.
 
@@ -54,7 +54,7 @@ The modelled stacks are then reconciled against published survey averages (DESNZ
 
 Corrections are welcome and will be made as dated commits rather than silent edits. If a number looks wrong, the fastest way to show it is to name the workbook cell or the register entry it comes from. Open an issue.
 
-Two limitations are known and flagged rather than hidden: the article's section 1 raises the claim that grid costs are rising because network utilisation is falling, and the published essay does not test that mechanism — that analysis exists but has not yet been folded in. And the stage-7 network projections for 2028/29 onward still rest on a superseded RIIO-ET3 draft determination (logged as `Q99`); no figure in the article depends on them.
+One limitation is known and flagged rather than hidden: the stage-7 network projections for 2028/29 onward still rest on a superseded RIIO-ET3 draft determination, rescaled by published chain factors (logged as `Q98`/`Q99`); no figure in the article depends on them. The grid-utilisation claim itself is tested in the article's section 10, and the evidence base behind that section is banked in the workbook at `stage7_network` rows 71–96 (`D72`).
 
 ## Licence
 

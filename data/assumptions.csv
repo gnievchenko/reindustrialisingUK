@@ -1,6 +1,6 @@
-"ASSUMPTIONS — editable inputs driving the build-up (stage 1, locked per project instructions)",,,,
+﻿"ASSUMPTIONS — editable inputs driving the build-up (stage 1, locked per project instructions)",,,,
 Blue = hardcoded input (editable). Yellow = key assumption. All verified against primary sources 2026-07-14; see sources tab.,,,,
-
+,,,,
 A. ARCHETYPES (locked — house rule 2),,,,
 Parameter,Large industrial,Medium industrial,Notes / verification,
 Annual consumption (MWh/yr),500000,20000,Locked.,
@@ -9,7 +9,7 @@ Implied average demand (MW),62.5,4,"Formula: consumption / hours. Large ≈62.5 
 Connection — UK,Transmission / EHV,"11–33kV (HV, distribution)","132kV = distribution in England & Wales, transmission in Scotland — VERIFIED: Electricity Act 1989 s.64(1) & s.4(4), legislation.gov.uk, retr. 2026-07-14.",
 Connection — DE,Höchst-/Hochspannung,Mittelspannung,Standard German voltage-level taxonomy (StromNEV).,
 Connection — CN,220kV及以上,10(20)kV,"526号文 tariff classes: 不满1kV / 1-10(20)kV / 35kV / 110kV / 220kV+. RESOLVED (D10, user 2026-07-14): 10(20)kV — physically typical for ~5,000 kVA; conservative. 35kV reported as intra-country spread (Jiangsu T&D ≈ −13% at 35kV).",
-
+,,,,
 B. SITES & VERIFIED NETWORK PARAMETERS,,,,
 Parameter,Value,Applies to,Source / verification (retr. 2026-07-14),
 UK site,Humber,both,Locked. Real EII cluster (Immingham/Scunthorpe/Hull).,
@@ -20,7 +20,7 @@ UK TCR residual 2025/26 (£/site/day),12796.715359,large,"NESO Final TNUoS 2025/
 UK TCR residual 2026/27 (£/site/day),20829.236682,large,"NESO Final TNUoS 2026/27, Tables T10/TB. Thresholds re-set for RIIO-3.",
 UK DNO — both Humber banks,Northern Powergrid (Yorkshire),medium,"VERIFIED: North Lincolnshire is Northern Powergrid, NOT NGED East Midlands (nationalgrid.com Grimsby-Walpole 'Need for project'; northernpowergrid.com/about-us). See decision D5. Licence-name attribution high-confidence, not document-level (qc log).",
 UK DUoS statement — medium,NPg (Yorkshire) LC14 CDCM 2025-26,medium,Title verified via site index only (JS-rendered page) — flagged in qc.,
-UK TCR band — medium (inferred),HV4 — £317.597969/site/day,medium,"INFERRED from published kVA thresholds (HV4 >1,800 kVA); allocation is done by DNO on agreed capacity. estimated=Y; qc log.",
+UK TCR band — medium (inferred),HV4 — £317.597969/site/day,medium,"Basis VERIFIED (Q101): LV/HV/EHV bands are allocated on AGREED CAPACITY in kVA — NESO Final TNUoS 2026/27 tables (doc 376341, S2) sheet TB. Published 2026/27 HV thresholds 500 / 1,100 / 2,000 kVA (percentiles 40/70/85); HV4 = >2,000 kVA. The archetype at ~4,000 kVA clears it twice over. estimated=Y applies to the site's agreed capacity (from implied average demand, not a real MIC), NOT to the banding rule. Prior note recorded a 1,800 kVA threshold — presumed ET2-era, unverified.",
 DE site,Rhine-Ruhr,both,Locked.,
 DE TSO,Amprion,large,amprion.net 'Unser Netz' — control area covers NRW/Rhine-Ruhr.,
 DE transmission charges harmonised?,"Yes, since 01.01.2023",large,"StromNEV §3(3), §§14a–14d (bundeseinheitliche ÜNB-Entgelte), gesetze-im-internet.de. Joint ÜNB price sheet 2026 dated 05.12.2025, netztransparenz.de. Locational variable is therefore the DSO region, as hypothesised.",
@@ -30,7 +30,7 @@ DE §19(2) — medium archetype,"Does NOT qualify (5,000h < 7,000h)",medium,"Sat
 DE 2026 transmission subsidy,"€6.5bn, federal (KTF)",both,"§24c EnWG; Gesetz BGBl. 2025 I Nr. 317, in force 12.12.2025; 2026 only. Deducted from revenue caps → ~57% cut in avg HöS charge (TSO-sourced, verbatim unverified — qc). Incidence: (iii) taxpayer.",
 CN provincial basket,"JS, GD, SD, ZJ, HN, IM, SC",both,"Locked. Weights below, 2024 vintage (decision D2), held constant.",
 CN weight set driving build-up,C,both,"TOGGLE: 'A' = closest-to-industrial (mixed categories); 'B' = 全社会 totals; 'C' = 第二产业 secondary industry, consistent basis, with fallbacks for GD (工业) and SC (全社会). RESOLVED (D11, user 2026-07-14): Set C.",
-
+,,,,
 "C. CHINESE BASKET WEIGHTS (2024 consumption, 亿千瓦时; weights computed = estimated Y). Active set: C (decision D11).",,,,
 Province,Set A: closest-to-industrial (亿kWh),Set B: 全社会 total (亿kWh),Set C: 第二产业 (亿kWh),Category & source flag
 Jiangsu 江苏,5752,8487,5752,Set A = Set C = 第二产业 (SGCC Jiangsu 2024 CSR data via jiangsu.gov.cn 2025-03-26); 全社会 8486.93 per NEA Jiangsu office.
@@ -50,7 +50,7 @@ Zhejiang 浙江,0.137612344839397,0.14668631715226,0.146468093277681,0.146468093
 Henan 河南,0.0708399211693543,0.0934625499880141,0.0756006310891868,0.0756006310891868
 Inner Mongolia 内蒙古,0.140830352777068,0.11236020447813,0.147234249044089,0.147234249044089
 Sichuan 四川,0.124103661306216,0.0865406000898291,0.0779960842369128,0.0779960842369128
-
+,,,,
 D. OTHER LOCKED CONVENTIONS & SENSITIVITY INPUTS,,,,
 Hedging / procurement convention,Rolling year-ahead baseload,,"Locked; identical in all three countries. Day-ahead (N2EX/EPEX) is an input, not the price. Mandatory sensitivity vs day-ahead-indexed (stage 4).",
 Load-factor sensitivity (h/yr),6500,,"Mandatory: whole build-up re-run at non-qualifying load factor; German 7,000h threshold charted explicitly (stage 4).",
@@ -60,7 +60,7 @@ Currency/unit convention,Real 2025 USD/MWh; market FX; no PPP; VAT excluded (CN 
 Snapshot years,2025 AND 2026,,All three regimes change in 2026 (UK NCC 60→90%; DE €6.5bn subsidy + §19 reform path; CN 136号文 + 4th-period T&D). 2025→2026 delta is an explicit exhibit.,
 UK EII relief parameters (verified),"100% CfD/RO/FiT exemption (from 04/2024); 100% CM exemption (10/2024); NCC 60% (04/2025, backdated 04/2024) → 90% from 01.04.2026",,"DBT consultation response upd. 31.10.2025, gov.uk; SI 2024/409; SI 2026/243. Recovery: EII Support Levy on licensed suppliers — incidence (ii) other electricity users. NCC pays 12 months in arrears.",
 Medium archetype E2 status,"EII status assumed — UK reliefs + DE BesAR apply (no §19: fails 7,000h)",,"Decision D24, user-approved 2026-07-15. Stated on every E2 chart.",
-
+,,,,
 "E. STAGE 8 INPUTS (evidence stage; every value tagged; blank=unavailable, NOT zero)",,,,
 Real-2025 basis,"real 2025 USD (house rule 1) / real 2025 GBP (UK deflator, Stage-8 only)",,,USD via fx_deflator; GBP via HMT GDP deflator S120
 Nuclear proxy WACC (real),0.07,,,Stage-8 nuclear indicative LCOE proxies (Vogtle) + Flamanville central case
@@ -72,9 +72,9 @@ Vogtle net capacity (MW),2234,,,2 x 1117 MWe net (Georgia Power fact sheet / IAE
 Flexibility baseline GB peak 2024 (GW),46,,,DUKES 5.10.A GB simultaneous max (Stage-7 anchor)
 Flexibility baseline GB supplied 2024 (TWh),270.88,,,DUKES 5.1.2 (Stage-7 anchor)
 Flexibility firm peak reduction low/central/high (GW),3 / 6 / 12,,,SCENARIO inputs (grounded in NIC/CT/FES ranges; this-decade firm reduction)
-TNUoS demand residual 2026/27 (GBP bn),6.26517,,,"NESO Final TNUoS Tariffs 2026/27, 30.01.2026, doc 376336, Table 10 (S2) — re-verified against the primary 2026-07-26. Fixed banded GBP/site/day under TCR. Q99 2026-07-26: RE-BASED from the Five-Year View v3.0 forecast of GBP 7.52bn (S107), which was 17% high. Documentation row — no formula reads this cell."
+TNUoS demand residual 2026/27 (GBP bn),7.52,,,NESO Five-Year View (S107); fixed banded £/site/day under TCR
 UK GDP deflator basis,"HMT GDP deflators June 2026, L8GG, FY, 2025-26=100",,,S120; calendar->FY map = FY starting in year Y (estimated=Y)
-
+,,,,
 "UK line losses — demand TLM (transmission), all archetypes",0.008,"Elexon BSC Section T: TLM = 1 + TLF + TLMO-. Demand takes 55% of transmission losses. TLMO- annual averages 0.0077 (BSC yr 2021/22) to 0.0118 (2024/25), 0.0092 (2026/27); Yorkshire (zone 12, GSP _M) TLF is a small negative in all seasons — exact value portal-gated, so the zonal term is set to 0 and the residual TLMO- carries it. Central 0.008, range 0.003-0.012. Cross-check: NESO puts GB transmission losses at ~1.7% of transfer, x55% = 0.94%. S197.",,
 "UK line losses — distribution LLF, LARGE (CVA transmission-connected)",1,"A CVA transmission-connected site takes no distribution LLF. If the large archetype were instead 132 kV on the DNO network the figure would be 1.010 (NPg Yorkshire >22kV demand, annual blend) and the uplift would roughly double — a 1pp swing, flagged. S197.",,
 "UK line losses — distribution LLF, MEDIUM (HV network)",1.024,"Northern Powergrid (Yorkshire) Annex 5, HV Network class, annual blend, charging year 2025/26. Multiplier applied to metered volume in settlement. Effectively FLAT over the panel: P1 1.032 (2017/18) -> 1.029 (2020/21) -> 1.028 (2023/24) -> 1.028 (2025/26); pre-2017 values not found, constant held and flagged. Note LV moved the OTHER way (1.110 -> 1.150) because non-technical losses land there — do not reuse this constant for LV. S197.",,
